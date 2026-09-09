@@ -7,7 +7,10 @@ site:
   - the literal string "[CONTACT EMAIL]" — an unresolved footer contact placeholder.
   - a bare `href="#"` — a call-to-action with no real destination wired up yet. A same-page
     anchor such as `href="#story"` is legitimate in-page navigation and is never flagged;
-    only an href of exactly "#" (nothing after it) counts as unresolved.
+    only an href of exactly "#" (nothing after it) counts as unresolved. The one deliberate
+    exception is a brand self-link on the landing page — `<a class="brand" href="#">` in
+    index.html's nav and footer, which is a "back to top" scroll on the same page; a line
+    that carries both `class="brand"` and `href="#"` is not flagged.
 
 Repocket-specific known placeholders that are DELIBERATELY not flagged (see
 docs/guide/terminology.md § Placeholder):
@@ -49,6 +52,12 @@ LITERAL_PLACEHOLDERS = [
 # list), so the boundary is a character class rather than literal whitespace.
 BARE_HREF_RE = re.compile(r"""(?<![\w:-])href\s*=\s*(["'])#\1""", re.IGNORECASE)
 
+# A landing-page brand link (`<a class="brand" href="#">…</a>`) is a "back to top" scroll on
+# the same page, not an unresolved call-to-action. When a line carries both markers, skip the
+# bare-href report for that line only. This is scoped to the line, not the file, so an
+# actual unresolved `href="#"` elsewhere in the same file is still flagged.
+BRAND_LINK_RE = re.compile(r"""class\s*=\s*(["'])[^"']*\bbrand\b[^"']*\1""", re.IGNORECASE)
+
 
 def find_html_files():
     for path in sorted(REPO.rglob("*.html")):
@@ -65,6 +74,11 @@ def find_html_files():
         parts = path.relative_to(REPO).parts
         if len(parts) >= 3 and parts[0] == "docs" and parts[1] == "design":
             continue
+        # QA render-evidence artefacts under docs/qa-screenshots/**/ (screenshot bootstraps,
+        # generated report HTML) are QA-only, not shipped pages. Skip them so QA can drop any
+        # helper HTML the render harness needs without tripping the placeholder gate.
+        if len(parts) >= 3 and parts[0] == "docs" and parts[1] == "qa-screenshots":
+            continue
         yield path
 
 
@@ -75,7 +89,7 @@ def check_file(path: Path) -> list[str]:
         for literal, label in LITERAL_PLACEHOLDERS:
             if literal in line:
                 problems.append(f"{relative}:{lineno}: {label} — found literal '{literal}'")
-        if BARE_HREF_RE.search(line):
+        if BARE_HREF_RE.search(line) and not BRAND_LINK_RE.search(line):
             problems.append(
                 f'{relative}:{lineno}: unresolved call-to-action — found bare href="#"'
             )

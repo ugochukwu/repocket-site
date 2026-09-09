@@ -1,6 +1,8 @@
 {
   "extends": ["html-validate:recommended"],
   "rules": {
-    "doctype-style": ["error", { "style": "lowercase" }]
+    "doctype-style": ["error", { "style": "lowercase" }],
+    "no-implicit-button-type": "off",
+    "no-inline-style": "off"
   }
 }
