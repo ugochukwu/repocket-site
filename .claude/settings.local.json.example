@@ -1,0 +1,14 @@
+{
+  "//": "Copy to settings.local.json (gitignored, machine-local). Pre-approves the kit's read-only status commands so the orchestrate loop does not prompt each cycle.",
+  "permissions": {
+    "allow": [
+      "Bash(bd dolt *)",
+      "Bash(bd ready*)",
+      "Bash(bd list*)",
+      "Bash(bd --readonly *)",
+      "Bash(scripts/forge prs*)",
+      "Bash(scripts/forge status *)",
+      "Bash(scripts/forge comments *)"
+    ]
+  }
+}

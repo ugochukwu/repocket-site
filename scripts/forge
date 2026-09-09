@@ -1,0 +1,299 @@
+#!/usr/bin/env bash
+# forge — thin wrapper over the GitHub CLI (gh) for this project's PR workflow.
+#
+# The GitHub implementation of the agent kit's forge-adapter interface: same
+# verbs as the Forgejo original, backed by `gh`. Authentication comes from
+# `gh auth login` (no token file) for read verbs. Write verbs (reply, comment,
+# pr-create, pr-edit, label, unlabel, automerge, seed-labels) instead source a
+# distinct bot PAT from Keychain (service=mugo-bot) via GH_TOKEN, so agent
+# writes are never attributed to the human whose default gh session this
+# machine uses. The repo is inferred from the git remote; FORGE_REPO=<owner>/
+# <repo> overrides it.
+#
+# Since writes are authored by the mugo-bot identity, the actor itself marks
+# agent authorship; no string prefix is needed on the body.
+#
+# Every PR pr-create opens requests review from FORGE_REVIEWER (default:
+# ugochukwu, Michel's GitHub login) — regardless of which merge path the bead
+# ends up on, so a human reviewer is always on record from the moment the PR
+# opens.
+#
+# Usage:
+#   forge comments <pr>                         List every review comment as JSON:
+#                                               comment_id, in_reply_to, path, line, user, body.
+#   forge reply <pr> <comment-id> <body>        Reply on the thread of that review comment.
+#                                               (GitHub threads by comment id — not by
+#                                               review-id/path/position like Forgejo.)
+#   forge comment <pr> <body>                   Post a top-level PR comment.
+#   forge pr-create <head> <base> <title> <body>   Open a PR; prints its number. Requests review
+#                                               from FORGE_REVIEWER (default: ugochukwu) on every
+#                                               call. Refuses (exit 1, no PR opened, missed files
+#                                               listed) when the head branch's bead id has
+#                                               committed files under docs/qa-screenshots/<bead-
+#                                               id>/ and the body has no inline image markdown
+#                                               (pr-body-embeds-comparison-shots).
+#   forge pr-edit <pr> <body>                   Replace the PR description.
+#   forge label <pr> <label> [label ...]        Add labels to a PR.
+#   forge unlabel <pr> <label> [label ...]      Remove labels from a PR.
+#   forge prs                                   List all OPEN PRs (number, title, branch) as JSON.
+#   forge status <pr>                           Print state, merged, mergeable, and CI status.
+#   forge automerge <pr>                        Enable GitHub native auto-merge (squash) — GitHub
+#                                               merges once required checks pass. Fails if the
+#                                               repo has no branch protection requiring checks;
+#                                               the PR then simply waits for a human.
+#   forge seed-labels [--dry-run]               Idempotently create the workflow labels
+#                                               (in-qa-review, in-human-review, allows-auto-merge,
+#                                               auto-merge, requires-adr, contains-adr).
+#   forge upload <pr> <file>                    NOT SUPPORTED on GitHub: there is no API to attach
+#                                               images to a PR body. Commit screenshots on the
+#                                               bead branch (docs/qa-screenshots/<bead-id>/) and
+#                                               link them by path in the PR body instead.
+#
+# Body arguments (reply/comment/pr-create/pr-edit) accept three forms:
+#   @<path>   read the body verbatim from that file
+#   -         read the body verbatim from stdin
+#   <text>    the literal argument
+# Prefer @<path> or - for any body containing backticks or $(...): passed
+# inline, those spans are mangled by the CALLER's shell before forge runs.
+set -euo pipefail
+
+BOT_KEYCHAIN_SERVICE="mugo-bot"
+
+die() { echo "forge: $*" >&2; exit 1; }
+
+command -v gh >/dev/null || die "gh (GitHub CLI) is not installed"
+
+# GH_TOKEN source for write verbs, so agent-authored writes appear as the
+# mugo-bot collaborator, never as the machine's default gh identity. No
+# silent fallback: a missing/unreadable Keychain entry is a hard stop.
+get_bot_token() {
+  local token stripped
+  token=$(security find-generic-password -s "$BOT_KEYCHAIN_SERVICE" -a "$USER" -w 2>/dev/null) || token=""
+  stripped=$(printf '%s' "$token" | tr -d '[:space:]')
+  # A whitespace-only entry is as good as missing: without this check it reaches
+  # gh as a blank-ish token and surfaces as a confusing "Bad credentials" 401.
+  [ -n "$stripped" ] || die "mugo-bot token not found in Keychain (service=$BOT_KEYCHAIN_SERVICE, account=$USER). Fix: security add-generic-password -s $BOT_KEYCHAIN_SERVICE -a \"$USER\" -w '<TOKEN>' -U"
+  printf '%s' "$token"
+}
+
+# -R flag arguments, only when FORGE_REPO overrides the inferred repo.
+REPO_ARGS=()
+[ -n "${FORGE_REPO:-}" ] && REPO_ARGS=(-R "$FORGE_REPO")
+
+# Reviewer requested on every PR pr-create opens, so a human is always on
+# record regardless of the auto-merge/human-review path the bead ends up on.
+# FORGE_REVIEWER=<login> overrides the default (Michel's GitHub login).
+FORGE_REVIEWER="${FORGE_REVIEWER:-ugochukwu}"
+
+# repo in owner/name form, for raw `gh api` paths.
+repo_slug() {
+  if [ -n "${FORGE_REPO:-}" ]; then printf '%s' "$FORGE_REPO"; else
+    gh repo view --json nameWithOwner --jq .nameWithOwner
+  fi
+}
+
+# Percent-encode a path segment (RFC 3986 unreserved chars pass through).
+urlencode() {
+  local s="$1" c i out=""
+  for (( i = 0; i < ${#s}; i++ )); do
+    c="${s:$i:1}"
+    case "$c" in
+      [A-Za-z0-9_.~-]) out+="$c" ;;
+      *) out+=$(printf '%%%02X' "'$c") ;;
+    esac
+  done
+  printf '%s' "$out"
+}
+
+resolve_body() {
+  local arg="$1" file
+  case "$arg" in
+    -) cat ;;
+    @?*) file="${arg#@}"; [ -f "$file" ] || die "body file not found: $file"; cat -- "$file" ;;
+    *) printf '%s' "$arg" ;;
+  esac
+}
+
+# gh commands taking --body-file read '-' as stdin; we always pass a temp file
+# so metacharacters survive and stdin stays free.
+bodyfile() { # bodyfile <resolved-text>  -> prints temp file path
+  local f; f=$(mktemp)
+  printf '%s' "$1" > "$f"
+  printf '%s' "$f"
+}
+
+# Inline image markdown (![alt](url.png)) or an HTML <img src="...">/<img src='...'>, url
+# ending in one of the screenshot extensions we treat as visual evidence.
+QA_BODY_IMG_RE='!\[[^]]*\]\([^)]*\.(png|jpg|jpeg|gif|webp)[^)]*\)'
+QA_BODY_IMG_RE="$QA_BODY_IMG_RE"'|<img[^>]*src="[^"]*\.(png|jpg|jpeg|gif|webp)[^"]*"'
+QA_BODY_IMG_RE="$QA_BODY_IMG_RE""|<img[^>]*src='[^']*\\.(png|jpg|jpeg|gif|webp)[^']*'"
+
+# This project's bead-id prefix (bd/<prefix>-<id> branch names), read from the
+# beads (bd) database rather than hardcoded, so it can never drift out of sync
+# with the project the way a literal string did before (see bd config list).
+# Prints the prefix and returns 0, or prints nothing and returns 1 — never
+# calls die() itself: exit inside this function's own $(...) capture would
+# only kill that subshell, leaving the caller none the wiser, so the caller
+# must check the return status explicitly (see check_qa_screenshots below).
+bead_id_prefix() {
+  local out
+  out=$(bd --readonly config get issue_prefix 2>/dev/null) || return 1
+  case "$out" in
+    ""|*"(not set)") return 1 ;;
+  esac
+  printf '%s' "$out"
+}
+
+# pr-body-embeds-comparison-shots gate: a bead branch that carries committed screenshots
+# under docs/qa-screenshots/<bead-id>/ must embed at least one of them inline in the PR body
+# (GitHub has no attach-image API for PR bodies, see this file's own module docstring above).
+# Derives the bead id from the head branch name (bd/<id> or bd/dev/<id>), never asked for.
+check_qa_screenshots() {
+  local head="$1" body="$2" bead_id shots prefix
+  prefix=$(bead_id_prefix) || die "could not resolve this project's bead-id prefix (bd config get issue_prefix) — is bd installed and this project's beads database initialized?"
+  bead_id=$(printf '%s' "$head" | grep -ioE "${prefix}-[a-z0-9]+(\.[0-9]+)*" | head -n1) || true
+  [ -n "$bead_id" ] || return 0
+
+  shots=$(git ls-files -- "docs/qa-screenshots/$bead_id" 2>/dev/null | grep -iE '\.(png|jpg|jpeg|gif|webp)$') || true
+  [ -n "$shots" ] || return 0
+
+  printf '%s' "$body" | grep -qiE "$QA_BODY_IMG_RE" && return 0
+
+  {
+    echo "forge: docs/qa-screenshots/$bead_id/ has screenshot evidence but the PR body has no inline image markdown."
+    echo "Embed at least one of these before opening the PR (pr-body-embeds-comparison-shots):"
+    printf '%s\n' "$shots" | sed 's/^/  /'
+  } >&2
+  return 1
+}
+
+cmd="${1:-}"; shift || true
+
+# Write verbs mutate GitHub state, so they route through the bot identity;
+# read verbs (comments, prs, status) keep the default gh auth: no
+# authorship implication on a read, and it saves a Keychain hit per call.
+case "$cmd" in
+  reply|comment|pr-create|pr-edit|label|unlabel|automerge|seed-labels)
+    bot_token="$(get_bot_token)"
+    export GH_TOKEN="$bot_token"
+    ;;
+esac
+
+case "$cmd" in
+  comments)
+    [ $# -eq 1 ] || die "usage: forge comments <pr>"
+    gh api "repos/$(repo_slug)/pulls/$1/comments" --paginate --jq \
+      '.[] | {comment_id: .id, in_reply_to: .in_reply_to_id, path: .path, line: (.line // .original_line), user: .user.login, body: .body}' \
+      | while IFS= read -r line; do printf '%s\n' "$line"; done
+    ;;
+  reply)
+    [ $# -eq 3 ] || die "usage: forge reply <pr> <comment-id> <body>"
+    pr="$1"; cid="$2"; body="$(resolve_body "$3")"
+    f=$(bodyfile "$body")
+    gh api -X POST "repos/$(repo_slug)/pulls/$pr/comments/$cid/replies" \
+      -F "body=@$f" --jq '"replied: comment \(.id)"'
+    rm -f "$f"
+    ;;
+  comment)
+    [ $# -eq 2 ] || die "usage: forge comment <pr> <body>"
+    body="$(resolve_body "$2")"
+    f=$(bodyfile "$body")
+    gh pr comment "$1" ${REPO_ARGS[@]+"${REPO_ARGS[@]}"} --body-file "$f" >/dev/null && echo "commented on PR $1"
+    rm -f "$f"
+    ;;
+  pr-create)
+    [ $# -eq 4 ] || die "usage: forge pr-create <head> <base> <title> <body>"
+    head="$1"; base="$2"; title=$(resolve_body "$3"); body=$(resolve_body "$4")
+    check_qa_screenshots "$head" "$body" || exit 1
+    f=$(bodyfile "$body")
+    url=$(gh pr create ${REPO_ARGS[@]+"${REPO_ARGS[@]}"} --head "$head" --base "$base" --title "$title" --body-file "$f" --reviewer "$FORGE_REVIEWER")
+    rm -f "$f"
+    printf '%s\n' "${url##*/}"
+    ;;
+  pr-edit)
+    [ $# -eq 2 ] || die "usage: forge pr-edit <pr> <body>"
+    body=$(resolve_body "$2")
+    f=$(bodyfile "$body")
+    gh pr edit "$1" ${REPO_ARGS[@]+"${REPO_ARGS[@]}"} --body-file "$f" >/dev/null && printf 'edited: PR %s body\n' "$1"
+    rm -f "$f"
+    ;;
+  label)
+    # REST /issues/{n}/labels, not `gh pr edit --add-label` (GraphQL, needs read:org
+    # the bot PAT lacks).
+    [ $# -ge 2 ] || die "usage: forge label <pr> <label> [label ...]"
+    pr="$1"; shift
+    args=(); for l in "$@"; do args+=(-f "labels[]=$l"); done
+    gh api -X POST -H "Accept: application/vnd.github+json" \
+      "repos/$(repo_slug)/issues/$pr/labels" "${args[@]}" >/dev/null && echo "labels added: $*"
+    ;;
+  unlabel)
+    # REST /issues/{n}/labels/{name}, same rationale as label above.
+    [ $# -ge 2 ] || die "usage: forge unlabel <pr> <label> [label ...]"
+    pr="$1"; shift
+    for l in "$@"; do
+      gh api -X DELETE -H "Accept: application/vnd.github+json" \
+        "repos/$(repo_slug)/issues/$pr/labels/$(urlencode "$l")" >/dev/null
+    done
+    echo "labels removed: $*"
+    ;;
+  prs)
+    [ $# -eq 0 ] || die "usage: forge prs"
+    gh pr list ${REPO_ARGS[@]+"${REPO_ARGS[@]}"} --state open --json number,title,headRefName,baseRefName --jq \
+      '.[] | {number: .number, title: .title, branch: .headRefName, base: .baseRefName}'
+    ;;
+  status)
+    [ $# -eq 1 ] || die "usage: forge status <pr>"
+    gh pr view "$1" ${REPO_ARGS[@]+"${REPO_ARGS[@]}"} --json number,state,mergedAt,mergeable,statusCheckRollup --jq \
+      '{number: .number,
+        state: (.state | ascii_downcase),
+        merged: (.mergedAt != null),
+        mergeable: (if .mergeable == "MERGEABLE" then true elif .mergeable == "CONFLICTING" then false else null end),
+        ci: (if (.statusCheckRollup | length) == 0 then "none"
+             elif ([.statusCheckRollup[] | select((.conclusion // .state // "") | test("FAILURE|ERROR"; "i"))] | length) > 0 then "failure"
+             elif ([.statusCheckRollup[] | select((.conclusion // .state // "") | test("SUCCESS|NEUTRAL|SKIPPED"; "i") | not)] | length) > 0 then "pending"
+             else "success" end)}'
+    ;;
+  automerge)
+    [ $# -eq 1 ] || die "usage: forge automerge <pr>"
+    if gh pr merge "$1" ${REPO_ARGS[@]+"${REPO_ARGS[@]}"} --auto --squash 2>/tmp/forge-automerge-err; then
+      echo "auto-merge enabled: PR $1 merges when required checks pass"
+    else
+      echo "forge: could not enable auto-merge (likely no branch protection with required checks):" >&2
+      cat /tmp/forge-automerge-err >&2
+      echo "PR $1 stays open for a human to merge." >&2
+      exit 1
+    fi
+    ;;
+  seed-labels)
+    seed_dry=""
+    if [ "${1:-}" = "--dry-run" ]; then seed_dry=1; shift; fi
+    [ $# -eq 0 ] || die "usage: forge seed-labels [--dry-run]"
+    desired='in-qa-review|fbca04|STATUS (bead only, by choice): bead is in adversarial QA against its acceptance criteria
+in-human-review|1d76db|STATUS (bead + PR): a human must review the PR and report back; present only while awaiting a human
+allows-auto-merge|c2e0c6|REQUIREMENT (bead): permits this bead PR to auto-merge; absence means human review
+auto-merge|0e8a16|PR marker: auto-merge was enabled on this PR (gh pr merge --auto); mutually exclusive with in-human-review
+requires-adr|5319e7|REQUIREMENT (bead): bead needs an ADR to be mergeable; overrides allows-auto-merge
+contains-adr|b60205|PR SIGNAL: an ADR is included in this PR; never auto-merges'
+    printf '%s\n' "$desired" | while IFS='|' read -r name color desc; do
+      [ -n "$name" ] || continue
+      if [ -n "$seed_dry" ]; then
+        echo "would ensure: $name (#$color) — $desc"
+        continue
+      fi
+      if gh label create "$name" ${REPO_ARGS[@]+"${REPO_ARGS[@]}"} --color "$color" --description "$desc" 2>/dev/null; then
+        echo "created: $name"
+      else
+        echo "exists: $name"
+      fi
+    done
+    ;;
+  upload)
+    die "upload is not supported on GitHub (no API to attach images to a PR body). Commit screenshots on the bead branch under docs/qa-screenshots/<bead-id>/ and link them by path in the PR body."
+    ;;
+  ""|-h|--help|help)
+    awk 'NR>1 && /^#/ {sub(/^# ?/,""); print; next} NR>1 {exit}' "$0"
+    ;;
+  *)
+    die "unknown command '$cmd' (try: forge help)"
+    ;;
+esac

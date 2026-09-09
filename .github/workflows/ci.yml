@@ -1,0 +1,26 @@
+name: CI
+# The check job (docs index) is part of the kit and stays as-is. The quality-gate job mirrors
+# docs/adapters/stack.md's "Quality gate" section exactly — update both together.
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Docs index is current and frontmatter is complete
+        run: python3 scripts/gen-doc-index --check
+
+  quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: lint
+        run: npm ci && npm run lint

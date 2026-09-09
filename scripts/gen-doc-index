@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+"""gen-doc-index — regenerate the generated section of docs/README.md from frontmatter.
+
+Walks every .md file under docs/ (excluding docs/README.md itself), reads its YAML
+frontmatter, and rewrites the block between the BEGIN/END markers in docs/README.md
+as a per-folder list of `- [title](path) — summary` lines. The "Important" list above
+the markers is hand-curated and never touched.
+
+Every doc must carry `title:` and `summary:` frontmatter; a doc missing either fails
+the run (and therefore CI).
+
+Usage:
+  scripts/gen-doc-index           rewrite the generated block in place
+  scripts/gen-doc-index --check   exit 1 if the checked-in block is stale or a doc
+                                  is missing required frontmatter (CI mode)
+
+No third-party dependencies: the frontmatter fields used here are plain `key: value`
+lines, parsed directly rather than with a YAML library.
+"""
+
+import re
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parent.parent
+DOCS = REPO / "docs"
+INDEX = DOCS / "README.md"
+BEGIN = "<!-- BEGIN generated: docs index (scripts/gen-doc-index) -->"
+END = "<!-- END generated -->"
+
+
+def die(msg: str) -> None:
+    print(f"gen-doc-index: {msg}", file=sys.stderr)
+    sys.exit(1)
+
+
+def frontmatter(path: Path) -> dict:
+    """Parse the leading `key: value` frontmatter block of one doc."""
+    text = path.read_text(encoding="utf-8")
+    if not text.startswith("---"):
+        return {}
+    end = text.find("\n---", 3)
+    if end == -1:
+        return {}
+    fields = {}
+    for line in text[3:end].splitlines():
+        m = re.match(r"^(\w+):\s*(.*)$", line)
+        if m:
+            key, value = m.group(1), m.group(2).strip()
+            # Strip one layer of surrounding quotes, if any.
+            if len(value) >= 2 and value[0] == value[-1] and value[0] in "'\"":
+                value = value[1:-1]
+            fields[key] = value
+    return fields
+
+
+def generate() -> str:
+    """Build the generated block's contents (between, not including, the markers)."""
+    docs = sorted(
+        p for p in DOCS.rglob("*.md") if p != INDEX
+    )
+    by_folder: dict[str, list[str]] = {}
+    problems = []
+    for doc in docs:
+        rel = doc.relative_to(DOCS)
+        fm = frontmatter(doc)
+        title, summary = fm.get("title"), fm.get("summary")
+        if not title or not summary:
+            problems.append(f"{doc.relative_to(REPO)}: missing frontmatter "
+                            f"{'title' if not title else ''}{'/' if not title and not summary else ''}"
+                            f"{'summary' if not summary else ''}")
+            continue
+        folder = str(rel.parent) + "/" if rel.parent != Path(".") else "./"
+        by_folder.setdefault(folder, []).append(f"- [{title}]({rel}) — {summary}")
+    if problems:
+        die("every doc needs title+summary frontmatter:\n  " + "\n  ".join(problems))
+
+    lines = [""]
+    for folder in sorted(by_folder):
+        lines.append(f"### {folder}")
+        lines.append("")
+        lines.extend(by_folder[folder])
+        lines.append("")
+    return "\n".join(lines)
+
+
+def main() -> None:
+    check = "--check" in sys.argv[1:]
+    if not INDEX.is_file():
+        die(f"{INDEX.relative_to(REPO)} not found")
+    text = INDEX.read_text(encoding="utf-8")
+    if BEGIN not in text or END not in text:
+        die(f"{INDEX.relative_to(REPO)} is missing the BEGIN/END generated markers")
+
+    head, rest = text.split(BEGIN, 1)
+    _, tail = rest.split(END, 1)
+    new = head + BEGIN + "\n" + generate() + "\n" + END + tail
+
+    if check:
+        if new != text:
+            die("docs index is stale — run scripts/gen-doc-index and commit the result")
+        print("docs index is current")
+        return
+
+    if new != text:
+        INDEX.write_text(new, encoding="utf-8")
+        print(f"rewrote {INDEX.relative_to(REPO)}")
+    else:
+        print("docs index already current")
+
+
+if __name__ == "__main__":
+    main()

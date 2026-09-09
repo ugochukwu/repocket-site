@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Repocket · Track what you borrowed from yourself</title>
+<meta name="description" content="You split money into pockets at the bank, then pay with the wrong card. Repocket remembers the debt between your own pockets and what to move back. iPhone. €3.99 once, no subscription.">
+<meta property="og:title" content="Repocket · Track what you borrowed from yourself">
+<meta property="og:description" content="The ledger for money you borrowed from your own pockets. One purchase, no subscription.">
+<meta property="og:image" content="assets/og.png">
+<link rel="icon" href="assets/mark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Outfit:wght@400..700&display=swap" rel="stylesheet">
+<style>
+:root{--ground:#F4F1FF;--card:#fff;--ink:#241B5E;--ink2:#6E67A0;--ink3:#B0ABCF;--line:#EAE6F8;--coral:#FF5C39;--green:#1FA588;--gold:#FFC947;--display:"Bricolage Grotesque",system-ui,sans-serif;--text:"Outfit",system-ui,sans-serif;--ease:cubic-bezier(.2,.8,.2,1);--spring:cubic-bezier(.34,1.3,.64,1)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ground);color:var(--ink);font:400 18px/1.5 var(--text);-webkit-font-smoothing:antialiased}
+a{color:var(--coral);text-decoration:none}a:hover{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.035em;line-height:1;margin:0;text-wrap:balance}
+h1{font-size:clamp(44px,6.4vw,92px);font-weight:800;letter-spacing:-.045em}h2{font-size:clamp(34px,4.2vw,60px)}h3{font-size:26px;letter-spacing:-.02em}
+p{margin:0;text-wrap:pretty}.lead{font-size:clamp(18px,1.5vw,22px);color:var(--ink2)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,60px)}
+[data-lang="en"] [data-l="de"],[data-lang="de"] [data-l="en"]{display:none!important}
+/* nav */
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px) saturate(160%);background:rgba(244,241,255,.72);border-bottom:1px solid rgba(36,27,94,.06)}
+nav .wrap{display:flex;align-items:center;gap:18px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;font:700 20px var(--display);color:var(--ink);letter-spacing:-.02em}.brand img{width:32px;height:32px;border-radius:8px}
+.lang{margin-left:auto;display:flex;padding:3px;border-radius:999px;background:rgba(36,27,94,.08);gap:2px}.lang button{all:unset;cursor:pointer;padding:6px 12px;border-radius:999px;font:600 13px var(--text);color:var(--ink)}.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.store{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;background:var(--ink);color:#fff;font:700 16px var(--display);letter-spacing:-.01em;white-space:nowrap;transition:transform .18s var(--spring),background .2s}.store:hover{color:#fff;background:#1a1346;transform:translateY(-1px)}.store svg{flex:none}
+nav .store{padding:9px 16px;font-size:15px}
+/* hero */
+.hero{padding-top:clamp(48px,8vw,110px);padding-bottom:clamp(40px,6vw,80px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(30px,5vw,70px);align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font:600 13px var(--text);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin-bottom:22px}.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--coral)}
+.hero .lead{margin-top:24px;max-width:520px}
+.cta{display:flex;align-items:center;gap:18px;margin-top:34px;flex-wrap:wrap}.fine{font-size:14px;color:var(--ink2)}
+.up{opacity:0;transform:translateY(18px);animation:up .7s var(--ease) forwards}@keyframes up{to{opacity:1;transform:none}}
+.d1{animation-delay:.05s}.d2{animation-delay:.18s}.d3{animation-delay:.32s}.d4{animation-delay:.46s}
+/* phone */
+.phone{width:320px;height:694px;border-radius:48px;background:var(--ground);position:relative;overflow:hidden;box-shadow:0 0 0 9px #121120,0 0 0 11px #2b2a36,0 40px 90px rgba(36,27,94,.28);font-family:var(--text);flex:none}
+.phone .sb{position:absolute;top:0;left:0;right:0;height:46px;display:flex;justify-content:space-between;align-items:center;padding:0 28px;font:600 14px var(--text);z-index:5}.phone .sb i{position:absolute;left:50%;top:10px;transform:translateX(-50%);width:100px;height:30px;border-radius:16px;background:#000}
+.scr{position:absolute;inset:0;padding:64px 18px 0;opacity:0;transition:opacity .45s var(--ease);pointer-events:none}.phone[data-scr="home"] .s-home,.phone[data-scr="log"] .s-log,.phone[data-scr="widget"] .s-widget,.phone[data-scr="square"] .s-square{opacity:1;pointer-events:auto}
+.t{font:700 32px var(--display);letter-spacing:-1.2px;line-height:1}
+.total{margin-top:16px;display:flex;align-items:baseline;gap:10px}.total b{font:800 38px var(--display);letter-spacing:-1.8px;color:var(--coral);font-variant-numeric:tabular-nums}.total>span{font-weight:500;font-size:15px}
+.cnt{font-size:13px;color:var(--ink2);margin-top:5px;padding-bottom:13px;border-bottom:1.5px solid var(--ink)}
+.dc{margin:10px -6px 0;padding:14px 16px;border-radius:20px;background:#fff;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.dh{font-family:var(--display);line-height:1;letter-spacing:-.6px;font-size:21px;font-weight:700}.dh em{display:block;font:italic 400 12px var(--text);color:var(--coral);padding:3px 0 3px 1px}
+.amt{text-align:right}.amt b{font:700 21px var(--display);letter-spacing:-.6px;font-variant-numeric:tabular-nums}.amt small{display:block;font-size:11px;color:var(--ink2);margin-top:3px}
+.tabs{position:absolute;left:0;right:0;bottom:28px;display:flex;justify-content:center;gap:8px;align-items:center}.pill{display:flex;gap:2px;padding:4px;border-radius:999px;background:rgba(255,255,255,.7);backdrop-filter:blur(12px);border:.5px solid rgba(36,27,94,.1);box-shadow:0 4px 16px rgba(36,27,94,.1)}.pill span{padding:8px 13px;border-radius:999px;font:500 12px var(--text)}.pill span.on{background:var(--ink);color:#fff;font-weight:600}.logb{height:40px;padding:0 16px 0 12px;border-radius:999px;background:var(--coral);color:#fff;display:flex;align-items:center;gap:5px;font:700 14px var(--display);box-shadow:0 6px 18px rgba(255,92,57,.35)}
+.slide{opacity:0;transform:translateY(16px)}.phone.play .slide{animation:up .6s var(--spring) 1.1s forwards}
+/* log screen */
+.s-log{background:#9E97C8;padding:0}.sheet{position:absolute;left:0;right:0;top:58px;bottom:0;background:var(--ground);border-radius:28px 28px 0 0;padding:0 16px}.grab{width:32px;height:4px;border-radius:2px;background:rgba(36,27,94,.2);margin:7px auto 0}.nb{display:flex;justify-content:space-between;align-items:center;padding:14px 2px 6px;font:500 14px var(--text)}.nb b{font:700 18px var(--display)}.nb .sv{color:var(--coral);font-weight:700}
+.seg{display:flex;padding:3px;border-radius:999px;background:rgba(36,27,94,.08);margin-top:8px}.seg span{flex:1;text-align:center;padding:8px;border-radius:999px;font:500 13px var(--text)}.seg span.on{background:var(--ink);color:#fff;font-weight:600}
+.big{text-align:center;padding:26px 0 20px;border-bottom:1.5px solid var(--ink);font:800 48px var(--display);letter-spacing:-2px;font-variant-numeric:tabular-nums}.big i{display:inline-block;width:3px;height:40px;background:var(--coral);vertical-align:-4px;margin-left:3px;animation:caret 1s steps(2) infinite}@keyframes caret{50%{opacity:0}}
+.fr{margin-top:8px;padding:10px 14px 12px;border-radius:16px;background:#fff;display:flex;align-items:center;gap:10px}.fr small{display:block;font-size:11px;color:var(--ink2)}.fr b{display:block;font:700 18px var(--display);letter-spacing:-.4px;margin-top:2px}.fr svg{flex:none}.fr .chev{margin-left:auto;color:var(--ink3)}
+/* widget screen */
+.s-widget{background:linear-gradient(160deg,#3b3a86,#141335);padding:70px 14px 0}.wg{border-radius:20px;background:#fff;padding:14px 14px 8px;color:var(--ink)}.wg .hd{display:flex;justify-content:space-between;align-items:center;font:600 11px var(--text);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}.wg .hd b{font:700 16px var(--display);color:var(--coral);letter-spacing:0;text-transform:none}
+.wr{display:flex;align-items:center;gap:10px;min-height:44px;border-top:1px solid var(--line);margin-top:6px}.wr:first-of-type{border-top:0}.wr div{flex:1}.wr .n{font:700 15px var(--display);letter-spacing:-.3px;display:flex;align-items:center;gap:5px}.wr small{font-size:11px;color:var(--ink2)}.chk{width:32px;height:32px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex:none}
+.tap{position:relative}.tap::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--gold);opacity:0;animation:ring 2.4s var(--ease) infinite 1s}@keyframes ring{0%{transform:scale(.7);opacity:.9}60%{transform:scale(1.4);opacity:0}100%{opacity:0}}
+.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 10px;margin-top:22px;padding:0 6px}.apps i{display:block;aspect-ratio:1;border-radius:14px;background:rgba(255,255,255,.14)}
+/* square screen */
+.s-square{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 30px;gap:12px}.okc{width:60px;height:60px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff}.s-square b{font:700 26px var(--display);letter-spacing:-.8px}.s-square p{font-size:14px;color:var(--ink2)}
+/* sections */
+section{padding:clamp(60px,9vw,130px) 0}.sec-h{max-width:720px}.sec-h .lead{margin-top:18px}
+.story{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:clamp(30px,6vw,90px);align-items:start}.story .sticky{position:sticky;top:110px;display:flex;justify-content:center}
+.beat{min-height:70vh;display:flex;flex-direction:column;justify-content:center;gap:14px;padding-right:20px}.beat .k{font:600 13px var(--text);letter-spacing:.08em;text-transform:uppercase;color:var(--coral)}.beat h3{font-size:clamp(28px,3vw,42px)}.beat p{color:var(--ink2);font-size:19px;max-width:460px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}.reveal.in{opacity:1;transform:none}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:50px}.step{background:#fff;border-radius:24px;padding:28px 26px 30px;display:flex;flex-direction:column;gap:14px}.step .ic{width:48px;height:48px;border-radius:14px;background:var(--ground);display:flex;align-items:center;justify-content:center}.step h3{font-size:24px}.step p{color:var(--ink2);font-size:16px}.step .n{font:800 13px var(--display);color:var(--ink3);letter-spacing:.06em}
+.dark{background:var(--ink);color:#F4F1FF}.dark .lead,.dark .step p{color:#C9C3EC}.dark .step{background:rgba(255,255,255,.07)}.dark .step .ic{background:rgba(255,255,255,.1)}.dark a{color:#FF9A80}.dark a:hover{color:#fff}
+.os{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center;margin-top:50px}.siri{padding:22px 26px;border-radius:24px;background:rgba(255,255,255,.07);font:700 clamp(22px,2.4vw,30px) var(--display);letter-spacing:-.02em;line-height:1.15;display:flex;gap:16px;align-items:flex-start}.siri i{flex:none;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#ff5c39,#c86dd7,#5b8def);margin-top:2px}.siri small{display:block;font:400 15px var(--text);color:#C9C3EC;margin-top:8px}
+.banks{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}.banks span{padding:12px 18px;border-radius:999px;background:#fff;font:600 16px var(--text);display:flex;gap:8px;align-items:baseline}.banks span small{font-weight:400;color:var(--ink2)}
+.price{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:50px}.pc{border-radius:24px;padding:30px 28px;background:#fff;display:flex;flex-direction:column;gap:10px;min-height:250px}.pc .k{font:600 13px var(--text);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}.pc b{font:800 clamp(34px,3vw,44px) var(--display);letter-spacing:-.04em;line-height:1}.pc p{color:var(--ink2);font-size:16px}.pc.gold{background:#fff;color:var(--ink)}.pc.gold .k{color:var(--ink2)}.pc.gold b{color:var(--coral);font-size:clamp(40px,3.4vw,56px)}.pc.gold li{color:var(--ink);font-weight:500}.pc.gold .tick{width:20px;height:20px;border-radius:50%;background:var(--green);display:inline-flex;align-items:center;justify-content:center;flex:none}.pc.gold .prow{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}.pc.gold .tag{padding:5px 10px;border-radius:999px;background:var(--gold);color:var(--ink);font:600 12px var(--text);letter-spacing:.04em;text-transform:uppercase}
+.priv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:40px}.priv div{padding:24px;border-radius:20px;background:#fff}.priv b{display:block;font:700 20px var(--display);letter-spacing:-.02em;margin-bottom:8px}.priv p{font-size:15px;color:var(--ink2)}
+.faq{margin-top:40px;max-width:760px}details{border-top:1px solid rgba(36,27,94,.14);padding:20px 0}details:last-child{border-bottom:1px solid rgba(36,27,94,.14)}summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px;font:700 20px var(--display);letter-spacing:-.02em}summary::-webkit-details-marker{display:none}summary::after{content:"+";font-weight:400;color:var(--coral);flex:none}details[open] summary::after{content:"–"}details p{margin-top:12px;color:var(--ink2);font-size:17px;max-width:640px}
+.final{text-align:center;display:flex;flex-direction:column;align-items:center;gap:26px}.final h2{font-size:clamp(40px,6vw,88px);font-weight:800;letter-spacing:-.045em}
+footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px;color:var(--ink2)}footer .wrap{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center}footer a{color:var(--ink2)}footer a:hover{color:var(--ink)}footer .brand{font-size:16px;margin-right:auto}footer .brand img{width:24px;height:24px}
+@media(max-width:900px){.hero{grid-template-columns:1fr;text-align:left}.hero .ph{justify-self:center;transform:scale(.85);transform-origin:top center;margin-bottom:-100px}.story{grid-template-columns:1fr}.story .sticky{position:relative;top:0;order:-1;transform:scale(.8);transform-origin:top center;margin-bottom:-120px}.beat{min-height:0;padding:40px 0}.steps,.price,.priv{grid-template-columns:1fr}.os{grid-template-columns:1fr}.lang{margin-left:auto}nav .store span{display:none}nav .store{padding:9px 12px}}
+@media(prefers-reduced-motion:reduce){.up,.slide,.reveal,.tap::after,.big i{animation:none!important;opacity:1!important;transform:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+ <a class="brand" href="#"><img src="assets/mark.svg" alt="">Repocket</a>
+ <div class="lang" role="group" aria-label="Language"><button data-set="en" aria-pressed="true">EN</button><button data-set="de" aria-pressed="false">DE</button></div>
+ <a class="store" href="https://apps.apple.com/" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.5-.2-2.8.8-3.6.8-.7 0-1.9-.8-3.1-.8-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.1.8c1.3 0 2.1-1.2 2.9-2.4.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.6-1-2.6-3.9zM14 5.6c.6-.8 1.1-1.9 1-3-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3z"/></svg><span data-l="en">App Store</span><span data-l="de">App Store</span></a>
+</div></nav>
+
+<header class="wrap hero">
+ <div>
+  <div class="eyebrow up d1"><i></i><span data-l="en">For people who split money into pockets</span><span data-l="de">Für alle, die ihr Geld in Taschen aufteilen</span></div>
+  <h1 class="up d2"><span data-l="en">You paid for groceries with the vacation card.</span><span data-l="de">Du hast den Einkauf mit der Urlaubskarte bezahlt.</span></h1>
+  <p class="lead up d3"><span data-l="en">The bank saw one card. You know it was a loan from one pocket to another. Repocket remembers what you borrowed from yourself, and what to move back.</span><span data-l="de">Die Bank hat eine Karte gesehen. Du weißt, dass es eine Leihe von einer Tasche an die andere war. Repocket merkt sich, was du dir selbst geliehen hast, und was zurück muss.</span></p>
+  <div class="cta up d4">
+   <a class="store" href="https://apps.apple.com/" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.5-.2-2.8.8-3.6.8-.7 0-1.9-.8-3.1-.8-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.1.8c1.3 0 2.1-1.2 2.9-2.4.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.6-1-2.6-3.9zM14 5.6c.6-.8 1.1-1.9 1-3-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3z"/></svg><span data-l="en">Download on the App Store</span><span data-l="de">Im App Store laden</span></a>
+   <span class="fine"><span data-l="en">Free for 7 days · then €3.99 once · no subscription</span><span data-l="de">7 Tage gratis · dann einmal 3,99 € · kein Abo</span></span>
+  </div>
+ </div>
+ <div class="ph up d3" style="display:flex;justify-content:center">
+  <div class="phone" id="hero-phone" data-scr="home" aria-hidden="true">
+   <div class="sb"><span>9:41</span><i></i><span>●●●</span></div>
+   <div class="scr s-home">
+    <div class="t"><span data-l="en">Owed</span><span data-l="de">Geschuldet</span></div>
+    <div class="total"><b><span data-l="en" id="hero-total">€120.00</span><span data-l="de" id="hero-total-de">120,00 €</span></b><span data-l="en">to return</span><span data-l="de">zurückzulegen</span></div>
+    <div class="cnt"><span data-l="en" id="hero-cnt-en">1 open debt</span><span data-l="de" id="hero-cnt-de">1 offene Schuld</span></div>
+    <div class="dc slide"><div class="dh"><span data-l="en">Groceries</span><span data-l="de">Lebensmittel</span><em><span data-l="en">owes</span><span data-l="de">schuldet</span></em><span data-l="en">Vacation</span><span data-l="de">Urlaub</span></div><div class="amt"><b><span data-l="en">€45.50</span><span data-l="de">45,50 €</span></b><small><span data-l="en">since Sat 5 Sep</span><span data-l="de">seit Sa. 5. Sep.</span></small></div></div>
+    <div class="dc"><div class="dh"><span data-l="en">Kids</span><span data-l="de">Kinder</span><em><span data-l="en">owes</span><span data-l="de">schuldet</span></em><span data-l="en">Home</span><span data-l="de">Zuhause</span></div><div class="amt"><b><span data-l="en">€120.00</span><span data-l="de">120,00 €</span></b><small><span data-l="en">since Fri 28 Aug</span><span data-l="de">seit Fr. 28. Aug.</span></small></div></div>
+    <div class="tabs"><div class="pill"><span class="on"><span data-l="en">Owed</span><span data-l="de">Geschuldet</span></span><span><span data-l="en">Stats</span><span data-l="de">Statistik</span></span></div><div class="logb"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-l="en">Log</span><span data-l="de">Eintragen</span></div></div>
+   </div>
+   <div class="scr s-log"><div class="sheet"><div class="grab"></div><div class="nb"><span data-l="en">Cancel</span><span data-l="de">Abbrechen</span><b data-l="en">Log</b><b data-l="de">Eintragen</b><span class="sv" data-l="en">Save</span><span class="sv" data-l="de">Sichern</span></div>
+    <div class="seg"><span class="on" data-l="en">Borrow</span><span class="on" data-l="de">Geliehen</span><span data-l="en">Return</span><span data-l="de">Zurück</span></div>
+    <div class="big"><span data-l="en">€30.00</span><span data-l="de">30,00 €</span><i></i></div>
+    <div class="fr"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6E67A0" stroke-width="1.8" stroke-linejoin="round"><path d="M5 4h14a1 1 0 0 1 1 1v6a8 8 0 0 1-16 0V5a1 1 0 0 1 1-1zM4 9h16"/></svg><div><small><span data-l="en">Paid from</span><span data-l="de">Bezahlt aus</span></small><b><span data-l="en">Vacation</span><span data-l="de">Urlaub</span></b></div><span class="chev">›</span></div>
+    <div class="fr"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6E67A0" stroke-width="1.8" stroke-linejoin="round"><path d="M5 4h14a1 1 0 0 1 1 1v6a8 8 0 0 1-16 0V5a1 1 0 0 1 1-1zM4 9h16"/></svg><div><small><span data-l="en">Should have come from</span><span data-l="de">Hätte kommen sollen aus</span></small><b><span data-l="en">Groceries</span><span data-l="de">Lebensmittel</span></b></div><span class="chev">›</span></div>
+    <div class="fr"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6E67A0" stroke-width="1.8" stroke-linejoin="round"><path d="M5 4h10l4 4v12H5zM15 4v4h4M8 13h8M8 17h5"/></svg><div><small><span data-l="en">Note</span><span data-l="de">Notiz</span></small><b style="font:500 15px var(--text);color:#B0ABCF"><span data-l="en">Rewe, card mix-up</span><span data-l="de">Rewe, falsche Karte</span></b></div></div>
+   </div></div>
+   <div class="scr s-widget">
+    <div class="wg"><div class="hd"><span data-l="en">Owed</span><span data-l="de">Geschuldet</span><b><span data-l="en">€165.50</span><span data-l="de">165,50 €</span></b></div>
+     <div class="wr"><div><div class="n"><span data-l="en">Groceries</span><span data-l="de">Lebensmittel</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FF5C39" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M13 5l7 7-7 7"/></svg><span data-l="en">Vacation</span><span data-l="de">Urlaub</span></div><small>€45.50 · <span data-l="en">5 days</span><span data-l="de">5 Tage</span></small></div><span class="chk tap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#241B5E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12l4 4 8-9"/></svg></span></div>
+     <div class="wr"><div><div class="n"><span data-l="en">Kids</span><span data-l="de">Kinder</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FF5C39" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M13 5l7 7-7 7"/></svg><span data-l="en">Home</span><span data-l="de">Zuhause</span></div><small>€120.00 · <span data-l="en">10 days</span><span data-l="de">10 Tage</span></small></div><span class="chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#241B5E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12l4 4 8-9"/></svg></span></div>
+    </div>
+    <div class="apps"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+   </div>
+   <div class="scr s-square"><div class="okc"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12l4 4 8-9"/></svg></div><b><span data-l="en">Everything is square.</span><span data-l="de">Alles ist quitt.</span></b><p><span data-l="en">When you spend from the wrong pocket, log it here. Repocket remembers what to return.</span><span data-l="de">Wenn du aus der falschen Tasche bezahlst, trag es hier ein. Repocket merkt sich, was zurück muss.</span></p></div>
+  </div>
+ </div>
+</header>
+
+<section id="story"><div class="wrap">
+ <div class="sec-h reveal"><h2><span data-l="en">It starts at the checkout.</span><span data-l="de">Es beginnt an der Kasse.</span></h2></div>
+ <div class="story" style="margin-top:30px">
+  <div>
+   <div class="beat reveal" data-scr="log"><span class="k"><span data-l="en">Tuesday, 18:40</span><span data-l="de">Dienstag, 18:40</span></span><h3><span data-l="en">The groceries pocket is empty. The card in your hand is Vacation.</span><span data-l="de">Die Lebensmittel-Tasche ist leer. Die Karte in deiner Hand ist Urlaub.</span></h3><p><span data-l="en">€30 at the till. You'll move it back later. You open Repocket on the way to the car and log it in one sentence: paid from Vacation, should have come from Groceries.</span><span data-l="de">30 € an der Kasse. Du buchst es später zurück. Auf dem Weg zum Auto trägst du es in einem Satz ein: bezahlt aus Urlaub, hätte aus Lebensmittel kommen sollen.</span></p></div>
+   <div class="beat reveal" data-scr="home"><span class="k"><span data-l="en">Two weeks later</span><span data-l="de">Zwei Wochen später</span></span><h3><span data-l="en">Nobody else wrote it down.</span><span data-l="de">Sonst hat es niemand notiert.</span></h3><p><span data-l="en">The bank saw one card and one shop. Your pockets look fine and they are lying. Repocket shows who owes whom, how much, since when. No balances, no budgets: just the debts between your own pockets.</span><span data-l="de">Die Bank hat eine Karte und einen Laden gesehen. Deine Taschen sehen in Ordnung aus und lügen. Repocket zeigt, wer wem was schuldet, wie viel, seit wann. Keine Salden, keine Budgets: nur die Schulden zwischen deinen eigenen Taschen.</span></p></div>
+   <div class="beat reveal" data-scr="widget"><span class="k"><span data-l="en">Payday</span><span data-l="de">Zahltag</span></span><h3><span data-l="en">Move the money back. Tap Settled.</span><span data-l="de">Geld zurückbuchen. Auf Erledigt tippen.</span></h3><p><span data-l="en">You transfer €30 at the bank. On the widget, one tap marks it settled. The row disappears.</span><span data-l="de">Du überweist 30 € bei der Bank. Im Widget ein Tipp, und die Schuld ist ausgeglichen. Die Zeile verschwindet.</span></p></div>
+   <div class="beat reveal" data-scr="square"><span class="k"><span data-l="en">Month end</span><span data-l="de">Monatsende</span></span><h3><span data-l="en">Everything is square.</span><span data-l="de">Alles ist quitt.</span></h3><p><span data-l="en">That is the whole app. It does one thing the bank cannot see, and gets out of the way.</span><span data-l="de">Das ist die ganze App. Sie tut das eine, was die Bank nicht sehen kann, und geht dann aus dem Weg.</span></p></div>
+  </div>
+  <div class="sticky"><div class="phone" id="story-phone" data-scr="log" aria-hidden="true">
+   <div class="sb"><span>9:41</span><i></i><span>●●●</span></div>
+   <div class="scr s-log"><div class="sheet"><div class="grab"></div><div class="nb"><span data-l="en">Cancel</span><span data-l="de">Abbrechen</span><b data-l="en">Log</b><b data-l="de">Eintragen</b><span class="sv" data-l="en">Save</span><span class="sv" data-l="de">Sichern</span></div>
+    <div class="seg"><span class="on" data-l="en">Borrow</span><span class="on" data-l="de">Geliehen</span><span data-l="en">Return</span><span data-l="de">Zurück</span></div>
+    <div class="big"><span data-l="en">€30.00</span><span data-l="de">30,00 €</span><i></i></div>
+    <div class="fr"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6E67A0" stroke-width="1.8" stroke-linejoin="round"><path d="M5 4h14a1 1 0 0 1 1 1v6a8 8 0 0 1-16 0V5a1 1 0 0 1 1-1zM4 9h16"/></svg><div><small><span data-l="en">Paid from</span><span data-l="de">Bezahlt aus</span></small><b><span data-l="en">Vacation</span><span data-l="de">Urlaub</span></b></div><span class="chev">›</span></div>
+    <div class="fr"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6E67A0" stroke-width="1.8" stroke-linejoin="round"><path d="M5 4h14a1 1 0 0 1 1 1v6a8 8 0 0 1-16 0V5a1 1 0 0 1 1-1zM4 9h16"/></svg><div><small><span data-l="en">Should have come from</span><span data-l="de">Hätte kommen sollen aus</span></small><b><span data-l="en">Groceries</span><span data-l="de">Lebensmittel</span></b></div><span class="chev">›</span></div>
+    <div class="fr"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6E67A0" stroke-width="1.8" stroke-linejoin="round"><path d="M5 4h10l4 4v12H5zM15 4v4h4M8 13h8M8 17h5"/></svg><div><small><span data-l="en">Note</span><span data-l="de">Notiz</span></small><b style="font:500 15px var(--text)"><span data-l="en">Rewe, card mix-up</span><span data-l="de">Rewe, falsche Karte</span></b></div></div>
+   </div></div>
+   <div class="scr s-home">
+    <div class="t"><span data-l="en">Owed</span><span data-l="de">Geschuldet</span></div>
+    <div class="total"><b><span data-l="en">€30.00</span><span data-l="de">30,00 €</span></b><span data-l="en">to return</span><span data-l="de">zurückzulegen</span></div>
+    <div class="cnt"><span data-l="en">1 open debt</span><span data-l="de">1 offene Schuld</span></div>
+    <div class="dc"><div class="dh"><span data-l="en">Groceries</span><span data-l="de">Lebensmittel</span><em><span data-l="en">owes</span><span data-l="de">schuldet</span></em><span data-l="en">Vacation</span><span data-l="de">Urlaub</span></div><div class="amt"><b><span data-l="en">€30.00</span><span data-l="de">30,00 €</span></b><small><span data-l="en">since Tue 2 Sep</span><span data-l="de">seit Di. 2. Sep.</span></small></div></div>
+    <div class="tabs"><div class="pill"><span class="on"><span data-l="en">Owed</span><span data-l="de">Geschuldet</span></span><span><span data-l="en">Stats</span><span data-l="de">Statistik</span></span></div><div class="logb"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-l="en">Log</span><span data-l="de">Eintragen</span></div></div>
+   </div>
+   <div class="scr s-widget">
+    <div class="wg"><div class="hd"><span data-l="en">Owed</span><span data-l="de">Geschuldet</span><b><span data-l="en">€30.00</span><span data-l="de">30,00 €</span></b></div>
+     <div class="wr"><div><div class="n"><span data-l="en">Groceries</span><span data-l="de">Lebensmittel</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FF5C39" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M13 5l7 7-7 7"/></svg><span data-l="en">Vacation</span><span data-l="de">Urlaub</span></div><small>€30.00 · <span data-l="en">14 days</span><span data-l="de">14 Tage</span></small></div><span class="chk tap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#241B5E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12l4 4 8-9"/></svg></span></div>
+    </div>
+    <div class="apps"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+   </div>
+   <div class="scr s-square"><div class="okc"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12l4 4 8-9"/></svg></div><b><span data-l="en">Everything is square.</span><span data-l="de">Alles ist quitt.</span></b><p><span data-l="en">When you spend from the wrong pocket, log it here. Repocket remembers what to return.</span><span data-l="de">Wenn du aus der falschen Tasche bezahlst, trag es hier ein. Repocket merkt sich, was zurück muss.</span></p></div>
+  </div></div>
+ </div>
+</div></section>
+
+<section id="how" class="dark"><div class="wrap">
+ <div class="sec-h reveal"><h2><span data-l="en">One sentence in. Everything else derived.</span><span data-l="de">Ein Satz rein. Alles andere abgeleitet.</span></h2><p class="lead"><span data-l="en">Repocket stores entries and nothing else. Debts, totals, since-dates and stats all fall out of the entries. There is nothing to set up and nothing to keep in sync.</span><span data-l="de">Repocket speichert Einträge und sonst nichts. Schulden, Summen, Seit-Daten und Statistik ergeben sich aus den Einträgen. Nichts einzurichten, nichts abzugleichen.</span></p></div>
+ <div class="steps">
+  <div class="step reveal"><span class="n">01</span><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F4F1FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M13 5l7 7-7 7"/></svg></div><h3><span data-l="en">Log the borrow</span><span data-l="de">Leihe eintragen</span></h3><p><span data-l="en">Amount, paid from, should have come from. Pockets are created the first time you type them. No setup screen.</span><span data-l="de">Betrag, bezahlt aus, hätte kommen sollen aus. Taschen entstehen beim ersten Tippen. Kein Einrichtungsbildschirm.</span></p></div>
+  <div class="step reveal"><span class="n">02</span><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F4F1FF" stroke-width="2.2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></svg></div><h3><span data-l="en">See who owes whom</span><span data-l="de">Sehen, wer wem schuldet</span></h3><p><span data-l="en">Two borrows and a partial return between the same pockets collapse into one line: Groceries owes Vacation €45.50, since Saturday.</span><span data-l="de">Zwei Leihen und eine Teilrückzahlung zwischen denselben Taschen werden eine Zeile: Lebensmittel schuldet Urlaub 45,50 €, seit Samstag.</span></p></div>
+  <div class="step reveal"><span class="n">03</span><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4FD1A5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9H9a4 4 0 0 0 0 8h5M12 5L8 9l4 4"/></svg></div><h3><span data-l="en">Settle when you move it back</span><span data-l="de">Ausgleichen, wenn du zurückbuchst</span></h3><p><span data-l="en">Log the return, or tap Mark settled. Return more than you owe and Repocket warns you before the debt flips.</span><span data-l="de">Rückzahlung eintragen oder auf Ausgleichen tippen. Zahlst du mehr zurück als geschuldet, warnt Repocket, bevor sich die Schuld umkehrt.</span></p></div>
+ </div>
+ <div class="os">
+  <div class="reveal"><h3 style="font-size:clamp(28px,3vw,40px)"><span data-l="en">Lives on the home screen, not in a tab you forget.</span><span data-l="de">Lebt auf dem Home-Bildschirm, nicht in einem vergessenen Tab.</span></h3><p class="lead" style="margin-top:16px"><span data-l="en">Widgets in three sizes with a Settled button that works without opening the app. Lock Screen and Control Center too. Ask Siri and get an answer in one sentence.</span><span data-l="de">Widgets in drei Größen mit einem Erledigt-Knopf, der ohne App-Öffnen funktioniert. Auch auf dem Sperrbildschirm und im Kontrollzentrum. Frag Siri und bekomm die Antwort in einem Satz.</span></p></div>
+  <div class="siri reveal"><i></i><div><span data-l="en">“What do I owe in Repocket?”</span><span data-l="de">„Was schulde ich in Repocket?“</span><small><span data-l="en">“Groceries owes Vacation €45.50 and Kids owes Home €120. €165.50 to return.”</span><span data-l="de">„Lebensmittel schuldet Urlaub 45,50 € und Kinder schuldet Zuhause 120 €. 165,50 € zurückzulegen.“</span></small></div></div>
+ </div>
+</div></section>
+
+<section id="banks"><div class="wrap">
+ <div class="sec-h reveal"><h2><span data-l="en">Works with any bank that lets you split money.</span><span data-l="de">Funktioniert mit jeder Bank, bei der du Geld aufteilen kannst.</span></h2><p class="lead"><span data-l="en">No bank connection, ever. The bank stays the record of balances. Repocket only records what the bank cannot know: which pocket the money should have come from.</span><span data-l="de">Keine Bankverbindung, nie. Die Bank bleibt die Quelle für Salden. Repocket merkt sich nur, was die Bank nicht wissen kann: aus welcher Tasche das Geld hätte kommen sollen.</span></p></div>
+ <div class="banks reveal"><span>N26 <small>Spaces</small></span><span>DKB <small>Unterkonten</small></span><span>Revolut <small>Vaults</small></span><span>Monzo <small>Pots</small></span><span>C24 <small>Pockets</small></span><span>Starling <small>Spaces</small></span><span><span data-l="en">Envelopes in a drawer</span><span data-l="de">Umschläge in der Schublade</span></span></div>
+</div></section>
+
+<section id="price" class="dark"><div class="wrap">
+ <div class="sec-h reveal"><h2><span data-l="en">One purchase. No subscription.</span><span data-l="de">Ein Kauf. Kein Abo.</span></h2><p class="lead"><span data-l="en">Seven days of everything, free. Then €3.99 once. If you never buy, the ledger keeps working.</span><span data-l="de">Sieben Tage alles, gratis. Dann einmal 3,99 €. Wenn du nie kaufst, funktioniert das Verzeichnis trotzdem weiter.</span></p></div>
+ <div class="price">
+  <div class="pc reveal" style="background:rgba(255,255,255,.07);color:#F4F1FF"><span class="k" style="color:#C9C3EC"><span data-l="en">Days 1–7</span><span data-l="de">Tag 1–7</span></span><b><span data-l="en">Everything</span><span data-l="de">Alles</span></b><p style="color:#C9C3EC"><span data-l="en">Full access from first install. No card, no account, no pocket limit.</span><span data-l="de">Voller Zugriff ab der Installation. Keine Karte, kein Konto, kein Taschen-Limit.</span></p></div>
+  <div class="pc gold reveal"><span class="k"><span data-l="en">After that, once</span><span data-l="de">Danach, einmal</span></span><div class="prow"><b><span data-l="en">€3.99</span><span data-l="de">3,99 €</span></b><span class="tag"><span data-l="en">No subscription</span><span data-l="de">Kein Abo</span></span></div><ul><li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12l4 4 8-9"/></svg></span><span data-l="en">Widgets, Lock Screen, Control Center</span><span data-l="de">Widgets, Sperrbildschirm, Kontrollzentrum</span></li><li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12l4 4 8-9"/></svg></span><span data-l="en">Siri and Shortcuts</span><span data-l="de">Siri und Kurzbefehle</span></li><li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12l4 4 8-9"/></svg></span><span data-l="en">Stats</span><span data-l="de">Statistik</span></li><li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12l4 4 8-9"/></svg></span><span data-l="en">Per-pocket reminders, CSV import</span><span data-l="de">Erinnerungen pro Tasche, CSV-Import</span></li><li><span class="tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12l4 4 8-9"/></svg></span><span data-l="en">Unlimited pockets</span><span data-l="de">Unbegrenzte Taschen</span></li></ul></div>
+  <div class="pc reveal" style="background:rgba(255,255,255,.07);color:#F4F1FF"><span class="k" style="color:#C9C3EC"><span data-l="en">Or stay free</span><span data-l="de">Oder gratis bleiben</span></span><b><span data-l="en">Free tier</span><span data-l="de">Gratis-Stufe</span></b><p style="color:#C9C3EC"><span data-l="en">Log, home, details, export. Three active pockets. Your ledger stays either way.</span><span data-l="de">Eintragen, Übersicht, Details, Export. Drei aktive Taschen. Dein Verzeichnis bleibt so oder so.</span></p></div>
+ </div>
+</div></section>
+
+<section id="privacy"><div class="wrap">
+ <div class="sec-h reveal"><h2><span data-l="en">Your money stays at the bank. Your data stays with you.</span><span data-l="de">Dein Geld bleibt bei der Bank. Deine Daten bleiben bei dir.</span></h2></div>
+ <div class="priv">
+  <div class="reveal"><b><span data-l="en">No bank connection</span><span data-l="de">Keine Bankverbindung</span></b><p><span data-l="en">Repocket never sees your account. It cannot, there is nothing to connect.</span><span data-l="de">Repocket sieht dein Konto nie. Es gibt nichts zu verbinden.</span></p></div>
+  <div class="reveal"><b><span data-l="en">No account, no server</span><span data-l="de">Kein Konto, kein Server</span></b><p><span data-l="en">Entries live on your iPhone and in your private iCloud. We run no backend and see nothing.</span><span data-l="de">Einträge liegen auf deinem iPhone und in deiner privaten iCloud. Wir betreiben kein Backend und sehen nichts.</span></p></div>
+  <div class="reveal"><b><span data-l="en">Yours to take</span><span data-l="de">Deins zum Mitnehmen</span></b><p><span data-l="en">Export everything as CSV or JSON any time. Delete all data in one tap.</span><span data-l="de">Exportiere alles jederzeit als CSV oder JSON. Lösche alle Daten mit einem Tipp.</span></p></div>
+ </div>
+ <p style="margin-top:22px;font-size:15px;color:var(--ink2)"><a href="privacy.html"><span data-l="en">Read the privacy policy</span><span data-l="de">Datenschutzerklärung lesen</span></a></p>
+</div></section>
+
+<section id="faq" style="padding-top:0"><div class="wrap">
+ <div class="sec-h reveal"><h2><span data-l="en">Questions</span><span data-l="de">Fragen</span></h2></div>
+ <div class="faq reveal">
+  <details><summary><span data-l="en">Is this a budgeting app?</span><span data-l="de">Ist das eine Budget-App?</span></summary><p><span data-l="en">No. Repocket has no balances, budgets or categories. Your bank already does that. Repocket records the one thing the bank cannot: a payment that should have come from a different pocket.</span><span data-l="de">Nein. Repocket hat keine Salden, Budgets oder Kategorien. Das macht deine Bank schon. Repocket merkt sich das eine, was die Bank nicht kann: eine Zahlung, die aus einer anderen Tasche hätte kommen sollen.</span></p></details>
+  <details><summary><span data-l="en">Does it connect to my bank?</span><span data-l="de">Verbindet es sich mit meiner Bank?</span></summary><p><span data-l="en">No, and it never will. Pockets are just names you type. They can be N26 Spaces, DKB Unterkonten, or envelopes in a drawer.</span><span data-l="de">Nein, und das wird es nie. Taschen sind nur Namen, die du tippst. Das können N26 Spaces, DKB Unterkonten oder Umschläge in der Schublade sein.</span></p></details>
+  <details><summary><span data-l="en">What happens after the 7-day trial?</span><span data-l="de">Was passiert nach den 7 Tagen?</span></summary><p><span data-l="en">Nothing is lost. Logging, the debt list, details and export keep working with up to three active pockets. Widgets, Siri, stats and unlimited pockets come with the one-time €3.99 unlock.</span><span data-l="de">Nichts geht verloren. Eintragen, Schuldenliste, Details und Export funktionieren weiter mit bis zu drei aktiven Taschen. Widgets, Siri, Statistik und unbegrenzte Taschen kommen mit dem einmaligen Kauf für 3,99 €.</span></p></details>
+  <details><summary><span data-l="en">What if I return more than I owe?</span><span data-l="de">Was, wenn ich mehr zurückzahle als geschuldet?</span></summary><p><span data-l="en">Repocket warns you before saving, because the debt would flip direction. Say yes and the other pocket now owes the difference.</span><span data-l="de">Repocket warnt vor dem Sichern, weil sich die Schuld umkehren würde. Bestätigst du, schuldet jetzt die andere Tasche die Differenz.</span></p></details>
+  <details><summary><span data-l="en">Android? iPad? Shared with a partner?</span><span data-l="de">Android? iPad? Mit Partner teilen?</span></summary><p><span data-l="en">iPhone only for now. It syncs across your own devices through iCloud. Sharing between people is not planned; Repocket is about debts between your own pockets.</span><span data-l="de">Nur iPhone, vorerst. Synchronisiert über iCloud zwischen deinen eigenen Geräten. Teilen zwischen Personen ist nicht geplant; Repocket geht um Schulden zwischen deinen eigenen Taschen.</span></p></details>
+ </div>
+</div></section>
+
+<section class="dark"><div class="wrap final reveal">
+ <img src="assets/mark.svg" alt="" width="88" height="88" style="border-radius:20px">
+ <h2><span data-l="en">Track what you borrowed from yourself.</span><span data-l="de">Merk dir, was du dir selbst geliehen hast.</span></h2>
+ <a class="store" href="https://apps.apple.com/" rel="noopener" style="background:var(--coral)"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.5-.2-2.8.8-3.6.8-.7 0-1.9-.8-3.1-.8-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.1.8c1.3 0 2.1-1.2 2.9-2.4.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.6-1-2.6-3.9zM14 5.6c.6-.8 1.1-1.9 1-3-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3z"/></svg><span data-l="en">Download on the App Store</span><span data-l="de">Im App Store laden</span></a>
+ <span class="fine" style="color:#C9C3EC"><span data-l="en">iPhone · iOS 18 · English and German</span><span data-l="de">iPhone · iOS 18 · Deutsch und Englisch</span></span>
+</div></section>
+
+<footer><div class="wrap">
+ <a class="brand" href="#"><img src="assets/mark.svg" alt="">Repocket</a>
+ <a href="privacy.html"><span data-l="en">Privacy</span><span data-l="de">Datenschutz</span></a>
+ <a href="support.html"><span data-l="en">Support</span><span data-l="de">Support</span></a>
+ <a href="press.html"><span data-l="en">Press kit</span><span data-l="de">Pressematerial</span></a>
+ <span>© 2026 mugoworks</span>
+</div></footer>
+
+<script>
+(function(){
+ var html=document.documentElement, saved=null; try{saved=localStorage.getItem('rp-lang')}catch(e){}
+ var lang=saved||((navigator.language||'').slice(0,2)==='de'?'de':'en');
+ function set(l){html.setAttribute('data-lang',l);html.lang=l;document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.set===l))});try{localStorage.setItem('rp-lang',l)}catch(e){}}
+ set(lang); document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.set)})});
+ var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ // hero: total counts up, second card slides in
+ var hp=document.getElementById('hero-phone'), tot=document.getElementById('hero-total'), totDe=document.getElementById('hero-total-de');
+ if(!reduce){ setTimeout(function(){ hp.classList.add('play'); var s=12000,e=16550,t0=performance.now(),d=900; function f(t){var p=Math.min(1,(t-t0)/d);p=1-Math.pow(1-p,3);var v=((s+(e-s)*p)/100).toFixed(2);tot.textContent='€'+v;totDe.textContent=v.replace('.',',')+' €';if(p<1)requestAnimationFrame(f);else{document.getElementById('hero-cnt-en').textContent='2 open debts';document.getElementById('hero-cnt-de').textContent='2 offene Schulden';}} requestAnimationFrame(f); },1300); } else { hp.classList.add('play'); tot.textContent='€165.50'; totDe.textContent='165,50 €'; }
+ // reveal on scroll
+ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -12% 0px'});
+ document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+ // story: sticky phone follows the beat in view
+ var sp=document.getElementById('story-phone');
+ var beats=Array.prototype.slice.call(document.querySelectorAll('.beat'));
+ function sync(){var mid=innerHeight*0.5,best=beats[0],bd=Infinity;beats.forEach(function(b){var r=b.getBoundingClientRect(),c=(r.top+r.bottom)/2,d=Math.abs(c-mid);if(d<bd){bd=d;best=b}});if(sp.dataset.scr!==best.dataset.scr)sp.dataset.scr=best.dataset.scr}
+ var tick=false;addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(function(){sync();tick=false})}},{passive:true});addEventListener('resize',sync);sync();
+})();
+</script>
+</body>
+</html>

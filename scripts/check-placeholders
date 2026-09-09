@@ -1,0 +1,112 @@
+#!/usr/bin/env python3
+"""check-placeholders — fail the build while the site still carries unresolved brand placeholders.
+
+None of these is a defect in the markup, but each is a hard gate against publishing the built
+site:
+
+  - the literal string "[CONTACT EMAIL]" — an unresolved footer contact placeholder.
+  - a bare `href="#"` — a call-to-action with no real destination wired up yet. A same-page
+    anchor such as `href="#story"` is legitimate in-page navigation and is never flagged;
+    only an href of exactly "#" (nothing after it) counts as unresolved.
+
+Repocket-specific known placeholders that are DELIBERATELY not flagged (see
+docs/guide/terminology.md § Placeholder):
+
+  - `https://apps.apple.com/` — the App Store URL, three occurrences in index.html only.
+    Resolves once the app is live on the store. The design brief explicitly says "leave the
+    placeholder; do not invent an ID."
+  - `hello@repocket.app` — the contact address on privacy, support, and press. Resolves when
+    the inbox is set up owner-side. Ships as-is.
+
+Walks every tracked *.html file at the repo root and below (excluding .git, node_modules, and
+.claude). Design-Component prototypes (*.dc.html) under docs/design/ are also skipped, so a
+frozen brief's HTML never trips this check. Exits non-zero and names each placeholder found,
+with its file and line, if any remain. Exits 0 once none remain — this script does not edit
+files, it only gates the build.
+
+Usage:
+  scripts/check-placeholders
+"""
+
+import re
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parent.parent
+
+EXCLUDE_DIR_PARTS = {".git", "node_modules", ".claude"}
+
+LITERAL_PLACEHOLDERS = [
+    ("[CONTACT EMAIL]", "unresolved contact-email placeholder"),
+]
+
+# Matches href="#" or href='#' exactly — not href="#story" (a real in-page anchor).
+# The leading negative lookbehind requires a boundary before "href" — anything other than a
+# word character, ":", or "-" — so this only matches the actual `href` attribute, never a
+# longer attribute name that merely ends in "href" (`data-href="#"`, `xhref="#"`) nor an
+# SVG-sprite `xlink:href="#icon-id"` reference. A plain whitespace-only lookbehind would miss
+# the case where `href` opens a line with no leading indentation (e.g. a wrapped attribute
+# list), so the boundary is a character class rather than literal whitespace.
+BARE_HREF_RE = re.compile(r"""(?<![\w:-])href\s*=\s*(["'])#\1""", re.IGNORECASE)
+
+
+def find_html_files():
+    for path in sorted(REPO.rglob("*.html")):
+        if any(part in EXCLUDE_DIR_PARTS for part in path.relative_to(REPO).parts):
+            continue
+        # Design-Component prototype files (*.dc.html) under docs/design/ are frozen
+        # references for a design brief, not shipped pages. html-validate and this check
+        # both skip them for the same reason.
+        if path.name.endswith(".dc.html"):
+            continue
+        # The frozen design handoff's reference copy under docs/design/**/site/ is not the
+        # site the repo publishes — it is a snapshot of what the launch bead must transplant
+        # to the repo root. Do not gate publishing on its content.
+        parts = path.relative_to(REPO).parts
+        if len(parts) >= 3 and parts[0] == "docs" and parts[1] == "design":
+            continue
+        yield path
+
+
+def check_file(path: Path) -> list[str]:
+    problems = []
+    relative = path.relative_to(REPO)
+    for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+        for literal, label in LITERAL_PLACEHOLDERS:
+            if literal in line:
+                problems.append(f"{relative}:{lineno}: {label} — found literal '{literal}'")
+        if BARE_HREF_RE.search(line):
+            problems.append(
+                f'{relative}:{lineno}: unresolved call-to-action — found bare href="#"'
+            )
+    return problems
+
+
+def main() -> int:
+    html_files = list(find_html_files())
+    if not html_files:
+        # No shipped HTML yet (the site payload lands in a later bead). This is expected on
+        # the initial kit-scaffold commit, so treat it as informational rather than an error.
+        print(f"check-placeholders: no shipped HTML files at {REPO} yet — nothing to check.")
+        return 0
+
+    problems: list[str] = []
+    for path in html_files:
+        problems.extend(check_file(path))
+
+    if problems:
+        print(
+            "check-placeholders: unresolved brand placeholder(s) found — "
+            "the site is not ready to publish:",
+            file=sys.stderr,
+        )
+        for problem in problems:
+            print(f"  {problem}", file=sys.stderr)
+        return 1
+
+    print(f"check-placeholders: no unresolved placeholders in {len(html_files)} file(s).")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
