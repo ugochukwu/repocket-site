@@ -10,7 +10,7 @@
 <meta property="og:image" content="assets/og.png">
 <link rel="icon" href="assets/mark.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Outfit:wght@400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Outfit:wght@400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{--ground:#F4F1FF;--card:#fff;--ink:#241B5E;--ink2:#6E67A0;--ink3:#B0ABCF;--line:#EAE6F8;--coral:#FF5C39;--green:#1FA588;--gold:#FFC947;--display:"Bricolage Grotesque",system-ui,sans-serif;--text:"Outfit",system-ui,sans-serif;--ease:cubic-bezier(.2,.8,.2,1);--spring:cubic-bezier(.34,1.3,.64,1)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ground);color:var(--ink);font:400 18px/1.5 var(--text);-webkit-font-smoothing:antialiased}
@@ -72,13 +72,18 @@ section{padding:clamp(60px,9vw,130px) 0}.sec-h{max-width:720px}.sec-h .lead{marg
 .faq{margin-top:40px;max-width:760px}details{border-top:1px solid rgba(36,27,94,.14);padding:20px 0}details:last-child{border-bottom:1px solid rgba(36,27,94,.14)}summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px;font:700 20px var(--display);letter-spacing:-.02em}summary::-webkit-details-marker{display:none}summary::after{content:"+";font-weight:400;color:var(--coral);flex:none}details[open] summary::after{content:"–"}details p{margin-top:12px;color:var(--ink2);font-size:17px;max-width:640px}
 .final{text-align:center;display:flex;flex-direction:column;align-items:center;gap:26px}.final h2{font-size:clamp(40px,6vw,88px);font-weight:800;letter-spacing:-.045em}
 footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px;color:var(--ink2)}footer .wrap{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center}footer a{color:var(--ink2)}footer a:hover{color:var(--ink)}footer .brand{font-size:16px;margin-right:auto}footer .brand img{width:24px;height:24px}
-@media(max-width:900px){.hero{grid-template-columns:1fr;text-align:left}.hero .ph{justify-self:center;transform:scale(.85);transform-origin:top center;margin-bottom:-100px}.story{grid-template-columns:1fr}.story .sticky{position:relative;top:0;order:-1;transform:scale(.8);transform-origin:top center;margin-bottom:-120px}.beat{min-height:0;padding:40px 0}.steps,.price,.priv{grid-template-columns:1fr}.os{grid-template-columns:1fr}.lang{margin-left:auto}nav .store span{display:none}nav .store{padding:9px 12px}}
+/* mugo works endorsement lockup (header) + product credit (footer) */
+.mugo{display:inline-flex;align-items:center;gap:6px;color:var(--ink2);font-family:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:10px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}.mugo:hover{color:var(--ink)}.mugo img{width:13px;height:13px;flex:none}
+.mugo-credit{display:inline-flex;align-items:center;gap:10px;color:var(--ink2);font-family:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase}.mugo-credit:hover{color:var(--ink)}.mugo-credit img{width:20px;height:20px;flex:none}
+.mugo-credit-row{width:100%;display:flex;padding-top:18px;margin-top:6px;border-top:1px solid rgba(36,27,94,.06)}
+@media(max-width:900px){.hero{grid-template-columns:1fr;text-align:left}.hero .ph{justify-self:center;transform:scale(.85);transform-origin:top center;margin-bottom:-100px}.story{grid-template-columns:1fr}.story .sticky{position:relative;top:0;order:-1;transform:scale(.8);transform-origin:top center;margin-bottom:-120px}.beat{min-height:0;padding:40px 0}.steps,.price,.priv{grid-template-columns:1fr}.os{grid-template-columns:1fr}.lang{margin-left:auto}nav .store span{display:none}nav .store{padding:9px 12px}.mugo .mugo-label{display:none}}
 @media(prefers-reduced-motion:reduce){.up,.slide,.reveal,.tap::after,.big i{animation:none!important;opacity:1!important;transform:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <nav><div class="wrap">
  <a class="brand" href="#"><img src="assets/mark.svg" alt="">Repocket</a>
+ <a class="mugo" href="https://mugoworks.com"><img src="assets/mark-on-light.svg" width="13" height="13" alt="mugo works mark"><span class="mugo-label">BY MUGO WORKS</span></a>
  <div class="lang" role="group" aria-label="Language"><button data-set="en" aria-pressed="true">EN</button><button data-set="de" aria-pressed="false">DE</button></div>
  <a class="store" href="https://apps.apple.com/" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.5-.2-2.8.8-3.6.8-.7 0-1.9-.8-3.1-.8-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.1.8c1.3 0 2.1-1.2 2.9-2.4.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.6-1-2.6-3.9zM14 5.6c.6-.8 1.1-1.9 1-3-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3z"/></svg><span data-l="en">App Store</span><span data-l="de">App Store</span></a>
 </div></nav>
@@ -220,6 +225,9 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
  <a href="support.html"><span data-l="en">Support</span><span data-l="de">Support</span></a>
  <a href="press.html"><span data-l="en">Press kit</span><span data-l="de">Pressematerial</span></a>
  <span>© 2026 mugoworks</span>
+ <div class="mugo-credit-row">
+  <a class="mugo-credit" href="https://mugoworks.com"><img src="assets/mark-on-light.svg" width="20" height="20" alt="mugo works mark"><span>A MUGO WORKS PRODUCT</span></a>
+ </div>
 </div></footer>
 
 <script>
