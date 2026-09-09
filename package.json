@@ -3,7 +3,7 @@
   "private": true,
   "description": "Repocket marketing site: plain HTML/CSS, no build step.",
   "scripts": {
-    "lint": "python3 scripts/check-placeholders && html-validate $(find . -name '*.html' -not -name '*.dc.html' -not -path './node_modules/*' -not -path './.git/*' -not -path './.claude/*' -not -path './docs/design/*')",
+    "lint": "python3 scripts/check-placeholders && html-validate $(find . -name '*.html' -not -name '*.dc.html' -not -path './node_modules/*' -not -path './.git/*' -not -path './.claude/*' -not -path './docs/design/*' -not -path './docs/qa-screenshots/*')",
     "serve": "python3 -m http.server 8000"
   },
   "devDependencies": {

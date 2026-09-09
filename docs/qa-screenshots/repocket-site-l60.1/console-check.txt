@@ -1,0 +1,18 @@
+OK   index.html     lang=en w=1280 errors=0 warnings=0
+OK   index.html     lang=en w=375 errors=0 warnings=0
+OK   index.html     lang=de w=1280 errors=0 warnings=0
+OK   index.html     lang=de w=375 errors=0 warnings=0
+OK   privacy.html   lang=en w=1280 errors=0 warnings=0
+OK   privacy.html   lang=en w=375 errors=0 warnings=0
+OK   privacy.html   lang=de w=1280 errors=0 warnings=0
+OK   privacy.html   lang=de w=375 errors=0 warnings=0
+OK   support.html   lang=en w=1280 errors=0 warnings=0
+OK   support.html   lang=en w=375 errors=0 warnings=0
+OK   support.html   lang=de w=1280 errors=0 warnings=0
+OK   support.html   lang=de w=375 errors=0 warnings=0
+OK   press.html     lang=en w=1280 errors=0 warnings=0
+OK   press.html     lang=en w=375 errors=0 warnings=0
+OK   press.html     lang=de w=1280 errors=0 warnings=0
+OK   press.html     lang=de w=375 errors=0 warnings=0
+
+RESULT: PASS

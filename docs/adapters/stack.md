@@ -46,9 +46,15 @@ cheapest first.
 - lint: `npm run lint` — runs `scripts/check-placeholders` (fails if any tracked `*.html`
   carries a bracket-style placeholder like `[CONTACT EMAIL]` or a bare `href="#"`; the two
   known Repocket placeholders `https://apps.apple.com/` and `hello@repocket.app` are
-  explicitly allow-listed — see [`docs/guide/terminology.md`](../guide/terminology.md)) and
-  then `html-validate` over every tracked `*.html` file (excluding the frozen design
-  prototypes under `docs/design/**/*.dc.html` if any are later added).
+  explicitly allow-listed — see [`docs/guide/terminology.md`](../guide/terminology.md); a
+  landing-page brand self-link `<a class="brand" href="#">` is a same-page top-of-page
+  scroll on `index.html` and is not flagged) and then `html-validate` over every tracked
+  `*.html` file (excluding the frozen design prototypes under `docs/design/**/*.dc.html`
+  and QA render-evidence HTML under `docs/qa-screenshots/**/`). The `no-implicit-button-type`
+  and `no-inline-style` rules are disabled in `.htmlvalidate.json` because the shipped site
+  uses `<button>` outside a form (the language toggle in the nav) and a small number of
+  spot-tweak inline styles that the design brief locks in; both rules would flag on
+  design-locked markup that cannot change.
 - render: serve the site locally (see **Run the app** below) and load the changed page(s) in a
   browser — for a static site with three JS animations (hero count-up, sticky phone
   screen-switching, fade-up reveals), the running page IS the test. There is no headless test
