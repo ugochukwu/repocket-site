@@ -25,8 +25,21 @@ nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px) saturate(160%);b
 nav .wrap{display:flex;align-items:center;gap:18px;min-height:64px}
 .brand{display:flex;align-items:center;gap:10px;font:700 20px var(--display);color:var(--ink);letter-spacing:-.02em}.brand img{width:32px;height:32px;border-radius:8px}
 .lang{margin-left:auto;display:flex;padding:3px;border-radius:999px;background:rgba(36,27,94,.08);gap:2px}.lang button{all:unset;cursor:pointer;padding:6px 12px;border-radius:999px;font:600 13px var(--text);color:var(--ink)}.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
-.store{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;background:var(--ink);color:#fff;font:700 16px var(--display);letter-spacing:-.01em;white-space:nowrap;transition:transform .18s var(--spring),background .2s}.store:hover{color:#fff;background:#1a1346;transform:translateY(-1px)}.store svg{flex:none}
+.store{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;background:var(--ink);color:#fff;font:700 16px var(--display);letter-spacing:-.01em;white-space:nowrap;border:0;cursor:pointer;transition:transform .18s var(--spring),background .2s}.store:hover{color:#fff;background:#1a1346;transform:translateY(-1px)}.store svg{flex:none}
 nav .store{padding:9px 16px;font-size:15px}
+nav .store.waitlist-nav span{display:inline}
+/* waitlist form (coming-soon treatment, repocket-site-l60.9) */
+.waitlist{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0;position:relative;width:100%;max-width:460px}
+.waitlist-email{flex:1 1 220px;min-width:0;padding:12px 18px;border-radius:999px;border:1.5px solid var(--ink);background:#fff;font:400 16px var(--text);color:var(--ink);outline:none;transition:border-color .18s var(--ease),box-shadow .18s var(--ease)}
+.waitlist-email::placeholder{color:var(--ink3)}
+.waitlist-email:focus{border-color:var(--coral);box-shadow:0 0 0 3px rgba(255,92,57,.18)}
+.waitlist-submit{border:0;cursor:pointer;font-family:var(--display)}
+.waitlist-submit[disabled]{opacity:.65;cursor:progress}
+.waitlist-error{flex-basis:100%;margin:6px 0 0;font-size:14px;color:var(--coral)}
+.waitlist-success{margin:0;font:600 17px var(--text);color:var(--ink);display:inline-flex;align-items:center;gap:10px}
+.waitlist-success svg{flex:none}
+.botcheck{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;opacity:0}
+.visually-hidden{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 /* hero */
 .hero{padding-top:clamp(48px,8vw,110px);padding-bottom:clamp(40px,6vw,80px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(30px,5vw,70px);align-items:center}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font:600 13px var(--text);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin-bottom:22px}.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--coral)}
@@ -76,7 +89,8 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
 .mugo{display:inline-flex;align-items:center;gap:6px;color:var(--ink2);font-family:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:10px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}.mugo:hover{color:var(--ink)}.mugo img{width:13px;height:13px;flex:none}
 .mugo-credit{display:inline-flex;align-items:center;gap:10px;color:var(--ink2);font-family:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase}.mugo-credit:hover{color:var(--ink)}.mugo-credit img{width:20px;height:20px;flex:none}
 .mugo-credit-row{width:100%;display:flex;padding-top:18px;margin-top:6px;border-top:1px solid rgba(36,27,94,.06)}
-@media(max-width:900px){.hero{grid-template-columns:1fr;text-align:left}.hero .ph{justify-self:center;transform:scale(.85);transform-origin:top center;margin-bottom:-100px}.story{grid-template-columns:1fr}.story .sticky{position:relative;top:0;order:-1;transform:scale(.8);transform-origin:top center;margin-bottom:-120px}.beat{min-height:0;padding:40px 0}.steps,.price,.priv{grid-template-columns:1fr}.os{grid-template-columns:1fr}.lang{margin-left:auto}nav .store span{display:none}nav .store{padding:9px 12px}.mugo .mugo-label{display:none}}
+@media(max-width:900px){.hero{grid-template-columns:1fr;text-align:left}.hero .ph{justify-self:center;transform:scale(.85);transform-origin:top center;margin-bottom:-100px}.story{grid-template-columns:1fr}.story .sticky{position:relative;top:0;order:-1;transform:scale(.8);transform-origin:top center;margin-bottom:-120px}.beat{min-height:0;padding:40px 0}.steps,.price,.priv{grid-template-columns:1fr}.os{grid-template-columns:1fr}.lang{margin-left:auto}nav .wrap{gap:12px}nav .store span{display:none}nav .store{padding:9px 12px}nav .store.waitlist-nav{padding:8px 14px;font-size:14px;letter-spacing:-.02em}.mugo .mugo-label{display:none}}
+@media(max-width:700px){nav .store.waitlist-nav{display:none}}
 @media(prefers-reduced-motion:reduce){.up,.slide,.reveal,.tap::after,.big i{animation:none!important;opacity:1!important;transform:none!important;transition:none!important}}
 </style>
 </head>
@@ -85,7 +99,7 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
  <a class="brand" href="#"><img src="assets/mark.svg" alt="">Repocket</a>
  <a class="mugo" href="https://mugoworks.com"><img src="assets/mark-on-light.svg" width="13" height="13" alt="mugo works mark"><span class="mugo-label">BY MUGO WORKS</span></a>
  <div class="lang" role="group" aria-label="Language"><button data-set="en" aria-pressed="true">EN</button><button data-set="de" aria-pressed="false">DE</button></div>
- <a class="store" href="https://apps.apple.com/" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.5-.2-2.8.8-3.6.8-.7 0-1.9-.8-3.1-.8-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.1.8c1.3 0 2.1-1.2 2.9-2.4.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.6-1-2.6-3.9zM14 5.6c.6-.8 1.1-1.9 1-3-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3z"/></svg><span data-l="en">App Store</span><span data-l="de">App Store</span></a>
+ <a class="store waitlist-nav" href="#waitlist"><span data-l="en">Join waitlist</span><span data-l="de">Warteliste</span></a>
 </div></nav>
 
 <header class="wrap hero">
@@ -94,8 +108,14 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
   <h1 class="up d2"><span data-l="en">You paid for groceries with the vacation card.</span><span data-l="de">Du hast den Einkauf mit der Urlaubskarte bezahlt.</span></h1>
   <p class="lead up d3"><span data-l="en">The bank saw one card. You know it was a loan from one pocket to another. Repocket remembers what you borrowed from yourself, and what to move back.</span><span data-l="de">Die Bank hat eine Karte gesehen. Du weißt, dass es eine Leihe von einer Tasche an die andere war. Repocket merkt sich, was du dir selbst geliehen hast, und was zurück muss.</span></p>
   <div class="cta up d4">
-   <a class="store" href="https://apps.apple.com/" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.5-.2-2.8.8-3.6.8-.7 0-1.9-.8-3.1-.8-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.1.8c1.3 0 2.1-1.2 2.9-2.4.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.6-1-2.6-3.9zM14 5.6c.6-.8 1.1-1.9 1-3-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3z"/></svg><span data-l="en">Download on the App Store</span><span data-l="de">Im App Store laden</span></a>
-   <span class="fine"><span data-l="en">Free for 7 days · then €3.99 once · no subscription</span><span data-l="de">7 Tage gratis · dann einmal 3,99 € · kein Abo</span></span>
+   <form id="waitlist" class="waitlist" novalidate>
+    <label class="visually-hidden" for="waitlist-email"><span data-l="en">Email address</span><span data-l="de">E-Mail-Adresse</span></label>
+    <input id="waitlist-email" class="waitlist-email" type="email" name="email" required autocomplete="email" inputmode="email" placeholder="you@example.com">
+    <button type="submit" class="store waitlist-submit"><span data-l="en">Notify me</span><span data-l="de">Benachrichtige mich</span></button>
+    <input type="text" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="waitlist-error" role="alert" hidden><span data-l="en">Something went wrong. Try again?</span><span data-l="de">Etwas ist schiefgegangen. Nochmal versuchen?</span></p>
+   </form>
+   <span class="fine"><span data-l="en">Coming soon · €3.99 once at launch, no subscription</span><span data-l="de">Bald verfügbar · 3,99 € einmalig, kein Abo</span></span>
   </div>
  </div>
  <div class="ph up d3" style="display:flex;justify-content:center">
@@ -215,7 +235,7 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
 <section class="dark"><div class="wrap final reveal">
  <img src="assets/mark.svg" alt="" width="88" height="88" style="border-radius:20px">
  <h2><span data-l="en">Track what you borrowed from yourself.</span><span data-l="de">Merk dir, was du dir selbst geliehen hast.</span></h2>
- <a class="store" href="https://apps.apple.com/" rel="noopener" style="background:var(--coral)"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.5-.2-2.8.8-3.6.8-.7 0-1.9-.8-3.1-.8-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.1.8c1.3 0 2.1-1.2 2.9-2.4.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.6-1-2.6-3.9zM14 5.6c.6-.8 1.1-1.9 1-3-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3z"/></svg><span data-l="en">Download on the App Store</span><span data-l="de">Im App Store laden</span></a>
+ <a class="store" href="#waitlist" style="background:var(--coral)"><span data-l="en">Join the waitlist</span><span data-l="de">Zur Warteliste</span></a>
  <span class="fine" style="color:#C9C3EC"><span data-l="en">iPhone · iOS 18 · English and German</span><span data-l="de">iPhone · iOS 18 · Deutsch und Englisch</span></span>
 </div></section>
 
@@ -232,6 +252,10 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
 
 <script>
 (function(){
+ // Web3Forms public access key: safe to commit (embedded in public HTML by design).
+ // Routes waitlist submissions to Michel's Web3Forms inbox. Swap here when the app ships
+ // and repocket-site-l60.3 reverses this coming-soon treatment.
+ const WAITLIST_ACCESS_KEY="b7535f75-7d1e-4b9d-b6dc-22c34f4e1153";
  var html=document.documentElement, saved=null; try{saved=localStorage.getItem('rp-lang')}catch(e){}
  var lang=saved||((navigator.language||'').slice(0,2)==='de'?'de':'en');
  function set(l){html.setAttribute('data-lang',l);html.lang=l;document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.set===l))});try{localStorage.setItem('rp-lang',l)}catch(e){}}
@@ -248,6 +272,33 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
  var beats=Array.prototype.slice.call(document.querySelectorAll('.beat'));
  function sync(){var mid=innerHeight*0.5,best=beats[0],bd=Infinity;beats.forEach(function(b){var r=b.getBoundingClientRect(),c=(r.top+r.bottom)/2,d=Math.abs(c-mid);if(d<bd){bd=d;best=b}});if(sp.dataset.scr!==best.dataset.scr)sp.dataset.scr=best.dataset.scr}
  var tick=false;addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(function(){sync();tick=false})}},{passive:true});addEventListener('resize',sync);sync();
+ // waitlist: POST to Web3Forms, replace form with success message on 200 + success:true, else show inline error and keep form for retry
+ var form=document.getElementById('waitlist');
+ if(form){
+  var submitBtn=form.querySelector('.waitlist-submit');
+  var errBox=form.querySelector('.waitlist-error');
+  form.addEventListener('submit',function(ev){
+   ev.preventDefault();
+   errBox.hidden=true;
+   submitBtn.disabled=true;
+   var payload={access_key:WAITLIST_ACCESS_KEY,email:form.email.value,subject:'Repocket waitlist signup',from_name:'Repocket waitlist',botcheck:form.botcheck.value};
+   fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
+    .then(function(r){return r.json().then(function(j){return {ok:r.ok,data:j}},function(){return {ok:false,data:{}}});})
+    .then(function(res){
+     if(res.ok && res.data && res.data.success===true){
+      var success=document.createElement('p');
+      success.className='waitlist-success';
+      success.setAttribute('role','status');
+      success.innerHTML='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1FA588"/><path d="M6.5 12l4 4 7-8" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-l="en">We\'ll email you when it\'s live.</span><span data-l="de">Wir schicken dir eine E-Mail zum Start.</span>';
+      form.replaceWith(success);
+     } else {
+      submitBtn.disabled=false;
+      errBox.hidden=false;
+     }
+    })
+    .catch(function(){submitBtn.disabled=false;errBox.hidden=false;});
+  });
+ }
 })();
 </script>
 </body>

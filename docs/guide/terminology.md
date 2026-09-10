@@ -1,7 +1,7 @@
 ---
 title: Terminology
 summary: Repocket's binding domain language for code, docs, ADRs, bead titles, and PR text.
-updated: 2026-09-09
+updated: 2026-09-10
 status: draft
 ---
 
@@ -64,8 +64,11 @@ concepts the same way.
   the definition of done for the launch bead.
 - **Placeholder** — a value in the shipped copy that resolves to something real later; two are
   known at launch time:
-    - `https://apps.apple.com/` (three occurrences in `index.html` only) — resolves to the
-      real App Store URL once the app is live; leave as-is until then.
+    - `https://apps.apple.com/` — App Store URL placeholder. **Currently zero occurrences in
+      `index.html`:** the coming-soon treatment (`repocket-site-l60.9`) replaced the hero CTA
+      with a Web3Forms-backed waitlist form and repointed the nav and final CTAs at the
+      form's `#waitlist` anchor. The deferred bead `repocket-site-l60.3` restores real App
+      Store CTAs once the app ships.
     - `hello@repocket.app` — the contact address on privacy, support, and press; resolves when
       the inbox is set up owner-side. Ship as-is; no substitution.
 
