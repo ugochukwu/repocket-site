@@ -62,6 +62,15 @@ concepts the same way.
 - **Design handoff** — the frozen brief and its `site/` reference copy under
   [`docs/design/2026-09-09-repocket-launch/`](../design/2026-09-09-repocket-launch/). This is
   the definition of done for the launch bead.
+- **Lockup** — a fixed composition of a mark plus text that must stay grouped as one unit:
+  never split across a wrap, never re-ordered, never restyled so the pieces read as two
+  independent elements. Two lockups ship on this site today, both in the header of
+  `index.html`: the **brand lockup** (`.brand-lockup`) pairs the Repocket brand link with the
+  "BY MUGO WORKS" endorsement as a single header group, and the **mugo works endorsement
+  lockup** inside it (`.mugo` plus its `.mugo-label`) keeps the mugo mark and its label
+  together. Name any future mark+text composition `*-lockup` (e.g. `.footer-lockup`) so the
+  grouping constraint is visible from the class name. Never "logo group", "brand block", or
+  "badge" for these compositions.
 - **Placeholder** — a value in the shipped copy that resolves to something real later; two are
   known at launch time:
     - `https://apps.apple.com/` — App Store URL placeholder. **Currently zero occurrences in
