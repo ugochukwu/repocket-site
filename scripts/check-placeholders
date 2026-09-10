@@ -15,9 +15,11 @@ site:
 Repocket-specific known placeholders that are DELIBERATELY not flagged (see
 docs/guide/terminology.md § Placeholder):
 
-  - `https://apps.apple.com/` — the App Store URL, three occurrences in index.html only.
-    Resolves once the app is live on the store. The design brief explicitly says "leave the
-    placeholder; do not invent an ID."
+  - `https://apps.apple.com/` — the App Store URL. Currently zero occurrences in the shipped
+    HTML: repocket-site-l60.9's coming-soon treatment replaced the hero CTA with a
+    Web3Forms-backed waitlist form and repointed the nav and final CTAs at #waitlist. The
+    deferred bead repocket-site-l60.3 restores real App Store CTAs once the app ships; the
+    design brief explicitly says "leave the placeholder; do not invent an ID."
   - `hello@repocket.app` — the contact address on privacy, support, and press. Resolves when
     the inbox is set up owner-side. Ships as-is.
 
