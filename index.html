@@ -86,18 +86,21 @@ section{padding:clamp(60px,9vw,130px) 0}.sec-h{max-width:720px}.sec-h .lead{marg
 .final{text-align:center;display:flex;flex-direction:column;align-items:center;gap:26px}.final h2{font-size:clamp(40px,6vw,88px);font-weight:800;letter-spacing:-.045em}
 footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px;color:var(--ink2)}footer .wrap{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center}footer a{color:var(--ink2)}footer a:hover{color:var(--ink)}footer .brand{font-size:16px;margin-right:auto}footer .brand img{width:24px;height:24px}
 /* mugo works endorsement lockup (header) + product credit (footer) */
+.brand-lockup{display:flex;align-items:center;gap:18px}
 .mugo{display:inline-flex;align-items:center;gap:6px;color:var(--ink2);font-family:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:10px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}.mugo:hover{color:var(--ink)}.mugo img{width:13px;height:13px;flex:none}
 .mugo-credit{display:inline-flex;align-items:center;gap:10px;color:var(--ink2);font-family:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase}.mugo-credit:hover{color:var(--ink)}.mugo-credit img{width:20px;height:20px;flex:none}
 .mugo-credit-row{width:100%;display:flex;padding-top:18px;margin-top:6px;border-top:1px solid rgba(36,27,94,.06)}
-@media(max-width:900px){.hero{grid-template-columns:1fr;text-align:left}.hero .ph{justify-self:center;transform:scale(.85);transform-origin:top center;margin-bottom:-100px}.story{grid-template-columns:1fr}.story .sticky{position:relative;top:0;order:-1;transform:scale(.8);transform-origin:top center;margin-bottom:-120px}.beat{min-height:0;padding:40px 0}.steps,.price,.priv{grid-template-columns:1fr}.os{grid-template-columns:1fr}.lang{margin-left:auto}nav .wrap{gap:12px}nav .store span{display:none}nav .store{padding:9px 12px}nav .store.waitlist-nav{padding:8px 14px;font-size:14px;letter-spacing:-.02em}.mugo .mugo-label{display:none}}
+@media(max-width:900px){.hero{grid-template-columns:1fr;text-align:left}.hero .ph{justify-self:center;transform:scale(.85);transform-origin:top center;margin-bottom:-100px}.story{grid-template-columns:1fr}.story .sticky{position:relative;top:0;order:-1;transform:scale(.8);transform-origin:top center;margin-bottom:-120px}.beat{min-height:0;padding:40px 0}.steps,.price,.priv{grid-template-columns:1fr}.os{grid-template-columns:1fr}.lang{margin-left:auto}nav .wrap{gap:12px}nav .store span{display:none}nav .store{padding:9px 12px}nav .store.waitlist-nav{padding:8px 14px;font-size:14px;letter-spacing:-.02em}.brand-lockup{flex-direction:column;align-items:flex-start;gap:6px}}
 @media(max-width:700px){nav .store.waitlist-nav{display:none}}
 @media(prefers-reduced-motion:reduce){.up,.slide,.reveal,.tap::after,.big i{animation:none!important;opacity:1!important;transform:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <nav><div class="wrap">
- <a class="brand" href="#"><img src="assets/mark.svg" alt="">Repocket</a>
- <a class="mugo" href="https://mugoworks.com"><img src="assets/mark-on-light.svg" width="13" height="13" alt="mugo works mark"><span class="mugo-label">BY MUGO WORKS</span></a>
+ <div class="brand-lockup">
+  <a class="brand" href="#"><img src="assets/mark.svg" alt="">Repocket</a>
+  <a class="mugo" href="https://mugoworks.com"><img src="assets/mark-on-light.svg" width="13" height="13" alt="mugo works mark"><span class="mugo-label">BY MUGO WORKS</span></a>
+ </div>
  <div class="lang" role="group" aria-label="Language"><button data-set="en" aria-pressed="true">EN</button><button data-set="de" aria-pressed="false">DE</button></div>
  <a class="store waitlist-nav" href="#waitlist"><span data-l="en">Join waitlist</span><span data-l="de">Warteliste</span></a>
 </div></nav>
