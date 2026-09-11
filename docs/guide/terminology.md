@@ -1,7 +1,7 @@
 ---
 title: Terminology
 summary: Repocket's binding domain language for code, docs, ADRs, bead titles, and PR text.
-updated: 2026-09-10
+updated: 2026-09-11
 status: draft
 ---
 
@@ -20,7 +20,7 @@ concepts the same way.
 
 ## Product identity
 
-- **Repocket** — the product name; iPhone app; €3.99 once, no subscription (7-day free trial).
+- **Repocket** — the product name; iPhone app; €4.99 once, no subscription (7-day free trial).
   Tagline: "Track what you borrowed from yourself." Not "Re-pocket", not "RePocket", not
   "repocket.app" as a name (that is the domain; the app is Repocket).
 
