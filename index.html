@@ -299,6 +299,9 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
    errBox.hidden=true;
    submitBtn.disabled=true;
    var payload={access_key:WAITLIST_ACCESS_KEY,email:form.email.value,subject:'Repocket waitlist signup',from_name:'Repocket waitlist',botcheck:form.botcheck.value};
+   // Forward campaign attribution when the visitor arrived with UTM query params or a referrer.
+   // Values are clamped to bound stray input; empty ones are skipped so signup emails stay clean.
+   try{var qs=new URLSearchParams(window.location.search);['utm_source','utm_medium','utm_campaign','utm_content'].forEach(function(k){var v=qs.get(k);if(v)payload[k]=v.slice(0,64)});if(document.referrer)payload.referrer=document.referrer.slice(0,256);}catch(e){}
    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
     .then(function(r){return r.json().then(function(j){return {ok:r.ok,data:j}},function(){return {ok:false,data:{}}});})
     .then(function(res){
