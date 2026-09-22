@@ -45,8 +45,8 @@ cheapest first.
 
 - lint: `npm run lint` — runs `scripts/check-placeholders` (fails if any tracked `*.html`
   carries a bracket-style placeholder like `[CONTACT EMAIL]` or a bare `href="#"`; the two
-  known Repocket placeholders `https://apps.apple.com/` and `hello@repocket.app` are
-  explicitly allow-listed — see [`docs/guide/terminology.md`](../guide/terminology.md); a
+  known Repocket placeholder `https://apps.apple.com/` is explicitly allow-listed — see
+  [`docs/guide/terminology.md`](../guide/terminology.md); a
   landing-page brand self-link `<a class="brand" href="#">` is a same-page top-of-page
   scroll on `index.html` and is not flagged) and then `html-validate` over every tracked
   `*.html` file (excluding the frozen design prototypes under `docs/design/**/*.dc.html`
