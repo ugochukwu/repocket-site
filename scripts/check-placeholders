@@ -20,8 +20,6 @@ docs/guide/terminology.md § Placeholder):
     Web3Forms-backed waitlist form and repointed the nav and final CTAs at #waitlist. The
     deferred bead repocket-site-l60.3 restores real App Store CTAs once the app ships; the
     design brief explicitly says "leave the placeholder; do not invent an ID."
-  - `hello@repocket.app` — the contact address on privacy, support, and press. Resolves when
-    the inbox is set up owner-side. Ships as-is.
 
 Walks every tracked *.html file at the repo root and below (excluding .git, node_modules, and
 .claude). Design-Component prototypes (*.dc.html) under docs/design/ are also skipped, so a

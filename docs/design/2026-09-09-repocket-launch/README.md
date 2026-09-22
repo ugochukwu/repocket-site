@@ -32,7 +32,7 @@ Fonts load from Google Fonts (Bricolage Grotesque, Outfit). Everything else is s
 3. **Replace placeholders** in `index.html` (three occurrences) and nowhere else: `https://apps.apple.com/` → the real App Store URL once the app is live. Until then leave the placeholder; do not invent an ID.
 4. **Add `assets/og.png`** at 1200×630 for link previews: ink background, the mark, the line "Track what you borrowed from yourself." in Bricolage Grotesque 800, white. `index.html` already references it. If you cannot produce a raster image, remove the `og:image` meta tag rather than shipping a broken reference.
 5. **Custom domain (optional).** If a domain like `repocket.app` exists: add a `CNAME` file containing the bare domain, set the DNS `A` records to GitHub Pages' IPs (185.199.108–111.153) and `www` CNAME to `<user>.github.io`, then tick *Enforce HTTPS* once the certificate is issued.
-6. **Contact address.** `hello@repocket.app` appears in privacy, support and press. Confirm it exists or replace all occurrences.
+6. **Contact address.** `hello@getrepocket.com` appears in privacy, support and press. Confirm it exists before publishing.
 7. **Verify.** Open the Pages URL on a phone: hero fits one screen, the toggle switches every string, the story phone changes screens while scrolling, all four pages link to each other, `privacy.html` and `support.html` resolve (paste both into App Store Connect › App Information).
 
 ## Acceptance

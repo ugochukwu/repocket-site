@@ -78,8 +78,8 @@ concepts the same way.
       with a Web3Forms-backed waitlist form and repointed the nav and final CTAs at the
       form's `#waitlist` anchor. The deferred bead `repocket-site-l60.3` restores real App
       Store CTAs once the app ships.
-    - `hello@repocket.app` — the contact address on privacy, support, and press; resolves when
-      the inbox is set up owner-side. Ship as-is; no substitution.
+    - `hello@getrepocket.com` — the contact address on privacy, support, and press. Ensure the
+      inbox is configured before publishing.
 
 ## Deprecated — do not use
 
