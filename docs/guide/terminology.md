@@ -55,8 +55,8 @@ concepts the same way.
 
 ## This repo's own structural vocabulary
 
-- **Site payload** — the four HTML files (`index.html`, `privacy.html`, `support.html`,
-  `press.html`), `assets/mark.svg`, and `.nojekyll` at the repo root: the actual thing GitHub
+- **Site payload** — the five HTML files (`index.html`, `privacy.html`, `support.html`,
+  `press.html`, `impressum.html`), `assets/mark.svg`, and `.nojekyll` at the repo root: the actual thing GitHub
   Pages serves. Not "the build" (there is no build step) or "the deploy" (that is what Pages
   does with the payload).
 - **Design handoff** — the frozen brief and its `site/` reference copy under
