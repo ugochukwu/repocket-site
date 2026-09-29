@@ -19,7 +19,7 @@ brief's own README says "Copy the contents of `site/` to the repo root, includin
 `.nojekyll`." GitHub Pages serves branch `master`, path `/`, from the default `<user>.github.io/<repo>/`
 URL until a custom domain is added.
 
-- `index.html`, `privacy.html`, `support.html`, `press.html` — the four pages the site ships,
+- `index.html`, `privacy.html`, `support.html`, `press.html`, `impressum.html` — the five pages the site ships,
   each self-contained (inline `<style>` and `<script>`, no shared CSS/JS files).
 - `assets/mark.svg` — the app mark used for favicon, nav, footer.
 - `assets/og.png` (may be absent) — 1200×630 link-preview image referenced by `index.html`'s
