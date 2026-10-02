@@ -1,0 +1,31 @@
+repocket-site-eeh render checks (headless Chromium over CDP, local server, 2026-10-02)
+want = the beat centred in the viewport; phone = story phone data-scr; visible = the screen layer at opacity 1
+load en 1280 reduce=false broken-images=[]
+en 1280 hero home home.webp:1:640
+en 1280 beat1 want=log phone=log visible=scr s-log
+en 1280 beat2 want=home phone=home visible=scr s-home
+en 1280 beat3 want=widget phone=widget visible=scr s-widget
+en 1280 beat4 want=square phone=square visible=scr s-square
+load en 375 reduce=false broken-images=[]
+en 375 hero home home.webp:1:640
+en 375 beat1 want=log phone=log visible=scr s-log
+en 375 beat2 want=home phone=home visible=scr s-home
+en 375 beat3 want=widget phone=widget visible=scr s-widget
+en 375 beat4 want=square phone=square visible=scr s-square
+load de 1280 reduce=false broken-images=[]
+de 1280 hero home home.webp:1:640
+de 1280 beat1 want=log phone=log visible=scr s-log
+de 1280 beat2 want=home phone=home visible=scr s-home
+de 1280 beat3 want=widget phone=widget visible=scr s-widget
+de 1280 beat4 want=square phone=square visible=scr s-square
+load de 375 reduce=false broken-images=[]
+de 375 hero home home.webp:1:640
+de 375 beat1 want=log phone=log visible=scr s-log
+de 375 beat2 want=home phone=home visible=scr s-home
+de 375 beat3 want=widget phone=widget visible=scr s-widget
+de 375 beat4 want=square phone=square visible=scr s-square
+load en 1280 reduce=true broken-images=[]
+reduced-motion computed: up.opacity=1 up.animation=none reveal.opacity=1 reveal.transition=0s scr.transition=0.45s
+reduced-motion beat3 want=widget phone=widget
+gif frames 90 from y=898 to 2692
+console errors and failed requests in these runs: none
