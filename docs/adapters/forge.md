@@ -62,8 +62,12 @@ Differences from the Forgejo original, on purpose:
   derives the bead id from `head` (`bd/repocket-site-<id>` or `bd/dev/repocket-site-<id>`, read
   from `bd config get issue_prefix` rather than hardcoded) and checks `git ls-files` for that
   bead's `docs/qa-screenshots/<bead-id>/` on the current tree. If any image file is there, the
-  resolved body must embed at least one inline (`![alt](url.png)` or `<img src="...">`) — a
-  plain path reference does not count.
+  resolved body must embed at least one inline image (`![alt](url.png)` or `<img src="...">`)
+  with an ABSOLUTE, inline-renderable URL: `https://raw.githubusercontent.com/<owner>/<repo>/refs/heads/<head>/<path>`,
+  `https://github.com/<owner>/<repo>/raw/...`, `https://user-images.githubusercontent.com/...`,
+  or `https://github.com/user-attachments/...`. A plain path reference or a relative path
+  (`docs/qa-screenshots/<bead>/foo.png`) does not render in a PR body, so it is rejected; the
+  error prints the exact raw URL to use for each committed screenshot.
 - **`pr-create` always requests a reviewer**: every PR is opened with `--reviewer "$FORGE_REVIEWER"`
   (default `ugochukwu`), so a human review is on record regardless of the merge path.
 
