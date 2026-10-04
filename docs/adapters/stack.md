@@ -1,7 +1,7 @@
 ---
 title: Stack adapter
 summary: Every command an agent runs against Repocket-site's code — build, test, lint, the CI-mirror quality gate, running the site, and the UI render check.
-updated: 2026-10-02
+updated: 2026-10-04
 status: living
 ---
 
@@ -99,7 +99,7 @@ locally before trusting the check, per the kit's usual practice:
   card slid in) is gone with the drawn screens.
 - Lighthouse: Performance ≥ 95, Accessibility ≥ 95, no console errors (per the design brief's
   acceptance criteria). Run Lighthouse against the local server; attach the score screenshot.
-- No JS unit tests exist yet; if a page grows real interactive logic beyond the three
+- No JS unit tests exist yet; if a page grows real interactive logic beyond the two
   animations (a form handler, additional stateful UI), add a test harness and record it here
   in the same change.
 
