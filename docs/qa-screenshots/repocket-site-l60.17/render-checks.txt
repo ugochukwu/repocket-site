@@ -1,0 +1,74 @@
+repocket-site-l60.17 render checks (headless Chromium via Playwright, local python http.server, 2026-10-04)
+before = origin/master 53443b0 served from an archive copy; after = this branch working tree
+before en 375 alt scr s-home :: Repocket's Owed screen: €165.50 to return across 2 open debts. Groceries owes Vacation €45.50 since Wed 2 Sep, and Kids owes Home €120.00 since Fri 28 Aug.
+before en 375 alt scr s-log :: Repocket's Log sheet in Borrow mode: €30.00, paid from Vacation, should have come from Groceries, dated Mon 7 Sep, with the number pad open.
+before en 375 alt scr s-home :: Repocket's Owed screen: €165.50 to return across 2 open debts. Groceries owes Vacation €45.50 since Wed 2 Sep, and Kids owes Home €120.00 since Fri 28 Aug.
+before en 375 alt  :: Repocket's Owed widget on the Home Screen: €165.50 to return, Kids to Home €120.00 for 10 days and Groceries to Vacation €45.50 for 5 days, each with a Settled checkmark button.
+before en 375 alt scr s-square :: Repocket's Owed screen with no open debts: Everything is square.
+before en 375 reduce=False console-errors/failed=[]
+before en 375 reduce=True console-errors/failed=[]
+before en 1280 beat1 want=log phone=log copy: TUESDAY, 18:40 | The groceries pocket is empty. The card in your hand is Vacation. | €30 at the till. You'll move it back later. You open Repocket on the way to the car and log it in one sentence: paid from Vacation, should have come from Groceries.
+before en 1280 beat2 want=home phone=home copy: TWO WEEKS LATER | Nobody else wrote it down. | The bank saw one card and one shop. Your pockets look fine and they are lying. Repocket shows who owes whom, how much, since when. No balances, no budgets: just the debts between your own pockets.
+before en 1280 beat3 want=widget phone=widget copy: PAYDAY | Move the money back. Tap Settled. | You transfer €30 at the bank. On the widget, one tap marks it settled. The row disappears.
+before en 1280 beat4 want=square phone=square copy: MONTH END | Everything is square. | That is the whole app. It does one thing the bank cannot see, and gets out of the way.
+before en 1280 alt scr s-home :: Repocket's Owed screen: €165.50 to return across 2 open debts. Groceries owes Vacation €45.50 since Wed 2 Sep, and Kids owes Home €120.00 since Fri 28 Aug.
+before en 1280 alt scr s-log :: Repocket's Log sheet in Borrow mode: €30.00, paid from Vacation, should have come from Groceries, dated Mon 7 Sep, with the number pad open.
+before en 1280 alt scr s-home :: Repocket's Owed screen: €165.50 to return across 2 open debts. Groceries owes Vacation €45.50 since Wed 2 Sep, and Kids owes Home €120.00 since Fri 28 Aug.
+before en 1280 alt  :: Repocket's Owed widget on the Home Screen: €165.50 to return, Kids to Home €120.00 for 10 days and Groceries to Vacation €45.50 for 5 days, each with a Settled checkmark button.
+before en 1280 alt scr s-square :: Repocket's Owed screen with no open debts: Everything is square.
+before en 1280 reduce=False console-errors/failed=[]
+before en 1280 reduce=True console-errors/failed=[]
+before de 375 alt scr s-home :: Der Bildschirm Geschuldet in Repocket: 165,50 € zurückzulegen in 2 offenen Schulden. Groceries schuldet Vacation 45,50 € seit Mi. 2. Sep., und Kids schuldet Home 120,00 € seit Fr. 28. Aug.
+before de 375 alt scr s-log :: Das Eintragen-Blatt in Repocket im Modus Leihe: 30,00 €, bezahlt von Vacation, hätte kommen sollen von Groceries, am Mo. 7. Sep., mit offenem Ziffernblock.
+before de 375 alt scr s-home :: Der Bildschirm Geschuldet in Repocket: 165,50 € zurückzulegen in 2 offenen Schulden. Groceries schuldet Vacation 45,50 € seit Mi. 2. Sep., und Kids schuldet Home 120,00 € seit Fr. 28. Aug.
+before de 375 alt  :: Das Repocket-Widget Geschuldet auf dem Home-Bildschirm: 165,50 € zurückzulegen, Kids an Home 120,00 € seit 10 Tagen und Groceries an Vacation 45,50 € seit 5 Tagen, jeweils mit einem Häkchen zum Ausgleichen.
+before de 375 alt scr s-square :: Der Bildschirm Geschuldet in Repocket ohne offene Schulden: Alles ausgeglichen.
+before de 375 reduce=False console-errors/failed=[]
+before de 375 reduce=True console-errors/failed=[]
+before de 1280 beat1 want=log phone=log copy: DIENSTAG, 18:40 | Die Lebensmittel-Tasche ist leer. Die Karte in deiner Hand ist Urlaub. | 30 € an der Kasse. Du buchst es später zurück. Auf dem Weg zum Auto trägst du es in einem Satz ein: bezahlt aus Urlaub, hätte aus Lebensmittel kommen sollen.
+before de 1280 beat2 want=home phone=home copy: ZWEI WOCHEN SPÄTER | Sonst hat es niemand notiert. | Die Bank hat eine Karte und einen Laden gesehen. Deine Taschen sehen in Ordnung aus und lügen. Repocket zeigt, wer wem was schuldet, wie viel, seit wann. Keine Salden, keine Budgets: nur die Schulden zwischen deinen eigenen Taschen.
+before de 1280 beat3 want=widget phone=widget copy: ZAHLTAG | Geld zurückbuchen. Auf Erledigt tippen. | Du überweist 30 € bei der Bank. Im Widget ein Tipp, und die Schuld ist ausgeglichen. Die Zeile verschwindet.
+before de 1280 beat4 want=square phone=square copy: MONATSENDE | Alles ausgeglichen. | Das ist die ganze App. Sie tut das eine, was die Bank nicht sehen kann, und geht dann aus dem Weg.
+before de 1280 alt scr s-home :: Der Bildschirm Geschuldet in Repocket: 165,50 € zurückzulegen in 2 offenen Schulden. Groceries schuldet Vacation 45,50 € seit Mi. 2. Sep., und Kids schuldet Home 120,00 € seit Fr. 28. Aug.
+before de 1280 alt scr s-log :: Das Eintragen-Blatt in Repocket im Modus Leihe: 30,00 €, bezahlt von Vacation, hätte kommen sollen von Groceries, am Mo. 7. Sep., mit offenem Ziffernblock.
+before de 1280 alt scr s-home :: Der Bildschirm Geschuldet in Repocket: 165,50 € zurückzulegen in 2 offenen Schulden. Groceries schuldet Vacation 45,50 € seit Mi. 2. Sep., und Kids schuldet Home 120,00 € seit Fr. 28. Aug.
+before de 1280 alt  :: Das Repocket-Widget Geschuldet auf dem Home-Bildschirm: 165,50 € zurückzulegen, Kids an Home 120,00 € seit 10 Tagen und Groceries an Vacation 45,50 € seit 5 Tagen, jeweils mit einem Häkchen zum Ausgleichen.
+before de 1280 alt scr s-square :: Der Bildschirm Geschuldet in Repocket ohne offene Schulden: Alles ausgeglichen.
+before de 1280 reduce=False console-errors/failed=[]
+before de 1280 reduce=True console-errors/failed=[]
+after en 375 alt scr s-home :: Repocket's Owed screen: €165.50 across 2 open debts. Groceries owes Vacation €45.50 since Wed 2 Sep, and Kids owes Home €120.00 since Fri 28 Aug.
+after en 375 alt scr s-log :: Repocket's Log sheet in Borrow mode: €30.00, paid from Vacation, should have come from Groceries, dated Mon 7 Sep, with the number pad open.
+after en 375 alt scr s-home :: Repocket's Owed screen: €165.50 across 2 open debts. Groceries owes Vacation €45.50 since Wed 2 Sep, and Kids owes Home €120.00 since Fri 28 Aug.
+after en 375 alt  :: Repocket's Owed widget: €165.50 to return, Kids to Home €120.00 for 10 days and Groceries to Vacation €45.50 for 5 days, each with a Settled checkmark button.
+after en 375 alt scr s-square :: Repocket's Owed screen: Everything is square.
+after en 375 reduce=False console-errors/failed=[]
+after en 375 reduce=True console-errors/failed=[]
+after en 1280 beat1 want=log phone=log copy: MONDAY, 09:41 | The groceries pocket is empty. The card in your hand is Vacation. | €30 at the till. You'll move it back later. You open Repocket on the way to the car and log it in one sentence: paid from Vacation, should have come from Groceries.
+after en 1280 beat2 want=home phone=home copy: TWO WEEKS LATER | Nobody else wrote it down. | The bank saw one card and one shop. Your pockets look fine and they are lying. Repocket shows who owes whom, how much, since when. No balances, no budgets: just the debts between your own pockets.
+after en 1280 beat3 want=widget phone=widget copy: PAYDAY | Move the money back. Tap Settled. | You transfer €45.50 at the bank. On the widget, one tap marks it settled. The row disappears.
+after en 1280 beat4 want=square phone=square copy: MONTH END | Everything is square. | That is the whole app. It does one thing the bank cannot see, and gets out of the way.
+after en 1280 alt scr s-home :: Repocket's Owed screen: €165.50 across 2 open debts. Groceries owes Vacation €45.50 since Wed 2 Sep, and Kids owes Home €120.00 since Fri 28 Aug.
+after en 1280 alt scr s-log :: Repocket's Log sheet in Borrow mode: €30.00, paid from Vacation, should have come from Groceries, dated Mon 7 Sep, with the number pad open.
+after en 1280 alt scr s-home :: Repocket's Owed screen: €165.50 across 2 open debts. Groceries owes Vacation €45.50 since Wed 2 Sep, and Kids owes Home €120.00 since Fri 28 Aug.
+after en 1280 alt  :: Repocket's Owed widget: €165.50 to return, Kids to Home €120.00 for 10 days and Groceries to Vacation €45.50 for 5 days, each with a Settled checkmark button.
+after en 1280 alt scr s-square :: Repocket's Owed screen: Everything is square.
+after en 1280 reduce=False console-errors/failed=[]
+after en 1280 reduce=True console-errors/failed=[]
+after de 375 alt scr s-home :: Der Bildschirm Geschuldet in Repocket: 165,50 € in 2 offenen Schulden. Groceries schuldet Vacation 45,50 € seit Mi. 2. Sep., und Kids schuldet Home 120,00 € seit Fr. 28. Aug.
+after de 375 alt scr s-log :: Das Eintragen-Blatt in Repocket im Modus Leihe: 30,00 €, bezahlt von Vacation, hätte kommen sollen von Groceries, am Mo. 7. Sep., mit offenem Ziffernblock.
+after de 375 alt scr s-home :: Der Bildschirm Geschuldet in Repocket: 165,50 € in 2 offenen Schulden. Groceries schuldet Vacation 45,50 € seit Mi. 2. Sep., und Kids schuldet Home 120,00 € seit Fr. 28. Aug.
+after de 375 alt  :: Das Repocket-Widget Geschuldet: 165,50 € zurückzulegen, Kids an Home 120,00 € seit 10 Tagen und Groceries an Vacation 45,50 € seit 5 Tagen, jeweils mit einem Häkchen zum Ausgleichen.
+after de 375 alt scr s-square :: Der Bildschirm Geschuldet in Repocket: Alles ausgeglichen.
+after de 375 reduce=False console-errors/failed=[]
+after de 375 reduce=True console-errors/failed=[]
+after de 1280 beat1 want=log phone=log copy: MONTAG, 09:41 | Die Lebensmittel-Tasche ist leer. Die Karte in deiner Hand ist Urlaub. | 30 € an der Kasse. Du buchst es später zurück. Auf dem Weg zum Auto trägst du es in einem Satz ein: bezahlt aus Urlaub, hätte aus Lebensmittel kommen sollen.
+after de 1280 beat2 want=home phone=home copy: ZWEI WOCHEN SPÄTER | Sonst hat es niemand notiert. | Die Bank hat eine Karte und einen Laden gesehen. Deine Taschen sehen in Ordnung aus und lügen. Repocket zeigt, wer wem was schuldet, wie viel, seit wann. Keine Salden, keine Budgets: nur die Schulden zwischen deinen eigenen Taschen.
+after de 1280 beat3 want=widget phone=widget copy: ZAHLTAG | Geld zurückbuchen. Auf Erledigt tippen. | Du überweist 45,50 € bei der Bank. Im Widget ein Tipp, und die Schuld ist ausgeglichen. Die Zeile verschwindet.
+after de 1280 beat4 want=square phone=square copy: MONATSENDE | Alles ausgeglichen. | Das ist die ganze App. Sie tut das eine, was die Bank nicht sehen kann, und geht dann aus dem Weg.
+after de 1280 alt scr s-home :: Der Bildschirm Geschuldet in Repocket: 165,50 € in 2 offenen Schulden. Groceries schuldet Vacation 45,50 € seit Mi. 2. Sep., und Kids schuldet Home 120,00 € seit Fr. 28. Aug.
+after de 1280 alt scr s-log :: Das Eintragen-Blatt in Repocket im Modus Leihe: 30,00 €, bezahlt von Vacation, hätte kommen sollen von Groceries, am Mo. 7. Sep., mit offenem Ziffernblock.
+after de 1280 alt scr s-home :: Der Bildschirm Geschuldet in Repocket: 165,50 € in 2 offenen Schulden. Groceries schuldet Vacation 45,50 € seit Mi. 2. Sep., und Kids schuldet Home 120,00 € seit Fr. 28. Aug.
+after de 1280 alt  :: Das Repocket-Widget Geschuldet: 165,50 € zurückzulegen, Kids an Home 120,00 € seit 10 Tagen und Groceries an Vacation 45,50 € seit 5 Tagen, jeweils mit einem Häkchen zum Ausgleichen.
+after de 1280 alt scr s-square :: Der Bildschirm Geschuldet in Repocket: Alles ausgeglichen.
+after de 1280 reduce=False console-errors/failed=[]
+after de 1280 reduce=True console-errors/failed=[]
