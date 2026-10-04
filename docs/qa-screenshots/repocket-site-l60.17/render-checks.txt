@@ -72,3 +72,4 @@ after de 1280 alt  :: Das Repocket-Widget Geschuldet: 165,50 € zurückzulegen,
 after de 1280 alt scr s-square :: Der Bildschirm Geschuldet in Repocket: Alles ausgeglichen.
 after de 1280 reduce=False console-errors/failed=[]
 after de 1280 reduce=True console-errors/failed=[]
+qa re-capture: after-story-en-375.png re-rendered with lazy images forced eager and decoded (the dev's copy caught the phone before the Log capture loaded); phone=log, sticky nav hidden for the section shot
