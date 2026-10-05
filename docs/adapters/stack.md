@@ -1,7 +1,7 @@
 ---
 title: Stack adapter
 summary: Every command an agent runs against Repocket-site's code — build, test, lint, the CI-mirror quality gate, running the site, and the UI render check.
-updated: 2026-10-02
+updated: 2026-10-05
 status: living
 ---
 
@@ -56,7 +56,7 @@ cheapest first.
   `*.html` file (excluding the frozen design prototypes under `docs/design/**/*.dc.html`
   and QA render-evidence HTML under `docs/qa-screenshots/**/`). The `no-implicit-button-type`
   and `no-inline-style` rules are disabled in `.htmlvalidate.json` because the shipped site
-  uses `<button>` outside a form (the language toggle in the nav) and a small number of
+  uses `<button>` outside a form (the language switcher, hidden while `SHOW_LANGUAGE_SWITCHER` is `false`) and a small number of
   spot-tweak inline styles that the design brief locks in; both rules would flag on
   design-locked markup that cannot change.
 - render: serve the site locally (see **Run the app** below) and load the changed page(s) in a
@@ -88,9 +88,11 @@ locally before trusting the check, per the kit's usual practice:
 - Trigger paths: `*.html`, `assets/**`.
 - Harness: start the local server above, then use the browser preview tool
   (`preview_start`/`navigate`/`computer` screenshot) to load the changed page(s) at both a
-  mobile width (375px) and a desktop width (1280px), for **both EN and DE** (the language
-  toggle is in the header of every page). Take a screenshot of each changed page at each
-  width, in each language, as evidence.
+  mobile width (375px) and a desktop width (1280px), in English (every page always
+  renders English and shows no language switcher while `SHOW_LANGUAGE_SWITCHER` is `false` in each
+  page's script; check once with a German browser language and with `rp-lang=de` pre-set that English
+  still shows). Take a screenshot of each changed page at each
+  width, as evidence.
 - Repocket has two JS animations to verify: (1) the sticky phone switching screens as the
   story scrolls; (2) fade-up reveals. Both must respect `prefers-reduced-motion`. Verify by
   emulating reduced-motion in DevTools and confirming the page is fully rendered with no
