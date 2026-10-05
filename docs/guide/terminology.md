@@ -1,7 +1,7 @@
 ---
 title: Terminology
 summary: Repocket's binding domain language for code, docs, ADRs, bead titles, and PR text.
-updated: 2026-10-02
+updated: 2026-10-05
 status: draft
 ---
 
@@ -20,7 +20,7 @@ concepts the same way.
 
 ## Product identity
 
-- **Repocket**: the product name; iPhone app; free with 3 pockets, €4.99 once for the rest (one-time unlock), no subscription.
+- **Repocket**: the product name; iPhone app; free with 3 pockets, €4.99 once for the rest (one-time unlock).
   Tagline: "Track what you borrowed from yourself." Not "Re-pocket", not "RePocket", not
   "repocket.app" as a name (that is the domain; the app is Repocket).
 
@@ -50,8 +50,12 @@ concepts the same way.
   emoji, no trailing dots (…).
 - No em dashes and no en dashes anywhere in committed copy. Use commas, parentheses, colons,
   or separate sentences.
-- Never call the app a "budget tracker" or "expense tracker". The brief is explicit:
-  "No balances, no budgets: just the debts between your own pockets."
+- Never call the app a "budget tracker" or "expense tracker". Say what it is: "Just the debts
+  between your own pockets."
+- Describe only what Repocket is and does. Copy never states what it lacks, what is missing, or
+  what is "not yet" or "for now" (owner rule, 2026-10-05). It does not mention which
+  languages the app offers. Statements of data practice in `privacy.html` are the one exception, kept where they
+  are legally meaningful.
 
 ## This repo's own structural vocabulary
 
