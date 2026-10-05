@@ -83,7 +83,6 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
   <a class="brand" href="#"><img src="assets/mark.svg" alt="">Repocket</a>
   <a class="mugo" href="https://mugoworks.com"><img src="assets/mark-on-light.svg" width="13" height="13" alt="mugo works mark"><span class="mugo-label">BY MUGO WORKS</span></a>
  </div>
- <div class="lang" role="group" aria-label="Language"><button data-set="en" aria-pressed="true">EN</button><button data-set="de" aria-pressed="false">DE</button></div>
 </div></nav>
 
 <header class="wrap hero">
@@ -191,10 +190,7 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
 
 <script>
 (function(){
- var html=document.documentElement, saved=null; try{saved=localStorage.getItem('rp-lang')}catch(e){}
- var lang=saved||((navigator.language||'').slice(0,2)==='de'?'de':'en');
- function set(l){html.setAttribute('data-lang',l);html.lang=l;document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.set===l))});try{localStorage.setItem('rp-lang',l)}catch(e){}}
- set(lang); document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.set)})});
+ /* German release: set SHOW_LANGUAGE_SWITCHER to true to show the EN/DE switcher and follow the saved or browser language. */var SHOW_LANGUAGE_SWITCHER=false,h=document.documentElement,s=null;function set(l){h.setAttribute('data-lang',l);h.lang=l;document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.set===l))});if(SHOW_LANGUAGE_SWITCHER){try{localStorage.setItem('rp-lang',l)}catch(e){}}}if(!SHOW_LANGUAGE_SWITCHER){try{localStorage.removeItem('rp-lang')}catch(e){}set('en')}else{try{s=localStorage.getItem('rp-lang')}catch(e){}var d=document.createElement('div');d.className='lang';d.setAttribute('role','group');d.setAttribute('aria-label','Language');d.innerHTML='<button data-set="en" aria-pressed="true">EN</button><button data-set="de" aria-pressed="false">DE</button>';document.querySelector('nav .wrap').appendChild(d);set(s||((navigator.language||'').slice(0,2)==='de'?'de':'en'));d.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.set)})})}
  // reveal on scroll
  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -12% 0px'});
  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
