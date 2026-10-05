@@ -30,7 +30,11 @@
 #                                               call. Refuses (exit 1, no PR opened, missed files
 #                                               listed) when the head branch's bead id has
 #                                               committed files under docs/qa-screenshots/<bead-
-#                                               id>/ and the body has no inline image markdown
+#                                               id>/ and the body has no ABSOLUTE inline image
+#                                               embed (raw.githubusercontent.com or GitHub
+#                                               user-content URL; relative paths do not render in
+#                                               a PR body and are rejected, with the exact raw URL
+#                                               to use printed per screenshot)
 #                                               (pr-body-embeds-comparison-shots).
 #   forge pr-edit <pr> <body>                   Replace the PR description.
 #   forge label <pr> <label> [label ...]        Add labels to a PR.
@@ -122,11 +126,26 @@ bodyfile() { # bodyfile <resolved-text>  -> prints temp file path
   printf '%s' "$f"
 }
 
-# Inline image markdown (![alt](url.png)) or an HTML <img src="...">/<img src='...'>, url
-# ending in one of the screenshot extensions we treat as visual evidence.
-QA_BODY_IMG_RE='!\[[^]]*\]\([^)]*\.(png|jpg|jpeg|gif|webp)[^)]*\)'
-QA_BODY_IMG_RE="$QA_BODY_IMG_RE"'|<img[^>]*src="[^"]*\.(png|jpg|jpeg|gif|webp)[^"]*"'
-QA_BODY_IMG_RE="$QA_BODY_IMG_RE""|<img[^>]*src='[^']*\\.(png|jpg|jpeg|gif|webp)[^']*'"
+# Inline-renderable image embeds in a PR body: markdown (![alt](url)) or HTML <img src="...">
+# (single or double quotes) whose URL is ABSOLUTE and on a host GitHub renders inline:
+# raw.githubusercontent.com, the user-images CDNs, github.com/<owner>/<repo>/raw/..., or
+# github.com/user-attachments/... (the last carries no file extension). A relative path such
+# as docs/qa-screenshots/<bead>/foo.png does NOT render inline in a PR body, so it never counts.
+QA_IMG_HOSTS='https://(raw\.githubusercontent\.com/|(private-)?user-images\.githubusercontent\.com/|github\.com/[^/ )"'"'"']+/[^/ )"'"'"']+/raw/)'
+QA_IMG_EXT='[^)"'"'"' ]*\.(png|jpg|jpeg|gif|webp)'
+QA_ATTACH='https://github\.com/user-attachments/[^)"'"'"' ]+'
+QA_BODY_IMG_RE="!\\[[^]]*\\]\\(($QA_IMG_HOSTS$QA_IMG_EXT|$QA_ATTACH)[^)]*\\)"
+QA_BODY_IMG_RE="$QA_BODY_IMG_RE|<img[^>]*src=\"($QA_IMG_HOSTS$QA_IMG_EXT|$QA_ATTACH)[^\"]*\""
+QA_BODY_IMG_RE="$QA_BODY_IMG_RE|<img[^>]*src='($QA_IMG_HOSTS$QA_IMG_EXT|$QA_ATTACH)[^']*'"
+
+# Any image embed at all (absolute or relative), used only to word the rejection message.
+QA_BODY_ANY_IMG_RE='!\[[^]]*\]\([^)]*\.(png|jpg|jpeg|gif|webp)[^)]*\)|<img[^>]*src=["'"'"'][^"'"'"']*\.(png|jpg|jpeg|gif|webp)'
+
+# body_has_inline_embed <body>: exit 0 when the body embeds at least one absolute,
+# inline-renderable image (the decision at the heart of pr-body-embeds-comparison-shots).
+body_has_inline_embed() {
+  printf '%s' "$1" | grep -qiE "$QA_BODY_IMG_RE"
+}
 
 # This project's bead-id prefix (bd/<prefix>-<id> branch names), read from the
 # beads (bd) database rather than hardcoded, so it can never drift out of sync
@@ -157,12 +176,19 @@ check_qa_screenshots() {
   shots=$(git ls-files -- "docs/qa-screenshots/$bead_id" 2>/dev/null | grep -iE '\.(png|jpg|jpeg|gif|webp)$') || true
   [ -n "$shots" ] || return 0
 
-  printf '%s' "$body" | grep -qiE "$QA_BODY_IMG_RE" && return 0
+  body_has_inline_embed "$body" && return 0
 
+  local slug; slug=$(repo_slug 2>/dev/null) || slug="<owner>/<repo>"
   {
-    echo "forge: docs/qa-screenshots/$bead_id/ has screenshot evidence but the PR body has no inline image markdown."
-    echo "Embed at least one of these before opening the PR (pr-body-embeds-comparison-shots):"
-    printf '%s\n' "$shots" | sed 's/^/  /'
+    if printf '%s' "$body" | grep -qiE "$QA_BODY_ANY_IMG_RE"; then
+      echo "forge: the PR body embeds images, but none is an absolute inline-renderable URL (relative paths do not render in a PR body)."
+    else
+      echo "forge: docs/qa-screenshots/$bead_id/ has screenshot evidence but the PR body has no inline image markdown."
+    fi
+    echo "Embed at least one using its raw.githubusercontent.com URL for the head branch (pr-body-embeds-comparison-shots):"
+    printf '%s\n' "$shots" | while IFS= read -r shot; do
+      printf '  ![%s](https://raw.githubusercontent.com/%s/refs/heads/%s/%s)\n' "$(basename "$shot")" "$slug" "$head" "$shot"
+    done
   } >&2
   return 1
 }
