@@ -1,7 +1,7 @@
 ---
 title: Stack adapter
 summary: Every command an agent runs against Repocket-site's code — build, test, lint, the CI-mirror quality gate, running the site, and the UI render check.
-updated: 2026-09-09
+updated: 2026-10-05
 status: living
 ---
 
@@ -25,6 +25,10 @@ URL until a custom domain is added.
 - `assets/og.png` (may be absent) — 1200×630 link-preview image referenced by `index.html`'s
   `og:image` meta tag; the brief allows either producing it or removing the meta tag rather
   than shipping a broken reference.
+- `assets/screens/<locale>/` holds the landing page's phone screens: real app captures from the
+  app repo's App Store screenshot pipeline (`home`, `log`, `widget-large`, `all-square`), resized
+  to about 2x the drawn phone's rendered width and saved as WebP. Only `en-GB` exists today; both
+  languages show it until German captures exist.
 - `.nojekyll` — **required** at the repo root. GitHub Pages' legacy build type runs Jekyll by
   default, and this repo's docs (`docs/**/*.md`) carry `---` frontmatter that Jekyll would
   otherwise try to build into pages. `.nojekyll` disables that processing entirely so Pages
@@ -52,13 +56,12 @@ cheapest first.
   `*.html` file (excluding the frozen design prototypes under `docs/design/**/*.dc.html`
   and QA render-evidence HTML under `docs/qa-screenshots/**/`). The `no-implicit-button-type`
   and `no-inline-style` rules are disabled in `.htmlvalidate.json` because the shipped site
-  uses `<button>` outside a form (the language toggle in the nav) and a small number of
+  uses `<button>` outside a form (the language switcher, hidden while `SHOW_LANGUAGE_SWITCHER` is `false`) and a small number of
   spot-tweak inline styles that the design brief locks in; both rules would flag on
   design-locked markup that cannot change.
 - render: serve the site locally (see **Run the app** below) and load the changed page(s) in a
-  browser — for a static site with three JS animations (hero count-up, sticky phone
-  screen-switching, fade-up reveals), the running page IS the test. There is no headless test
-  runner yet.
+  browser. For a static site with two JS animations (sticky phone screen-switching, fade-up
+  reveals), the running page IS the test. There is no headless test runner yet.
 
 ## Quality gate (the CI mirror)
 
@@ -85,16 +88,20 @@ locally before trusting the check, per the kit's usual practice:
 - Trigger paths: `*.html`, `assets/**`.
 - Harness: start the local server above, then use the browser preview tool
   (`preview_start`/`navigate`/`computer` screenshot) to load the changed page(s) at both a
-  mobile width (375px) and a desktop width (1280px), for **both EN and DE** (the language
-  toggle is in the header of every page). Take a screenshot of each changed page at each
-  width, in each language, as evidence.
-- Repocket has three JS animations to verify: (1) the hero total count-up with the second
-  debt card sliding in; (2) the sticky phone switching screens as the story scrolls; (3)
-  fade-up reveals. All must respect `prefers-reduced-motion`. Verify by emulating
-  reduced-motion in DevTools and confirming the page is fully rendered with no animation.
+  mobile width (375px) and a desktop width (1280px), in English (every page always
+  renders English and shows no language switcher while `SHOW_LANGUAGE_SWITCHER` is `false` in each
+  page's script; check once with a German browser language and with `rp-lang=de` pre-set that English
+  still shows). Take a screenshot of each changed page at each
+  width, as evidence.
+- Repocket has two JS animations to verify: (1) the sticky phone switching screens as the
+  story scrolls; (2) fade-up reveals. Both must respect `prefers-reduced-motion`. Verify by
+  emulating reduced-motion in DevTools and confirming the page is fully rendered with no
+  animation. The phone screens are real app captures (WebP under `assets/screens/en-GB/`),
+  not drawn HTML, so the earlier hero count-up (a drawn total counting up while a second debt
+  card slid in) is gone with the drawn screens.
 - Lighthouse: Performance ≥ 95, Accessibility ≥ 95, no console errors (per the design brief's
   acceptance criteria). Run Lighthouse against the local server; attach the score screenshot.
-- No JS unit tests exist yet; if a page grows real interactive logic beyond the three
+- No JS unit tests exist yet; if a page grows real interactive logic beyond the two
   animations (a form handler, additional stateful UI), add a test harness and record it here
   in the same change.
 
