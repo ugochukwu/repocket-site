@@ -101,7 +101,7 @@ locally before trusting the check, per the kit's usual practice:
   card slid in) is gone with the drawn screens.
 - Lighthouse: Performance ≥ 95, Accessibility ≥ 95, no console errors (per the design brief's
   acceptance criteria). Run Lighthouse against the local server; attach the score screenshot.
-- No JS unit tests exist yet; if a page grows real interactive logic beyond the three
+- No JS unit tests exist yet; if a page grows real interactive logic beyond the two
   animations (a form handler, additional stateful UI), add a test harness and record it here
   in the same change.
 
