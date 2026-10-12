@@ -20,7 +20,8 @@ concepts the same way.
 
 ## Product identity
 
-- **Repocket**: the product name; iPhone app; free with 3 pockets, €4.99 once for the rest (one-time unlock).
+- **Repocket**: the product name; iPhone app; free with 3 pockets, $4.99 once for the rest (one-time unlock).
+  English copy prices the unlock in US dollars (`$4.99`), German copy in euros (`4,99 €`).
   Tagline: "Track what you borrowed from yourself." Not "Re-pocket", not "RePocket", not
   "repocket.app" as a name (that is the domain; the app is Repocket).
 
