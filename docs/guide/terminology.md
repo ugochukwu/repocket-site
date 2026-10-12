@@ -30,17 +30,40 @@ concepts the same way.
 - **Pocket** — a single named allocation the user keeps at their bank (e.g. Groceries, Vacation,
   Kids, Home). The primary domain object. Never "envelope", "bucket", "category", or "account".
 - **Debt**: an amount one pocket owes another because the other pocket covered for it (Vacation
-  covers for Groceries, so Groceries owes Vacation). Rendered on the app
-  as `<Pocket A> owes <Pocket B> €X.XX since <date>`. Never "loan", "iou", "transaction",
-  "expense", "balance".
-- **Log** — the act of recording a debt at the checkout ("paid from Vacation, should have come
-  from Groceries"). Both a noun (the log surface in the app) and a verb (to log a debt). Never
-  "add", "capture", "record" for the primary action.
+  covers for Groceries, so Groceries owes Vacation). Since 1.0.1 the app renders it as
+  `<Pocket B> covered <Pocket A>`, the pocket that paid first, with the amount and its since date;
+  English copy says it the same way (see [App copy vocabulary](#app-copy-vocabulary)). Never
+  "loan", "iou", "transaction", "expense", "balance".
+- **Log**: the act of recording a debt at the checkout ("paid from Vacation, covering for
+  Groceries", the Log sheet's labels since 1.0.1). Both a noun (the log surface in the app) and a
+  verb (to log a debt; English copy says "log a cover"). Never "add", "capture", "record" for the
+  primary action.
 - **Move back** / **return** / **settle** — three moments of the same act: transfer the money
   at the bank to zero out the debt, then tap the row settled in the app. The site's copy uses
   all three; keep the phrasing per the brief, do not collapse them.
-- **Widget** — the Home Screen widget with the "one open debt / owed" summary and the settle
-  tap. Uses the same nouns as the app.
+- **Widget**: the Home Screen widget with the "To settle" summary ("$165.50 to settle") and the
+  settle tap. Uses the same words as the app.
+
+## App copy vocabulary
+
+Since 1.0.1 (owner decision 2026-10-12, app bead repocket-mwd8) the app says the facts above in
+other words, and the site's English copy follows it. A visitor never reads borrow, owe or debt:
+one pocket "covered" another, and whatever is still open is "to settle". The domain terms above
+stay the names in this repo's docs, code and beads. German copy keeps its own wording.
+
+The direction rule: "X owes Y" reads "Y covered X", because Y is the pocket that paid. The pocket
+that paid comes first.
+
+| Domain term | What the English copy says | Example |
+|-------------|----------------------------|---------|
+| borrow | cover, covered | "Log the cover", the Log switch "Cover / Move back" |
+| debt, "X owes Y" | "Y covered X" | "Vacation covered Groceries for $45.50, since Wednesday." |
+| owed (a total) | to settle | the Home and widget title "To settle", "$165.50 to settle" |
+| the Log sheet's two pockets | paid from, covering for | "Amount, paid from, covering for." |
+| a debt flipping | the direction flips | "Repocket warns you before the direction flips." |
+| asking Siri for the total | what's left to settle | "What's left to settle in Repocket?", "You have $165.50 to settle, 2 in all." |
+
+Return, move back and settle keep their meaning and stay in English copy.
 
 ## Voice constraints (binding on all site copy)
 
@@ -52,8 +75,8 @@ concepts the same way.
   emoji, no trailing dots (…).
 - No em dashes and no en dashes anywhere in committed copy. Use commas, parentheses, colons,
   or separate sentences.
-- Never call the app a "budget tracker" or "expense tracker". Say what it is: "Just the debts
-  between your own pockets."
+- Never call the app a "budget tracker" or "expense tracker". Say what it is: "a ledger for
+  what's left to settle between your own pockets."
 - Describe only what Repocket is and does. Copy never states what it lacks, what is missing, or
   what is "not yet" or "for now" (owner rule, 2026-10-05). It does not mention which
   languages the app offers. Statements of data practice in `privacy.html` are the one exception, kept where they
@@ -92,7 +115,8 @@ concepts the same way.
 | Banned term | Use instead |
 |-------------|-------------|
 | envelope, bucket, category (for a pocket) | pocket |
-| iou, loan, transaction, expense (for a debt) | debt |
-| balance, budget (for what the app tracks) | debt |
+| iou, loan, transaction, expense (for a debt) | debt (docs); the [App copy vocabulary](#app-copy-vocabulary) in English copy |
+| balance, budget (for what the app tracks) | debt (docs); the [App copy vocabulary](#app-copy-vocabulary) in English copy |
+| borrow, borrowed, owe, owes, owed, owing, debt, lent (in English copy, alt text and meta, since 2026-10-12) | cover, covered, to settle, as in the [App copy vocabulary](#app-copy-vocabulary) |
 | Re-pocket, RePocket, repocket.app (as the product name) | Repocket |
 | feed / follow / discover (any social-network framing) | — none of these apply; the app is single-user |
