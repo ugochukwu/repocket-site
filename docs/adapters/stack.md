@@ -1,7 +1,7 @@
 ---
 title: Stack adapter
 summary: Every command an agent runs against Repocket-site's code — build, test, lint, the CI-mirror quality gate, running the site, and the UI render check.
-updated: 2026-10-05
+updated: 2026-10-12
 status: living
 ---
 
@@ -29,6 +29,13 @@ URL until a custom domain is added.
   app repo's App Store screenshot pipeline (`home`, `log`, `widget-large`, `all-square`), resized
   to about 2x the drawn phone's rendered width and saved as WebP. Only `en-GB` exists today; both
   languages show it until German captures exist.
+- `assets/press/` holds the press kit files that `press.html` shows and links: the en-US App
+  Store frames, app screens and widgets (PNG, copied unchanged from the app repo), the four
+  illustrations at 21:9, 16:9 and 3:2 (plus 1200px WebP previews for the page), the app icon (SVG,
+  a 1024 PNG and the three layer SVGs), the two small `-iphone.mp4` video previews with WebP
+  posters, and `README.txt`, `fact-sheet.txt` and `copy.txt`. The full-resolution MP4s and the
+  press ZIP are too large for the repo: they are prepared in `dist/press-kit-<date>/` (gitignored)
+  and published as the GitHub release `press-kit-<date>`, which the page's download links point at.
 - `.nojekyll` — **required** at the repo root. GitHub Pages' legacy build type runs Jekyll by
   default, and this repo's docs (`docs/**/*.md`) carry `---` frontmatter that Jekyll would
   otherwise try to build into pages. `.nojekyll` disables that processing entirely so Pages
@@ -99,6 +106,9 @@ locally before trusting the check, per the kit's usual practice:
   animation. The phone screens are real app captures (WebP under `assets/screens/en-GB/`),
   not drawn HTML, so the earlier hero count-up (a drawn total counting up while a second debt
   card slid in) is gone with the drawn screens.
+- `press.html` has its own small script: three screenshot tabs, a Copy description button, and
+  muted looping videos that it starts itself (or leaves paused, with controls, under
+  `prefers-reduced-motion`). Click each tab, use the copy button, and confirm the videos play.
 - Lighthouse: Performance ≥ 95, Accessibility ≥ 95, no console errors (per the design brief's
   acceptance criteria). Run Lighthouse against the local server; attach the score screenshot.
 - No JS unit tests exist yet; if a page grows real interactive logic beyond the two
