@@ -1,0 +1,45 @@
+$ python3 -I docs/qa-screenshots/repocket-site-543/check-vocab.py . 89fead5
+index.html: 103 English-visible strings checked, 0 with old words, 0 with an em or en dash
+  German: 80 data-l="de" subtrees, identical to 89fead5: True
+support.html: 35 English-visible strings checked, 0 with old words, 0 with an em or en dash
+  German: 3 data-l="de" subtrees, identical to 89fead5: True
+press.html: 192 English-visible strings checked, 0 with old words, 0 with an em or en dash
+  German: 0 data-l="de" subtrees, identical to 89fead5: True
+exit 0
+
+Before the change (89fead5), the same check:
+  index.html: 103 English-visible strings checked, 20 with old words, 0 with an em or en dash
+    line 101 img@alt: Repocket's Owed screen: $165.50 across 2 open debts. Groceries owes Vacation $45.50 since Wed 2 Sep, and Kids owes Home $120.00 since Fri 28 Aug.
+    line 111 text<span>: The bank only saw one card and one shop. Repocket shows which pocket owes which, how much, and since when.
+    line 117 img@alt: Repocket's Log sheet in Borrow mode: $45.50 paid from Vacation, covering for Groceries, dated Wed, Sep 2, with the number pad open.
+    line 118 img@alt: Repocket's Owed screen: $165.50 across 2 open debts. Groceries owes Vacation $45.50 since Wed 2 Sep, and Kids owes Home $120.00 since Fri 28 Aug.
+    line 119 img@alt: Repocket's Owed widget: $165.50 to return, Kids to Home $120.00 for 10 days and Groceries to Vacation $45.50 for 5 days, each with a Settled checkmark button.
+    line 120 img@alt: Repocket's Owed screen: Everything is square.
+    line 126 text<span>: Repocket stores entries. Debts, totals, since-dates and stats all fall out of the entries, so it is ready from the first one.
+    line 128 text<span>: Log the borrow
+    line 129 text<span>: See who owes whom
+    line 129 text<span>: Two borrows and a partial return between the same pockets collapse into one line: Groceries owes Vacation $45.50, since Wednesday.
+    line 130 text<span>: Log the return, or tap Mark settled. Return more than you owe and Repocket warns you before the debt flips.
+    line 134 text<span>: “What do I owe in Repocket?”
+    line 134 text<span>: “Groceries owes Vacation $45.50 and Kids owes Home $120.00. $165.50 to return.”
+    line 146 text<span>: The whole ledger, as long as you like: log borrows and returns, see what each pocket owes, settle, and export to CSV or JSON. The whole ledger stays on your iPh
+    line 148 text<span>: Archive a pocket once its debts are settled, and its slot opens for a new pocket. If you have a read-only pocket, that one takes the slot. Or unlock to lift the
+    line 165 text<span>: Repocket is a ledger for the debts between your own pockets. Your bank already keeps balances and budgets. Repocket records the one thing the bank cannot: when 
+    line 167 text<span>: Everything the ledger does, with up to three active pockets: log borrows and returns, see what each pocket owes, settle, open a pocket's details, and export to 
+    line 168 text<span>: What if I return more than I owe?
+    line 168 text<span>: Repocket warns you before saving, because the debt would flip direction. Say yes and the other pocket now owes the difference.
+    line 169 text<span>: Repocket is an iPhone app. It syncs across your own devices through iCloud and is about the debts between your own pockets.
+  support.html: 35 English-visible strings checked, 2 with old words, 0 with an em or en dash
+    line 17 text<p>: The free tier keeps three pockets active, and any pocket past that is read-only. Archive an active pocket you no longer need (once its debts are settled) and th
+    line 18 text<p>: Widgets are part of the one-time unlock. In the app, tap the Stats control (the bar chart with a lock) on the Owed screen to unlock.
+  press.html: 192 English-visible strings checked, 10 with old words, 0 with an em or en dash
+    line 54 text<span>: Log it in one line. Repocket works out which pocket owes which.
+    line 58 text<p>: Repocket helps you settle up with yourself. Spend from whichever bank pocket is handy, log it in a line, and Repocket keeps a running tally of which pocket owes
+    line 62 img@alt: Know what you owe yourself
+    line 62 text<span>: Know what you owe yourself
+    line 62 img@alt: Owed
+    line 62 text<span>: Owed
+    line 62 img@alt: Debt detail
+    line 62 text<span>: Debt detail
+    line 62 img@alt: Log a borrow
+    line 62 text<span>: Log a borrow
