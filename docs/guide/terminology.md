@@ -1,7 +1,7 @@
 ---
 title: Terminology
 summary: Repocket's binding domain language for code, docs, ADRs, bead titles, and PR text.
-updated: 2026-10-05
+updated: 2026-10-12
 status: draft
 ---
 
@@ -20,7 +20,8 @@ concepts the same way.
 
 ## Product identity
 
-- **Repocket**: the product name; iPhone app; free with 3 pockets, €4.99 once for the rest (one-time unlock).
+- **Repocket**: the product name; iPhone app; free with 3 pockets, $4.99 once for the rest (one-time unlock).
+  English copy prices the unlock in US dollars (`$4.99`), German copy in euros (`4,99 €`).
   Tagline: "Track what you borrowed from yourself." Not "Re-pocket", not "RePocket", not
   "repocket.app" as a name (that is the domain; the app is Repocket).
 
@@ -75,14 +76,14 @@ concepts the same way.
   together. Name any future mark+text composition `*-lockup` (e.g. `.footer-lockup`) so the
   grouping constraint is visible from the class name. Never "logo group", "brand block", or
   "badge" for these compositions.
-- **Placeholder** — a value in the shipped copy that resolves to something real later; two are
-  known at launch time:
-    - `https://apps.apple.com/` — App Store URL placeholder. **Currently zero occurrences in
-      `index.html`:** the coming-soon treatment shows a **Coming soon badge** (a non-interactive
-      `.store` pill reading "Coming soon to the App Store" / "Bald im App Store") in the hero
-      and the final CTA, and the nav carries no store button. The deferred bead
-      `repocket-site-l60.3` replaces the badge with real App Store CTAs once the app ships.
-    - `hello@getrepocket.com` — the contact address on privacy, support, and press. Ensure the
+- **App Store badge**: the `.store` pill link reading "Download on the App Store" / "Im App
+  Store laden", in the hero and the final CTA of `index.html`. It opens the live listing in the
+  same tab, in its storefront-neutral form `https://apps.apple.com/app/id6809761332`, so every
+  visitor lands on their own country's store; `press.html` links the same URL. The nav carries
+  no store button.
+- **Placeholder**: a value in the shipped copy that resolves to something real later; one is
+  known today:
+    - `hello@getrepocket.com`: the contact address on privacy, support, and press. Ensure the
       inbox is configured before publishing.
 
 ## Deprecated — do not use

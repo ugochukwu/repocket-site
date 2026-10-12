@@ -55,8 +55,8 @@ The cheapest real checks a dev-implementer runs before handing off. One command 
 cheapest first.
 
 - lint: `npm run lint` — runs `scripts/check-placeholders` (fails if any tracked `*.html`
-  carries a bracket-style placeholder like `[CONTACT EMAIL]` or a bare `href="#"`; the two
-  known Repocket placeholder `https://apps.apple.com/` is explicitly allow-listed — see
+  carries a bracket-style placeholder like `[CONTACT EMAIL]` or a bare `href="#"`; the App
+  Store badges link the live listing and are not placeholders, see
   [`docs/guide/terminology.md`](../guide/terminology.md); a
   landing-page brand self-link `<a class="brand" href="#">` is a same-page top-of-page
   scroll on `index.html` and is not flagged) and then `html-validate` over every tracked
