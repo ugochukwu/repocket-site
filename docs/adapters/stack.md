@@ -27,8 +27,9 @@ URL until a custom domain is added.
   than shipping a broken reference.
 - `assets/screens/<locale>/` holds the landing page's phone screens: real app captures from the
   app repo's App Store screenshot pipeline (`home`, `log`, `widget-large`, `all-square`), resized
-  to about 2x the drawn phone's rendered width and saved as WebP. Only `en-GB` exists today; both
-  languages show it until German captures exist.
+  to about 2x the drawn phone's rendered width and saved as WebP. English shows `en-US` (US
+  dollars, the same captures as the press kit's app screens and widget); German shows `en-GB`
+  (euros) until German captures exist.
 - `assets/press/` holds the press kit files that `press.html` shows and links: the en-US App
   Store frames, app screens and widgets (PNG, copied unchanged from the app repo), the four
   illustrations at 21:9, 16:9 and 3:2 (plus 1200px WebP previews for the page), the app icon (SVG,
@@ -103,7 +104,7 @@ locally before trusting the check, per the kit's usual practice:
 - Repocket has two JS animations to verify: (1) the sticky phone switching screens as the
   story scrolls; (2) fade-up reveals. Both must respect `prefers-reduced-motion`. Verify by
   emulating reduced-motion in DevTools and confirming the page is fully rendered with no
-  animation. The phone screens are real app captures (WebP under `assets/screens/en-GB/`),
+  animation. The phone screens are real app captures (WebP under `assets/screens/en-US/` and `assets/screens/en-GB/`),
   not drawn HTML, so the earlier hero count-up (a drawn total counting up while a second debt
   card slid in) is gone with the drawn screens.
 - `press.html` has its own small script: three screenshot tabs, a Copy description button, and
