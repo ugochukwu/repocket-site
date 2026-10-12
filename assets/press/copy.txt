@@ -1,0 +1,8 @@
+Repocket: short and long copy
+Updated 12 October 2026
+
+Short description
+Spend from whichever pocket is handy. Repocket keeps the tally, and on payday it shows you exactly what to move back.
+
+Long description
+Repocket helps you settle up with yourself. Spend from whichever bank pocket is handy, log it in a line, and Repocket keeps a running tally of which pocket owes which. On payday it shows exactly what to move back, and one tap marks it settled. Made independently by Michel Onwordi (Mugoworks) in Germany. No bank login and no account; entries sync through your private iCloud.

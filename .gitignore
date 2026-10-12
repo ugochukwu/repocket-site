@@ -15,3 +15,6 @@ node_modules/
 *.db
 .beads-credential-key
 .beads/proxieddb/
+
+# Press kit release files (full-resolution MP4s and the ZIP), published as a GitHub release, never committed
+dist/
