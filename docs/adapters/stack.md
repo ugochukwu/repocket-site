@@ -22,13 +22,13 @@ URL until a custom domain is added.
 - `index.html`, `privacy.html`, `support.html`, `press.html`, `impressum.html` — the five pages the site ships,
   each self-contained (inline `<style>` and `<script>`, no shared CSS/JS files).
 - `assets/mark.svg` — the app mark used for favicon, nav, footer.
-- `assets/og.png` (may be absent) — 1200×630 link-preview image referenced by `index.html`'s
-  `og:image` meta tag; the brief allows either producing it or removing the meta tag rather
-  than shipping a broken reference.
+- `assets/og.png`: the 1200×630 link preview that every page's `og:image` and `twitter:image`
+  meta tags point at, rendered from `docs/og/og.html` (see **Generated artifacts**).
 - `assets/screens/<locale>/` holds the landing page's phone screens: real app captures from the
   app repo's App Store screenshot pipeline (`home`, `log`, `widget-large`, `all-square`), resized
-  to about 2x the drawn phone's rendered width and saved as WebP. Only `en-GB` exists today; both
-  languages show it until German captures exist.
+  to about 2x the drawn phone's rendered width and saved as WebP. English shows `en-US` (US
+  dollars, the same captures as the press kit's app screens and widget); German shows `en-GB`
+  (euros) until German captures exist.
 - `assets/press/` holds the press kit files that `press.html` shows and links: the en-US App
   Store frames, app screens and widgets (PNG, copied unchanged from the app repo), the four
   illustrations at 21:9, 16:9 and 3:2 (plus 1200px WebP previews for the page), the app icon (SVG,
@@ -103,7 +103,7 @@ locally before trusting the check, per the kit's usual practice:
 - Repocket has two JS animations to verify: (1) the sticky phone switching screens as the
   story scrolls; (2) fade-up reveals. Both must respect `prefers-reduced-motion`. Verify by
   emulating reduced-motion in DevTools and confirming the page is fully rendered with no
-  animation. The phone screens are real app captures (WebP under `assets/screens/en-GB/`),
+  animation. The phone screens are real app captures (WebP under `assets/screens/en-US/` and `assets/screens/en-GB/`),
   not drawn HTML, so the earlier hero count-up (a drawn total counting up while a second debt
   card slid in) is gone with the drawn screens.
 - `press.html` has its own small script: three screenshot tabs, a Copy description button, and
@@ -119,3 +119,7 @@ locally before trusting the check, per the kit's usual practice:
 
 - **Docs index** — the generated list in `docs/README.md` is built from each doc's frontmatter.
   Regenerate with `scripts/gen-doc-index` after adding or renaming a doc under `docs/`.
+- **Link preview**: `assets/og.png` is a screenshot of `docs/og/og.html` (the mark over the
+  tagline in Bricolage Grotesque 800 at 52px, white on `#241B5E`). Edit the HTML, then run
+  `scripts/render-og` (Python Playwright with its Chromium) to rewrite `assets/og.png` at
+  1200×630, and look at the result before committing.
