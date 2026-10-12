@@ -22,14 +22,15 @@ concepts the same way.
 
 - **Repocket**: the product name; iPhone app; free with 3 pockets, $4.99 once for the rest (one-time unlock).
   English copy prices the unlock in US dollars (`$4.99`), German copy in euros (`4,99 €`).
-  Tagline: "Track what you borrowed from yourself." Not "Re-pocket", not "RePocket", not
+  Tagline: "An app that helps you settle." Not "Re-pocket", not "RePocket", not
   "repocket.app" as a name (that is the domain; the app is Repocket).
 
 ## Domain objects (from the app; kept consistent on this site)
 
 - **Pocket** — a single named allocation the user keeps at their bank (e.g. Groceries, Vacation,
   Kids, Home). The primary domain object. Never "envelope", "bucket", "category", or "account".
-- **Debt** — an amount one pocket owes another after a wrong-card payment. Rendered on the app
+- **Debt**: an amount one pocket owes another because the other pocket covered for it (Vacation
+  covers for Groceries, so Groceries owes Vacation). Rendered on the app
   as `<Pocket A> owes <Pocket B> €X.XX since <date>`. Never "loan", "iou", "transaction",
   "expense", "balance".
 - **Log** — the act of recording a debt at the checkout ("paid from Vacation, should have come

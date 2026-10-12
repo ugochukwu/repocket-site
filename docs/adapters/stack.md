@@ -22,9 +22,8 @@ URL until a custom domain is added.
 - `index.html`, `privacy.html`, `support.html`, `press.html`, `impressum.html` — the five pages the site ships,
   each self-contained (inline `<style>` and `<script>`, no shared CSS/JS files).
 - `assets/mark.svg` — the app mark used for favicon, nav, footer.
-- `assets/og.png` (may be absent) — 1200×630 link-preview image referenced by `index.html`'s
-  `og:image` meta tag; the brief allows either producing it or removing the meta tag rather
-  than shipping a broken reference.
+- `assets/og.png`: the 1200×630 link preview that every page's `og:image` and `twitter:image`
+  meta tags point at, rendered from `docs/og/og.html` (see **Generated artifacts**).
 - `assets/screens/<locale>/` holds the landing page's phone screens: real app captures from the
   app repo's App Store screenshot pipeline (`home`, `log`, `widget-large`, `all-square`), resized
   to about 2x the drawn phone's rendered width and saved as WebP. English shows `en-US` (US
@@ -120,3 +119,7 @@ locally before trusting the check, per the kit's usual practice:
 
 - **Docs index** — the generated list in `docs/README.md` is built from each doc's frontmatter.
   Regenerate with `scripts/gen-doc-index` after adding or renaming a doc under `docs/`.
+- **Link preview**: `assets/og.png` is a screenshot of `docs/og/og.html` (the mark over the
+  tagline in Bricolage Grotesque 800 at 52px, white on `#241B5E`). Edit the HTML, then run
+  `scripts/render-og` (Python Playwright with its Chromium) to rewrite `assets/og.png` at
+  1200×630, and look at the result before committing.
