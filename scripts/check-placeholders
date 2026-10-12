@@ -12,14 +12,9 @@ site:
     index.html's nav and footer, which is a "back to top" scroll on the same page; a line
     that carries both `class="brand"` and `href="#"` is not flagged.
 
-Repocket-specific known placeholders that are DELIBERATELY not flagged (see
-docs/guide/terminology.md § Placeholder):
-
-  - `https://apps.apple.com/` — the App Store URL. Currently zero occurrences in the shipped
-    HTML: the coming-soon treatment shows a plain, non-interactive "Coming soon to the App
-    Store" badge in the hero and the final CTA instead of a link. The deferred bead
-    repocket-site-l60.3 swaps in real App Store links once the app ships; the design brief
-    explicitly says "leave the placeholder; do not invent an ID."
+App Store links are not placeholders: the App Store badges in index.html (hero and final CTA)
+and press.html link the live listing, https://apps.apple.com/app/id6809761332 (see
+docs/guide/terminology.md § App Store badge).
 
 Walks every tracked *.html file at the repo root and below (excluding .git, node_modules, and
 .claude). Design-Component prototypes (*.dc.html) under docs/design/ are also skipped, so a

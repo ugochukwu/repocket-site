@@ -40,7 +40,7 @@ nav .wrap{display:flex;align-items:center;gap:18px;min-height:64px}
 .brand{display:flex;align-items:center;gap:10px;font:700 20px var(--display);color:var(--ink);letter-spacing:-.02em}.brand img{width:32px;height:32px;border-radius:8px}
 .lang{margin-left:auto;display:flex;padding:3px;border-radius:999px;background:rgba(36,27,94,.08);gap:2px}.lang button{all:unset;cursor:pointer;padding:6px 12px;border-radius:999px;font:600 13px var(--text);color:var(--ink)}.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
 .store{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;background:var(--ink);color:#fff;font:700 16px var(--display);letter-spacing:-.01em;white-space:nowrap;border:0;cursor:pointer;transition:transform .18s var(--spring),background .2s}.store:hover{color:#fff;background:#1a1346;transform:translateY(-1px)}.store svg{flex:none}
-.store-badge{cursor:default}.store-badge:hover{transform:none;background:var(--ink)}
+.store:focus-visible{outline:3px solid var(--ink);outline-offset:3px}.dark .store,.dark .store:hover{color:#fff}.dark .store:focus-visible{outline-color:#fff}
 /* hero */
 .hero{padding-top:clamp(48px,8vw,110px);padding-bottom:clamp(40px,6vw,80px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(30px,5vw,70px);align-items:center}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font:600 13px var(--text);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin-bottom:22px}.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--coral)}
@@ -91,8 +91,8 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
   <h1 class="up d2"><span data-l="en">You paid for groceries with the vacation card.</span><span data-l="de">Du hast den Einkauf mit der Urlaubskarte bezahlt.</span></h1>
   <p class="lead up d3"><span data-l="en">The bank saw one card. You know it was a loan from one pocket to another. Repocket remembers what you borrowed from yourself, and what to move back.</span><span data-l="de">Die Bank hat eine Karte gesehen. Du weißt, dass es eine Leihe von einer Tasche an die andere war. Repocket merkt sich, was du dir selbst geliehen hast, und was zurück muss.</span></p>
   <div class="cta up d4">
-   <span class="store store-badge"><span data-l="en">Coming soon to the App Store</span><span data-l="de">Bald im App Store</span></span>
-   <span class="fine"><span data-l="en">Free with 3 pockets, €4.99 once for the rest</span><span data-l="de">Gratis mit 3 Taschen, alles Weitere einmalig 4,99 €</span></span>
+   <a class="store" href="https://apps.apple.com/app/id6809761332"><span data-l="en">Download on the App Store</span><span data-l="de">Im App Store laden</span></a>
+   <span class="fine"><span data-l="en">Free with 3 pockets, $4.99 once for the rest</span><span data-l="de">Gratis mit 3 Taschen, alles Weitere einmalig 4,99 €</span></span>
   </div>
  </div>
  <div class="ph up d3" style="display:flex;justify-content:center">
@@ -173,7 +173,7 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
 <section class="dark"><div class="wrap final reveal">
  <img src="assets/mark.svg" alt="" width="88" height="88" style="border-radius:20px">
  <h2><span data-l="en">Track what you borrowed from yourself.</span><span data-l="de">Merk dir, was du dir selbst geliehen hast.</span></h2>
- <span class="store store-badge" style="background:var(--coral)"><span data-l="en">Coming soon to the App Store</span><span data-l="de">Bald im App Store</span></span>
+ <a class="store" href="https://apps.apple.com/app/id6809761332" style="background:var(--coral)"><span data-l="en">Download on the App Store</span><span data-l="de">Im App Store laden</span></a>
  <span class="fine" style="color:#C9C3EC"><span data-l="en">iPhone · iOS 18</span><span data-l="de">iPhone · iOS 18</span></span>
 </div></section>
 
