@@ -119,13 +119,10 @@ Return, move back and settle keep their meaning and stay in English copy.
   same tab, in its storefront-neutral form `https://apps.apple.com/app/id6809761332`, so every
   visitor lands on their own country's store; `press.html` and the closer of each How to guide
   link the same URL. The nav carries no store button.
-- **Placeholder**: a value in the shipped copy that resolves to something real later; two are
+- **Placeholder**: a value in the shipped copy that resolves to something real later; one is
   known today:
     - `hello@getrepocket.com`: the contact address on privacy, support, and press. Ensure the
       inbox is configured before publishing.
-    - the "Capture needed" images in five How to screen slots, until app repo bead
-      repocket-0bpt delivers the captures (the slot list is in the
-      [stack adapter](../adapters/stack.md)).
 
 ## Deprecated — do not use
 

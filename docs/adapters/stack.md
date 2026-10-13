@@ -58,17 +58,21 @@ URL until a custom domain is added.
 
   The capture set also holds `people-to-settle-flat.png`, an alternate for `people-to-settle`
   (flat cards, one reading "My money covered Nia", no "Back to My money" header). Swapping it in is
-  the one WebP plus that panel's alt text in `how-to/people.html`. Its "My money covered Nia" card
-  stays in view at the panel's current offset; only a sliver of its larger total shows at the top
-  edge, which an offset near -21% tidies.
+  the one WebP plus three edits in `how-to/people.html`: that panel's alt text, its body copy
+  (which names Back to My money), and the `at-settle` row and clip below, which are measured
+  against the grouped capture's rows.
 
   To swap one: `sips -z 1392 640 <capture>.png --out /tmp/slot.png && cwebp -q 85 -metadata none
   /tmp/slot.png -o assets/screens/how-to/<slot>.webp`, then render the page. The people panels
-  show only a window of each screen (roughly 40 percent of its height at 375, 50 percent at
-  1440), so each screen panel slides its capture up to the rows its caption names: the
-  `at-picker`, `at-log` and `at-settle` classes in `how-to/people.html` set that offset as a
-  share of the screen's height. A new capture with a different layout needs its offset checked
-  at both widths, with the corner chip clear of the words that matter.
+  show only a window of each screen, and the screen shrinks with the panel (about 490 to 650 px
+  tall between 375 and 1440 wide) while the corner chip's bottom edge stays 39 px down. So each screen panel
+  pins the first row that matters a fixed distance below the chip, `--at: calc(-<row>% + 42px)`
+  (44px for To settle's small header), and clips the screen just above that row with `--clip`,
+  set on the `at-picker`, `at-log` and `at-settle` classes in `how-to/people.html`. The rows are
+  percentages of the capture's height: the Paid from field (22.2%), the Cover toggle (16.53%) and
+  the "Back to My money" header (25.14%). With those values the chip sits over the dark frame,
+  clear of every word, at 375, 820, 981, 1024, 1100, 1180, 1280 and 1440. A new capture with a
+  different layout needs its row and clip measured again and checked at those widths.
 - `assets/press/` holds the press kit files that `press.html` shows and links: the en-US App
   Store frames, app screens and widgets (PNG, copied unchanged from the app repo), the four
   illustrations at 21:9, 16:9 and 3:2 (plus 1200px WebP previews for the page), the app icon (SVG,
