@@ -43,7 +43,7 @@ nav .wrap{display:flex;align-items:center;gap:18px;min-height:64px}
 .store:focus-visible{outline:3px solid var(--ink);outline-offset:3px}.dark .store,.dark .store:hover{color:#fff}.dark .store:focus-visible{outline-color:#fff}
 /* hero */
 .hero{padding-top:clamp(48px,8vw,110px);padding-bottom:clamp(40px,6vw,80px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(30px,5vw,70px);align-items:center}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font:600 13px var(--text);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin-bottom:22px}.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--coral)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font:600 13px var(--text);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin-bottom:22px;text-wrap:balance}.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--coral)}
 .hero .lead{margin-top:24px;max-width:520px}
 .cta{display:flex;align-items:center;gap:18px;margin-top:34px;flex-wrap:wrap}.fine{font-size:14px;color:var(--ink2)}
 .up{opacity:0;transform:translateY(18px);animation:up .7s var(--ease) forwards}@keyframes up{to{opacity:1;transform:none}}
@@ -87,9 +87,9 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
 
 <header class="wrap hero">
  <div>
-  <div class="eyebrow up d1"><i></i><span data-l="en">For people who split money into pockets</span><span data-l="de">Für alle, die ihr Geld in Taschen aufteilen</span></div>
+  <div class="eyebrow up d1"><i></i><span data-l="en">Between pockets, accounts or people</span><span data-l="de">Für alle, die ihr Geld in Taschen aufteilen</span></div>
   <h1 class="up d2"><span data-l="en">An app that helps you settle.</span><span data-l="de">Du hast den Einkauf mit der Urlaubskarte bezahlt.</span></h1>
-  <p class="lead up d3"><span data-l="en">Spend from whichever pocket is handy. Repocket keeps the tally, and when it's time to settle, it shows exactly what to move back.</span><span data-l="de">Die Bank hat eine Karte gesehen. Du weißt, dass es eine Leihe von einer Tasche an die andere war. Repocket merkt sich, was du dir selbst geliehen hast, und was zurück muss.</span></p>
+  <p class="lead up d3"><span data-l="en">Spend from whatever's handy. Repocket keeps the tally, and when it's time to settle, it shows exactly what to move back.</span><span data-l="de">Die Bank hat eine Karte gesehen. Du weißt, dass es eine Leihe von einer Tasche an die andere war. Repocket merkt sich, was du dir selbst geliehen hast, und was zurück muss.</span></p>
   <div class="cta up d4">
    <a class="store" href="https://apps.apple.com/app/id6809761332"><span data-l="en">Download on the App Store</span><span data-l="de">Im App Store laden</span></a>
    <span class="fine"><span data-l="en">Free with 3 pockets, $4.99 once for the rest</span><span data-l="de">Gratis mit 3 Taschen, alles Weitere einmalig 4,99 €</span></span>
