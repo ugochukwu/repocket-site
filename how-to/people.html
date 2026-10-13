@@ -61,7 +61,7 @@ nav.site .wrap{display:flex;align-items:center;gap:18px;min-height:64px}
 .pn .frame.scr.mid>img{margin-top:0;transform:translateY(-33%)}
 /* each screen panel shows a window of its capture: the first row that matters sits a fixed distance below the chip at any width, and the clip cuts the screen just above it */
 .pn .frame.scr.at>img{margin-top:0;transform:translateY(var(--at));clip-path:inset(var(--clip) 0 0 0 round 22px 22px 0 0)}
-.pn .frame.at-picker{--at:calc(-22.2% + 42px);--clip:21.6%}.pn .frame.at-log{--at:calc(-16.53% + 42px);--clip:15%}.pn .frame.at-settle{--at:calc(-25.14% + 44px);--clip:20.5%}
+.pn .frame.at-picker{--at:calc(-22.2% + 42px);--clip:21.6%}.pn .frame.at-log{--at:calc(-16.53% + 42px);--clip:15%}.pn .frame.at-settle{--at:calc(-41% + 46px);--clip:40.45%}
 .pn .chip{position:absolute;top:14px;left:14px;z-index:2;padding:5px 10px;border-radius:999px;background:#fff;color:var(--ink);font:600 12px var(--text);letter-spacing:.04em}
 .pn .cap{padding:18px 22px 22px;display:flex;gap:14px;align-items:flex-start}
 .pn .no{flex:none;width:34px;height:34px;border-radius:50%;background:var(--coral);color:#fff;font:800 15px var(--display);display:flex;align-items:center;justify-content:center}
@@ -150,8 +150,8 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
   </li>
   <li class="pn">
    <span class="chip">To settle</span>
-   <div class="frame scr at at-settle"><img src="../assets/screens/how-to/people-to-settle.webp" width="640" height="1392" decoding="async" loading="lazy" alt="Repocket's To settle screen: $555.00, 5 to settle, all under Back to My money: Ama, Leo, Maya, Nia for $250.00 since Mon 7 Sep, and Sam."></div>
-   <div class="cap"><span class="no" aria-hidden="true">4</span><div><h3>My money covered Nia. Back to My money.</h3><p>To settle lists Nia’s $250.00 under Back to My money, until you move her share across.</p></div></div>
+   <div class="frame scr at at-settle"><img src="../assets/screens/how-to/people-to-settle.webp" width="640" height="1392" decoding="async" loading="lazy" alt="Repocket's To settle screen: $375.00, 3 to settle. Three cards read My money covered Ama, $85.00 since Sun 30 Aug; My money covered Nia, $250.00 since Mon 7 Sep; and My money covered Sam, $40.00 since Tue 1 Sep."></div>
+   <div class="cap"><span class="no" aria-hidden="true">4</span><div><h3>My money covered Nia. Back to My money.</h3><p>To settle shows My money covered Nia, $250.00, until you move her share across.</p></div></div>
   </li>
   <li class="pn">
    <span class="chip">Settle</span>
