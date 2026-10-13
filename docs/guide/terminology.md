@@ -1,7 +1,7 @@
 ---
 title: Terminology
 summary: Repocket's binding domain language for code, docs, ADRs, bead titles, and PR text.
-updated: 2026-10-12
+updated: 2026-10-13
 status: draft
 ---
 
@@ -27,8 +27,9 @@ concepts the same way.
 
 ## Domain objects (from the app; kept consistent on this site)
 
-- **Pocket** — a single named allocation the user keeps at their bank (e.g. Groceries, Vacation,
-  Kids, Home). The primary domain object. Never "envelope", "bucket", "category", or "account".
+- **Pocket**: a named place money is set aside: a pocket or sub-account at the bank, a line in a
+  spreadsheet, an envelope, or the share you hold for someone else. The primary domain object
+  (e.g. Groceries, Vacation, Kids, Home). Never "envelope", "bucket", "category", or "account".
 - **Debt**: an amount one pocket owes another because the other pocket covered for it (Vacation
   covers for Groceries, so Groceries owes Vacation). Since 1.0.1 the app renders it as
   `<Pocket B> covered <Pocket A>`, the pocket that paid first, with the amount and its since date;
@@ -76,7 +77,7 @@ Return, move back and settle keep their meaning and stay in English copy.
 - No em dashes and no en dashes anywhere in committed copy. Use commas, parentheses, colons,
   or separate sentences.
 - Never call the app a "budget tracker" or "expense tracker". Say what it is: "a ledger for
-  what's left to settle between your own pockets."
+  what's left to settle, between pockets, accounts or people."
 - Describe only what Repocket is and does. Copy never states what it lacks, what is missing, or
   what is "not yet" or "for now" (owner rule, 2026-10-05). It does not mention which
   languages the app offers. Statements of data practice in `privacy.html` are the one exception, kept where they
