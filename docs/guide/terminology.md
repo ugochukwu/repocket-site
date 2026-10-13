@@ -1,7 +1,7 @@
 ---
 title: Terminology
 summary: Repocket's binding domain language for code, docs, ADRs, bead titles, and PR text.
-updated: 2026-10-12
+updated: 2026-10-13
 status: draft
 ---
 
@@ -76,7 +76,7 @@ Return, move back and settle keep their meaning and stay in English copy.
 - No em dashes and no en dashes anywhere in committed copy. Use commas, parentheses, colons,
   or separate sentences.
 - Never call the app a "budget tracker" or "expense tracker". Say what it is: "a ledger for
-  what's left to settle between your own pockets."
+  what's left to settle, between pockets, accounts or people."
 - Describe only what Repocket is and does. Copy never states what it lacks, what is missing, or
   what is "not yet" or "for now" (owner rule, 2026-10-05). It does not mention which
   languages the app offers. Statements of data practice in `privacy.html` are the one exception, kept where they
