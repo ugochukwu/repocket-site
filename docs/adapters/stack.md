@@ -1,7 +1,7 @@
 ---
 title: Stack adapter
 summary: Every command an agent runs against Repocket-site's code — build, test, lint, the CI-mirror quality gate, running the site, and the UI render check.
-updated: 2026-10-12
+updated: 2026-10-13
 status: living
 ---
 
@@ -21,6 +21,16 @@ URL until a custom domain is added.
 
 - `index.html`, `privacy.html`, `support.html`, `press.html`, `impressum.html` — the five pages the site ships,
   each self-contained (inline `<style>` and `<script>`, no shared CSS/JS files).
+- `how-to/index.html`, `how-to/everyday.html`, `how-to/people.html`: the How to hub and its two
+  guides, served at `/how-to/`. Self-contained like the pages above (inline `<style>`, no
+  `<script>` at all) and English only (German deferred, owner 2026-10-13), so they carry no
+  `data-l` spans and no language switcher. Every other page links the hub from its nav and footer,
+  and `support.html` from the top of its English block, with an English-only `data-l="en"` link,
+  the way the English-only bank chips were added, so the German view is unchanged.
+- `assets/illustrations/`: the brand illustrations the How to pages show, as WebP derived from
+  the app repo's `docs/marketing/header/` renders (riffs 1, 2 and 3, riff 5 "people pockets" at
+  3:2, and the en-US payday wheel poster), resized and saved with `cwebp -q 85` (the poster at
+  `-q 90`).
 - `assets/mark.svg` — the app mark used for favicon, nav, footer.
 - `assets/og.png`: the 1200×630 link preview that every page's `og:image` and `twitter:image`
   meta tags point at, rendered from `docs/og/og.html` (see **Generated artifacts**).
@@ -29,6 +39,26 @@ URL until a custom domain is added.
   to about 2x the drawn phone's rendered width and saved as WebP. English shows `en-US` (US
   dollars, the same captures as the press kit's app screens and widget); German shows `en-GB`
   (euros) until German captures exist.
+- `assets/screens/how-to/` holds the How to guides' phone screens in the same format: an en-US
+  1320x2868 capture resized to 640x1392 and saved with `cwebp -q 85`. Each file is a fixed
+  **screen slot** the page points at, so replacing a screen is dropping the converted capture in
+  at the same path; the HTML and its alt text already describe the final screen. Three slots hold
+  real 1.0.1 captures (`everyday-log`, `everyday-to-settle` and `all-square`, from the app repo's
+  `docs/marketing/screenshots/appstore/set-2/en-US/sources/`). Five hold a "Capture needed"
+  placeholder until app repo bead repocket-0bpt delivers them:
+
+  | Slot | Page and step | The capture that replaces it |
+  |------|---------------|------------------------------|
+  | `everyday-starter-pockets.webp` | everyday, step 1 | the first cover on the starter pockets, with the line "Name pockets after envelopes, or the people you hold money for." |
+  | `everyday-pair.webp` | everyday, step 5 | the pair screen for Vacation covered Groceries, $45.50, with US notes and the Mark settled button |
+  | `people-picker.webp` | people, panel 1 | the pocket picker with Nia, My money and a few more people's pockets |
+  | `people-log.webp` | people, panel 3 | the Log sheet on Cover: $250.00, Paid from My money, Covering for Nia |
+  | `people-to-settle.webp` | people, panel 4 | To settle with "My money covered Nia" under "Back to My money" |
+
+  To swap one: `sips -z 1392 640 <capture>.png --out /tmp/slot.png && cwebp -q 85 -metadata none
+  /tmp/slot.png -o assets/screens/how-to/<slot>.webp`, then render the page. The people panels
+  show only the top of each screen (roughly its first 45 percent), so the row that matters should
+  sit near the top of the capture.
 - `assets/press/` holds the press kit files that `press.html` shows and links: the en-US App
   Store frames, app screens and widgets (PNG, copied unchanged from the app repo), the four
   illustrations at 21:9, 16:9 and 3:2 (plus 1200px WebP previews for the page), the app icon (SVG,
@@ -92,7 +122,7 @@ locally before trusting the check, per the kit's usual practice:
 
 ## UI render check
 
-- Trigger paths: `*.html`, `assets/**`.
+- Trigger paths: `*.html`, `how-to/*.html`, `assets/**`.
 - Harness: start the local server above, then use the browser preview tool
   (`preview_start`/`navigate`/`computer` screenshot) to load the changed page(s) at both a
   mobile width (375px) and a desktop width (1280px), in English (every page always

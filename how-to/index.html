@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to · Repocket</title>
+<meta name="description" content="Two short guides to Repocket: everyday pockets at the bank, and money you hold for people. The loop is the same: cover, log, settle.">
+<meta property="og:title" content="How to · Repocket">
+<meta property="og:description" content="Two short guides to Repocket: everyday pockets at the bank, and money you hold for people. The loop is the same: cover, log, settle.">
+<meta property="og:image" content="https://getrepocket.com/assets/og.png?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://getrepocket.com/how-to/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Repocket">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to · Repocket">
+<meta name="twitter:description" content="Two short guides to Repocket: everyday pockets at the bank, and money you hold for people. The loop is the same: cover, log, settle.">
+<meta name="twitter:image" content="https://getrepocket.com/assets/og.png?v=2">
+<link rel="icon" href="../assets/mark.svg">
+<style>
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:700;font-display:swap;src:url("../assets/fonts/BricolageGrotesque-700.woff2") format("woff2")}
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:800;font-display:swap;src:url("../assets/fonts/BricolageGrotesque-800.woff2") format("woff2")}
+@font-face{font-family:"Outfit";font-style:normal;font-weight:400;font-display:swap;src:url("../assets/fonts/Outfit-400.woff2") format("woff2")}
+@font-face{font-family:"Outfit";font-style:normal;font-weight:600;font-display:swap;src:url("../assets/fonts/Outfit-600.woff2") format("woff2")}
+@font-face{font-family:"Outfit";font-style:normal;font-weight:700;font-display:swap;src:url("../assets/fonts/Outfit-700.woff2") format("woff2")}
+@font-face{font-family:"Space Mono";font-style:normal;font-weight:700;font-display:swap;src:url("../assets/fonts/SpaceMono-700.woff2") format("woff2")}
+:root{--ground:#F4F1FF;--card:#fff;--ink:#241B5E;--ink2:#6E67A0;--ink3:#B0ABCF;--line:#EAE6F8;--coral:#FF5C39;--green:#1FA588;--gold:#FFC947;--display:"Bricolage Grotesque",system-ui,sans-serif;--text:"Outfit",system-ui,sans-serif;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box}body{margin:0;background:var(--ground);color:var(--ink);font:400 18px/1.5 var(--text);-webkit-font-smoothing:antialiased}
+a{color:var(--coral);text-decoration:none}a:hover{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.035em;line-height:1;margin:0;text-wrap:balance}
+h1{font-size:clamp(44px,6.4vw,92px);font-weight:800;letter-spacing:-.045em}
+p{margin:0;text-wrap:pretty}.lead{font-size:clamp(18px,1.5vw,22px);color:var(--ink2)}
+ol{margin:0;padding:0;list-style:none}img{display:block;max-width:100%;height:auto}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,60px)}
+/* nav */
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px) saturate(160%);background:rgba(244,241,255,.72);border-bottom:1px solid rgba(36,27,94,.06)}
+nav .wrap{display:flex;align-items:center;gap:18px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;font:700 20px var(--display);color:var(--ink);letter-spacing:-.02em}.brand img{width:32px;height:32px;border-radius:8px}
+.brand-lockup{display:flex;align-items:center;gap:18px}
+.mugo{display:inline-flex;align-items:center;gap:6px;color:var(--ink2);font-family:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:10px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}.mugo:hover{color:var(--ink)}.mugo img{width:13px;height:13px;flex:none}
+.navl{margin-left:auto;display:flex;gap:22px;font:600 15px var(--text)}.navl a{color:var(--ink2)}.navl a:hover,.navl a.on{color:var(--ink)}
+/* hub */
+.hub{padding:clamp(40px,7vw,96px) 0 clamp(60px,8vw,110px)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font:600 13px var(--text);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--coral)}
+.hub h1{margin-top:18px;max-width:900px}.hub .lead{margin-top:22px;max-width:640px}
+.loop{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.loop li{padding:10px 16px;border-radius:999px;background:#fff;font:600 15px var(--text);display:flex;align-items:center;gap:8px}
+.loop li i{width:10px;height:10px;border-radius:50%;background:var(--coral)}.loop li.g i{background:var(--green)}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:46px}
+/* guide card */
+.k{font:600 13px var(--text);letter-spacing:.08em;text-transform:uppercase;color:var(--coral)}
+.gcard{display:flex;flex-direction:column;background:#fff;border-radius:28px;overflow:hidden;color:var(--ink);transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.gcard:hover{color:var(--ink);transform:translateY(-2px);box-shadow:0 24px 50px -30px rgba(36,27,94,.45)}
+.gcard:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.gcard img{width:100%}
+.gcard .gt{padding:30px 30px 32px;display:flex;flex-direction:column;gap:10px}
+.gcard h2{font-size:clamp(26px,2.4vw,34px);letter-spacing:-.02em;line-height:1.05}.gcard p{color:var(--ink2);font-size:17px}
+.gcard .meta{font:600 13px var(--text);color:var(--ink2);letter-spacing:.04em}
+.gcard .go{margin-top:8px;font:700 17px var(--display);color:var(--coral);letter-spacing:-.01em}
+/* footer */
+footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px;color:var(--ink2)}footer .wrap{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center}footer a{color:var(--ink2)}footer a:hover{color:var(--ink)}footer .brand{font-size:16px;margin-right:auto}footer .brand img{width:24px;height:24px}
+.mugo-credit{display:inline-flex;align-items:center;gap:10px;color:var(--ink2);font-family:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase}.mugo-credit:hover{color:var(--ink)}.mugo-credit img{width:20px;height:20px;flex:none}
+.mugo-credit-row{width:100%;display:flex;padding-top:18px;margin-top:6px;border-top:1px solid rgba(36,27,94,.06)}
+@media(max-width:900px){nav .wrap{gap:12px}.brand-lockup{flex-direction:column;align-items:flex-start;gap:6px}}
+@media(max-width:700px){.cards{grid-template-columns:1fr}.gcard .gt{padding:20px 20px 24px}}
+@media(prefers-reduced-motion:reduce){.gcard{transition:none}.gcard:hover{transform:none}}
+</style>
+</head>
+<body>
+<nav aria-label="Site"><div class="wrap">
+ <div class="brand-lockup">
+  <a class="brand" href="../index.html"><img src="../assets/mark.svg" alt="">Repocket</a>
+  <a class="mugo" href="https://mugoworks.com"><img src="../assets/mark-on-light.svg" width="13" height="13" alt="mugo works mark"><span class="mugo-label">BY MUGO WORKS</span></a>
+ </div>
+ <div class="navl"><a class="on" href="./" aria-current="page">How to</a></div>
+</div></nav>
+
+<main class="hub"><div class="wrap">
+ <div class="eyebrow"><i></i>How to</div>
+ <h1>Two ways to use Repocket.</h1>
+ <p class="lead">Most people start with pockets at the bank. Some hold money for family and friends too. Pick the guide that sounds like you; the loop is the same: cover, log, settle.</p>
+ <ol class="loop">
+  <li><i></i>Cover</li>
+  <li><i></i>Log</li>
+  <li><i></i>To settle</li>
+  <li class="g"><i></i>Mark settled</li>
+  <li class="g"><i></i>Everything is square.</li>
+ </ol>
+ <div class="cards">
+  <a class="gcard" href="everyday.html">
+   <img src="../assets/illustrations/repocket-1-till-wide-search-3x2-1200w.webp" width="1200" height="800" decoding="async" alt="">
+   <div class="gt"><span class="k">Guide 1</span><h2>Everyday pockets</h2><p>Vacation covers for Groceries at the till. Log it, settle on payday.</p><span class="meta">6 steps</span><span class="go">Read the guide <span aria-hidden="true">→</span></span></div>
+  </a>
+  <a class="gcard" href="people.html">
+   <img src="../assets/illustrations/repocket-5-people-pockets-search-3x2-1200w.webp" width="1200" height="800" decoding="async" alt="">
+   <div class="gt"><span class="k">Guide 2</span><h2>Money you hold for people</h2><p>One bank account, a pocket per person, plus My money. Nia needs hers fast? Easy.</p><span class="meta">6 steps</span><span class="go">Read the guide <span aria-hidden="true">→</span></span></div>
+  </a>
+ </div>
+</div></main>
+
+<footer><div class="wrap">
+ <a class="brand" href="../index.html"><img src="../assets/mark.svg" alt="">Repocket</a>
+ <a href="./">How to</a>
+ <a href="../privacy.html">Privacy</a>
+ <a href="../support.html">Support</a>
+ <a href="../press.html">Press kit</a><a href="../impressum.html">Impressum</a>
+ <span>© 2026 mugoworks</span>
+ <div class="mugo-credit-row">
+  <a class="mugo-credit" href="https://mugoworks.com"><img src="../assets/mark-on-light.svg" width="20" height="20" alt="mugo works mark"><span>A MUGO WORKS PRODUCT</span></a>
+ </div>
+</div></footer>
+</body>
+</html>
