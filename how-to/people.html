@@ -59,6 +59,9 @@ nav.site .wrap{display:flex;align-items:center;gap:18px;min-height:64px}
 .pn .frame>img{width:100%;height:100%;object-fit:cover}
 .pn .frame.scr>img{width:86%;height:auto;margin:22px auto 0;border-radius:22px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
 .pn .frame.scr.mid>img{margin-top:0;transform:translateY(-33%)}
+/* each screen panel shows only a window of its capture, so it slides to the rows its caption names */
+.pn .frame.scr.at>img{margin-top:0;transform:translateY(var(--at))}
+.pn .frame.at-picker{--at:-15.5%}.pn .frame.at-log{--at:-13%}.pn .frame.at-settle{--at:-18.6%}
 .pn .chip{position:absolute;top:14px;left:14px;z-index:2;padding:5px 10px;border-radius:999px;background:#fff;color:var(--ink);font:600 12px var(--text);letter-spacing:.04em}
 .pn .cap{padding:18px 22px 22px;display:flex;gap:14px;align-items:flex-start}
 .pn .no{flex:none;width:34px;height:34px;border-radius:50%;background:var(--coral);color:#fff;font:800 15px var(--display);display:flex;align-items:center;justify-content:center}
@@ -132,7 +135,7 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
  <ol class="panels">
   <li class="pn">
    <span class="chip">Pockets</span>
-   <div class="frame scr"><img src="../assets/screens/how-to/people-picker.webp" width="640" height="1392" decoding="async" loading="lazy" alt="Repocket's pocket picker with a pocket for Nia, one for My money, and a few more people's pockets."></div>
+   <div class="frame scr at at-picker"><img src="../assets/screens/how-to/people-picker.webp" width="640" height="1392" decoding="async" loading="lazy" alt="Repocket's Log sheet on Cover with the Paid from picker open over the people's pockets: Ama, Leo, Maya, My money, Nia and Sam."></div>
    <div class="cap"><span class="no" aria-hidden="true">1</span><div><h3>Nia, everyone else, and My money.</h3><p>Nia gets a pocket, and so does everyone else on your list. Add one called My money for your own share.</p></div></div>
   </li>
   <li class="pn">
@@ -142,13 +145,13 @@ footer{padding:40px 0 60px;border-top:1px solid rgba(36,27,94,.1);font-size:14px
   </li>
   <li class="pn">
    <span class="chip">Log</span>
-   <div class="frame scr"><img src="../assets/screens/how-to/people-log.webp" width="640" height="1392" decoding="async" loading="lazy" alt="Repocket's Log sheet on Cover: $250.00, Paid from My money, Covering for Nia."></div>
+   <div class="frame scr at at-log"><img src="../assets/screens/how-to/people-log.webp" width="640" height="1392" decoding="async" loading="lazy" alt="Repocket's Log sheet on Cover: $250.00, Paid from My money, Covering for Nia, dated Mon, Sep 7, with the number pad open."></div>
    <div class="cap"><span class="no" aria-hidden="true">3</span><div><h3>Paid from My money, covering for Nia.</h3><p>Log it in one line and Repocket remembers. No spreadsheet cell to hunt for.</p></div></div>
   </li>
   <li class="pn">
    <span class="chip">To settle</span>
-   <div class="frame scr"><img src="../assets/screens/how-to/people-to-settle.webp" width="640" height="1392" decoding="async" loading="lazy" alt="Repocket's To settle screen: under Back to My money, My money covered Nia for $250.00."></div>
-   <div class="cap"><span class="no" aria-hidden="true">4</span><div><h3>My money covered Nia. Back to My money.</h3><p>To settle shows My money covered Nia, right where you left it, until her share comes back to you.</p></div></div>
+   <div class="frame scr at at-settle"><img src="../assets/screens/how-to/people-to-settle.webp" width="640" height="1392" decoding="async" loading="lazy" alt="Repocket's To settle screen: $555.00, 5 to settle, all under Back to My money: Ama, Leo, Maya, Nia for $250.00 since Mon 7 Sep, and Sam."></div>
+   <div class="cap"><span class="no" aria-hidden="true">4</span><div><h3>My money covered Nia. Back to My money.</h3><p>To settle keeps Nia’s $250.00 right where you left it, until her share comes back to you.</p></div></div>
   </li>
   <li class="pn">
    <span class="chip">Settle</span>

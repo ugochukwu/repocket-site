@@ -42,23 +42,33 @@ URL until a custom domain is added.
 - `assets/screens/how-to/` holds the How to guides' phone screens in the same format: an en-US
   1320x2868 capture resized to 640x1392 and saved with `cwebp -q 85`. Each file is a fixed
   **screen slot** the page points at, so replacing a screen is dropping the converted capture in
-  at the same path; the HTML and its alt text already describe the final screen. Three slots hold
-  real 1.0.1 captures (`everyday-log`, `everyday-to-settle` and `all-square`, from the app repo's
-  `docs/marketing/screenshots/appstore/set-2/en-US/sources/`). Five hold a "Capture needed"
-  placeholder until app repo bead repocket-0bpt delivers them:
+  at the same path; the HTML and its alt text describe the screen each slot holds. All eight slots
+  hold real 1.0.1 captures. Three come from the app repo's
+  `docs/marketing/screenshots/appstore/set-2/en-US/sources/` (`everyday-log`, `everyday-to-settle`
+  and `all-square`). Five come from app repo bead repocket-0bpt's
+  `docs/marketing/screenshots/howto/` (its README there says how they were captured):
 
-  | Slot | Page and step | The capture that replaces it |
+  | Slot | Page and step | Its capture in `docs/marketing/screenshots/howto/` |
   |------|---------------|------------------------------|
-  | `everyday-starter-pockets.webp` | everyday, step 1 | the first cover on the starter pockets, with the line "Name pockets after envelopes, or the people you hold money for." |
-  | `everyday-pair.webp` | everyday, step 5 | the pair screen for Vacation covered Groceries, $45.50, with US notes and the Mark settled button |
-  | `people-picker.webp` | people, panel 1 | the pocket picker with Nia, My money and a few more people's pockets |
-  | `people-log.webp` | people, panel 3 | the Log sheet on Cover: $250.00, Paid from My money, Covering for Nia |
-  | `people-to-settle.webp` | people, panel 4 | To settle with "My money covered Nia" under "Back to My money" |
+  | `everyday-starter-pockets.webp` | everyday, step 1 | `everyday-starter-pockets.png`: the first cover on the starter pockets, with the line "Name pockets after envelopes, or the people you hold money for." |
+  | `everyday-pair.webp` | everyday, step 5 | `everyday-pair.png`: the pair screen for Vacation covered Groceries, $45.50, with the notes "Farmers market" and "Weekend grocery run" and the Mark settled button |
+  | `people-picker.webp` | people, panel 1 | `people-picker.png`: the Paid from picker over Ama, Leo, Maya, My money, Nia and Sam |
+  | `people-log.webp` | people, panel 3 | `people-log.png`: the Log sheet on Cover: $250.00, Paid from My money, Covering for Nia |
+  | `people-to-settle.webp` | people, panel 4 | `people-to-settle.png`: To settle with Nia's $250.00 under "Back to My money" |
+
+  The capture set also holds `people-to-settle-flat.png`, an alternate for `people-to-settle`
+  (flat cards, one reading "My money covered Nia", no "Back to My money" header). Swapping it in is
+  the one WebP plus that panel's alt text in `how-to/people.html`. Its "My money covered Nia" card
+  stays in view at the panel's current offset; only a sliver of its larger total shows at the top
+  edge, which an offset near -21% tidies.
 
   To swap one: `sips -z 1392 640 <capture>.png --out /tmp/slot.png && cwebp -q 85 -metadata none
   /tmp/slot.png -o assets/screens/how-to/<slot>.webp`, then render the page. The people panels
-  show only the top of each screen (roughly its first 45 percent), so the row that matters should
-  sit near the top of the capture.
+  show only a window of each screen (roughly 40 percent of its height at 375, 50 percent at
+  1440), so each screen panel slides its capture up to the rows its caption names: the
+  `at-picker`, `at-log` and `at-settle` classes in `how-to/people.html` set that offset as a
+  share of the screen's height. A new capture with a different layout needs its offset checked
+  at both widths, with the corner chip clear of the words that matter.
 - `assets/press/` holds the press kit files that `press.html` shows and links: the en-US App
   Store frames, app screens and widgets (PNG, copied unchanged from the app repo), the four
   illustrations at 21:9, 16:9 and 3:2 (plus 1200px WebP previews for the page), the app icon (SVG,
