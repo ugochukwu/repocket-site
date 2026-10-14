@@ -85,6 +85,8 @@ URL until a custom domain is added.
   posters, and `README.txt`, `fact-sheet.txt` and `copy.txt`. The full-resolution MP4s and the
   press ZIP are too large for the repo: they are prepared in `dist/press-kit-<date>/` (gitignored)
   and published as the GitHub release `press-kit-<date>`, which the page's download links point at.
+  A later release can carry only the rebuilt ZIP: the payday wheel MP4s are unchanged, so their
+  links stay on `press-kit-2026-10-12`, and the ZIP link moves to `press-kit-2026-10-14`.
 - `.nojekyll` — **required** at the repo root. GitHub Pages' legacy build type runs Jekyll by
   default, and this repo's docs (`docs/**/*.md`) carry `---` frontmatter that Jekyll would
   otherwise try to build into pages. `.nojekyll` disables that processing entirely so Pages
