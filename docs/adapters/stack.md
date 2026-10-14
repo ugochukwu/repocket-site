@@ -1,7 +1,7 @@
 ---
 title: Stack adapter
 summary: Every command an agent runs against Repocket-site's code — build, test, lint, the CI-mirror quality gate, running the site, and the UI render check.
-updated: 2026-10-13
+updated: 2026-10-14
 status: living
 ---
 
@@ -34,11 +34,13 @@ URL until a custom domain is added.
 - `assets/mark.svg` — the app mark used for favicon, nav, footer.
 - `assets/og.png`: the 1200×630 link preview that every page's `og:image` and `twitter:image`
   meta tags point at, rendered from `docs/og/og.html` (see **Generated artifacts**).
-- `assets/screens/<locale>/` holds the landing page's phone screens: real app captures from the
-  app repo's App Store screenshot pipeline (`home`, `log`, `widget-large`, `all-square`), resized
-  to about 2x the drawn phone's rendered width and saved as WebP. English shows `en-US` (US
-  dollars, the same captures as the press kit's app screens and widget); German shows `en-GB`
-  (euros) until German captures exist.
+- `assets/screens/<locale>/` holds the landing page's phone screens: real 1.0.1 captures from the
+  app repo's App Store screenshot pipeline, `docs/marketing/screenshots/appstore/set-2/<locale>/sources/`
+  (`home`, `log`, `widget-large`, `all-square`), resized to about 2x the drawn phone's rendered
+  width (640x1392, the widget 560x587) and saved with `cwebp -q 85`. English shows `en-US` (US
+  dollars, the same captures as the press kit's app screens and widget, except `log`, retaken
+  from the same `testMarketingLogScreenshot` flow at $45.50 on Wed, Sep 2 so it matches beat 1);
+  German shows `en-GB` (British pounds, the travel pocket named Travel) until German captures exist.
 - `assets/screens/how-to/` holds the How to guides' phone screens in the same format: an en-US
   1320x2868 capture resized to 640x1392 and saved with `cwebp -q 85`. Each file is a fixed
   **screen slot** the page points at, so replacing a screen is dropping the converted capture in
@@ -76,7 +78,8 @@ URL until a custom domain is added.
   new capture with a different layout needs its row and clip measured again and checked at those
   widths.
 - `assets/press/` holds the press kit files that `press.html` shows and links: the en-US App
-  Store frames, app screens and widgets (PNG, copied unchanged from the app repo), the four
+  Store frames, app screens and widgets (PNG, copied unchanged from the app repo's 1.0.1 set 2
+  and How to captures, the widgets from its `testMarketingWidgetScreenshots`), the four
   illustrations at 21:9, 16:9 and 3:2 (plus 1200px WebP previews for the page), the app icon (SVG,
   a 1024 PNG and the three layer SVGs), the two small `-iphone.mp4` video previews with WebP
   posters, and `README.txt`, `fact-sheet.txt` and `copy.txt`. The full-resolution MP4s and the
