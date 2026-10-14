@@ -70,6 +70,10 @@ Return, move back and settle keep their meaning and stay in English copy.
 
 - Every visible string is inline in the HTML as an `<span data-l="en">` / `<span data-l="de">`
   pair. Never add a string in only one language; a missing `data-l` counterpart is a bounce.
+  The owner-approved exceptions are English-only spans with no German counterpart yet (the two
+  English bank chips, and the How to links in each nav and footer and at the top of
+  `support.html`, owner 2026-10-13), and the How to pages, which are English only and carry no
+  `data-l` spans until a German version is commissioned.
 - German amounts use a comma (`3,99 €`), never a dot. German dates follow the design file's
   format (e.g. `Sa 5 Sep`, `Fr 28 Aug`), never a locale-mixed variant.
 - No hype, no superlatives ("best", "amazing", "revolutionary", "ultimate", "powerful"), no
@@ -86,9 +90,18 @@ Return, move back and settle keep their meaning and stay in English copy.
 ## This repo's own structural vocabulary
 
 - **Site payload** — the five HTML files (`index.html`, `privacy.html`, `support.html`,
-  `press.html`, `impressum.html`), `assets/mark.svg`, and `.nojekyll` at the repo root: the actual thing GitHub
+  `press.html`, `impressum.html`), the How to pages under `how-to/`, `assets/`, and `.nojekyll`
+  at the repo root: the actual thing GitHub
   Pages serves. Not "the build" (there is no build step) or "the deploy" (that is what Pages
   does with the payload).
+- **How to**: the guide section at `/how-to/`. The **hub** (`how-to/index.html`, "Two ways to
+  use Repocket.") links two **guides**: the **everyday guide** (`how-to/everyday.html`, pockets at
+  the bank, Vacation covers for Groceries) and the **people guide** (`how-to/people.html`, money
+  you hold for people, Nia and My money). English only for now; every page's nav and footer link
+  the hub. Written "How to" in copy (two words, no hyphen); `how-to` only in paths.
+- **Screen slot**: a fixed image path a page shows a phone screen from (for example
+  `assets/screens/how-to/people-log.webp`). The page's markup and alt text describe the final
+  screen, so a new capture replaces the file and nothing else.
 - **Design handoff** — the frozen brief and its `site/` reference copy under
   [`docs/design/2026-09-09-repocket-launch/`](../design/2026-09-09-repocket-launch/). This is
   the definition of done for the launch bead.
@@ -104,8 +117,8 @@ Return, move back and settle keep their meaning and stay in English copy.
 - **App Store badge**: the `.store` pill link reading "Download on the App Store" / "Im App
   Store laden", in the hero and the final CTA of `index.html`. It opens the live listing in the
   same tab, in its storefront-neutral form `https://apps.apple.com/app/id6809761332`, so every
-  visitor lands on their own country's store; `press.html` links the same URL. The nav carries
-  no store button.
+  visitor lands on their own country's store; `press.html` and the closer of each How to guide
+  link the same URL. The nav carries no store button.
 - **Placeholder**: a value in the shipped copy that resolves to something real later; one is
   known today:
     - `hello@getrepocket.com`: the contact address on privacy, support, and press. Ensure the

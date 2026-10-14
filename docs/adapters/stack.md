@@ -1,7 +1,7 @@
 ---
 title: Stack adapter
 summary: Every command an agent runs against Repocket-site's code — build, test, lint, the CI-mirror quality gate, running the site, and the UI render check.
-updated: 2026-10-12
+updated: 2026-10-13
 status: living
 ---
 
@@ -21,6 +21,16 @@ URL until a custom domain is added.
 
 - `index.html`, `privacy.html`, `support.html`, `press.html`, `impressum.html` — the five pages the site ships,
   each self-contained (inline `<style>` and `<script>`, no shared CSS/JS files).
+- `how-to/index.html`, `how-to/everyday.html`, `how-to/people.html`: the How to hub and its two
+  guides, served at `/how-to/`. Self-contained like the pages above (inline `<style>`, no
+  `<script>` at all) and English only (German deferred, owner 2026-10-13), so they carry no
+  `data-l` spans and no language switcher. Every other page links the hub from its nav and footer,
+  and `support.html` from the top of its English block, with an English-only `data-l="en"` link,
+  the way the English-only bank chips were added, so the German view is unchanged.
+- `assets/illustrations/`: the brand illustrations the How to pages show, as WebP derived from
+  the app repo's `docs/marketing/header/` renders (riffs 1, 2 and 3, riff 5 "people pockets" at
+  3:2, and the en-US payday wheel poster), resized and saved with `cwebp -q 85` (the poster at
+  `-q 90`).
 - `assets/mark.svg` — the app mark used for favicon, nav, footer.
 - `assets/og.png`: the 1200×630 link preview that every page's `og:image` and `twitter:image`
   meta tags point at, rendered from `docs/og/og.html` (see **Generated artifacts**).
@@ -29,6 +39,42 @@ URL until a custom domain is added.
   to about 2x the drawn phone's rendered width and saved as WebP. English shows `en-US` (US
   dollars, the same captures as the press kit's app screens and widget); German shows `en-GB`
   (euros) until German captures exist.
+- `assets/screens/how-to/` holds the How to guides' phone screens in the same format: an en-US
+  1320x2868 capture resized to 640x1392 and saved with `cwebp -q 85`. Each file is a fixed
+  **screen slot** the page points at, so replacing a screen is dropping the converted capture in
+  at the same path; the HTML and its alt text describe the screen each slot holds. All eight slots
+  hold real 1.0.1 captures. Three come from the app repo's
+  `docs/marketing/screenshots/appstore/set-2/en-US/sources/` (`everyday-log`, `everyday-to-settle`
+  and `all-square`). Five come from app repo bead repocket-0bpt's
+  `docs/marketing/screenshots/howto/` (its README there says how they were captured):
+
+  | Slot | Page and step | Its capture in `docs/marketing/screenshots/howto/` |
+  |------|---------------|------------------------------|
+  | `everyday-starter-pockets.webp` | everyday, step 1 | `everyday-starter-pockets.png`: the first cover on the starter pockets, with the line "Name pockets after envelopes, or the people you hold money for." |
+  | `everyday-pair.webp` | everyday, step 5 | `everyday-pair.png`: the pair screen for Vacation covered Groceries, $45.50, with the notes "Farmers market" and "Weekend grocery run" and the Mark settled button |
+  | `people-picker.webp` | people, panel 1 | `people-picker.png`: the Paid from picker over Ama, Leo, Maya, My money, Nia and Sam |
+  | `people-log.webp` | people, panel 3 | `people-log.png`: the Log sheet on Cover: $250.00, Paid from My money, Covering for Nia |
+  | `people-to-settle.webp` | people, panel 4 | `people-to-settle-flat.png` (the owner's pick, 2026-10-13): To settle with three flat cards, one reading "My money covered Nia", $250.00 |
+
+  The capture set also holds `people-to-settle.png`, the grouped alternate for that slot (Nia's
+  $250.00 listed under a "Back to My money" header, no "My money covered Nia" card). Swapping it
+  in is the one WebP plus three edits in `how-to/people.html`: that panel's alt text, its body
+  copy (which quotes "My money covered Nia"), and the `at-settle` row and clip below, which are
+  measured against the flat capture's rows.
+
+  To swap one: `sips -z 1392 640 <capture>.png --out /tmp/slot.png && cwebp -q 85 -metadata none
+  /tmp/slot.png -o assets/screens/how-to/<slot>.webp`, then render the page. The people panels
+  show only a window of each screen, and the screen shrinks with the panel (about 490 to 650 px
+  tall between 375 and 1440 wide) while the corner chip's bottom edge stays 39 px down. So each screen panel
+  pins the first row that matters a fixed distance below the chip, `--at: calc(-<row>% + 42px)`
+  (46px for To settle's Nia card), and clips the screen just above that row with `--clip`,
+  set on the `at-picker`, `at-log` and `at-settle` classes in `how-to/people.html`. The rows are
+  percentages of the capture's height: the Paid from field (22.2%, clip 21.6%), the Cover toggle
+  (16.53%, clip 15%) and the top of the "My money covered Nia" card (41%, clip 40.45%, in the gap
+  under the Ama card, so none of the $375.00 total shows). With those values the chip sits over
+  the dark frame, clear of every word, at 375, 700, 820, 981, 1024, 1100, 1180, 1280 and 1440. A
+  new capture with a different layout needs its row and clip measured again and checked at those
+  widths.
 - `assets/press/` holds the press kit files that `press.html` shows and links: the en-US App
   Store frames, app screens and widgets (PNG, copied unchanged from the app repo), the four
   illustrations at 21:9, 16:9 and 3:2 (plus 1200px WebP previews for the page), the app icon (SVG,
@@ -92,7 +138,7 @@ locally before trusting the check, per the kit's usual practice:
 
 ## UI render check
 
-- Trigger paths: `*.html`, `assets/**`.
+- Trigger paths: `*.html`, `how-to/*.html`, `assets/**`.
 - Harness: start the local server above, then use the browser preview tool
   (`preview_start`/`navigate`/`computer` screenshot) to load the changed page(s) at both a
   mobile width (375px) and a desktop width (1280px), in English (every page always
