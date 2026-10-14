@@ -81,7 +81,7 @@ URL until a custom domain is added.
   Store frames, app screens and widgets (PNG, copied unchanged from the app repo's 1.0.1 set 2
   and How to captures, the widgets from its `testMarketingWidgetScreenshots`), the four
   illustrations at 21:9, 16:9 and 3:2 (plus 1200px WebP previews for the page), the app icon (SVG,
-  a 1024 PNG and the three layer SVGs), the two small `-iphone.mp4` video previews with WebP
+  a 1024 PNG and the three layer SVGs), the payday wheel `-iphone.mp4` video preview with WebP
   posters, and `README.txt`, `fact-sheet.txt` and `copy.txt`. The full-resolution MP4s and the
   press ZIP are too large for the repo: they are prepared in `dist/press-kit-<date>/` (gitignored)
   and published as the GitHub release `press-kit-<date>`, which the page's download links point at.

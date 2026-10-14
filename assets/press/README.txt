@@ -14,13 +14,10 @@ screenshots/en-US/
   The App Store frames, the app screens and the Home Screen widgets, in US dollars (PNG).
 
 videos/with-words/
-  Square by payday (21:9) and Any card, remembered (3:2), in US dollars and in euros,
-  each with its poster frame (MP4, PNG). No sound.
+  Square by payday (21:9), in US dollars and in euros, each with its poster frame (MP4, PNG).
+  No sound.
 videos/wordless/
-  Payday wheel (21:9) and Pocket to pocket (3:2): the same two clips with no words,
-  for your own voice-over (MP4). No sound.
-videos/screen-recording/
-  App walkthrough, a screen recording of the app, in US dollars and in euros (MP4).
+  Payday wheel (21:9): the same clip with no words, for your own voice-over (MP4). No sound.
 
 illustrations/
   Four scenes (All square, Settled, Pay with any card, Two pockets, one tap),
