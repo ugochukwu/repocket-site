@@ -1,7 +1,7 @@
 ---
 title: Stack adapter
 summary: Every command an agent runs against Repocket-site's code — build, test, lint, the CI-mirror quality gate, running the site, and the UI render check.
-updated: 2026-10-14
+updated: 2026-10-19
 status: living
 ---
 
@@ -87,6 +87,12 @@ URL until a custom domain is added.
   and published as the GitHub release `press-kit-<date>`, which the page's download links point at.
   A later release can carry only the rebuilt ZIP: the payday wheel MP4s are unchanged, so their
   links stay on `press-kit-2026-10-12`, and the ZIP link moves to `press-kit-2026-10-14`.
+- `sitemap.xml` lists every page above (the five root pages and the three How to pages, the hub
+  as `https://getrepocket.com/how-to/`, the URL the site's own links use), and `robots.txt`
+  points crawlers at it. Each `<lastmod>` is the date of the last commit that touched that
+  page, `git log -1 --format=%ad --date=short -- <page>`; a page added or removed means an
+  entry added or removed, and the dates are refreshed from `git log` when the sitemap is next
+  updated.
 - `.nojekyll` — **required** at the repo root. GitHub Pages' legacy build type runs Jekyll by
   default, and this repo's docs (`docs/**/*.md`) carry `---` frontmatter that Jekyll would
   otherwise try to build into pages. `.nojekyll` disables that processing entirely so Pages
