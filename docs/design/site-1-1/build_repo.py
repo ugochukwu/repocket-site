@@ -9,6 +9,8 @@ body=src[src.index('<svg width="0"'):src.index('<header class="top">')]+src[src.
 js=src[src.index('<script>')+8:src.index('</script>')].strip()
 lang_js=re.search(r"/\* German release:.*?\n",old,re.S).group(0).replace("document.querySelector('nav .wrap')","document.querySelector('.top nav')")
 fonts='\n'.join(l for l in old.splitlines() if l.startswith('@font-face') and 'Space Mono' not in l or l.startswith('@font-face') and 'SpaceMono-700' in l)
+# D-114: Recursive Sans Casual for money figures, self-hosted (assets/fonts/Recursive-latin-var.woff2); master does not carry it yet
+fonts+='\n'+'@font-face{font-family:"Recursive";font-style:normal;font-weight:300 1000;font-display:swap;src:url("assets/fonts/Recursive-latin-var.woff2") format("woff2");unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}'
 def sub(a,b):
     global css
     assert a in css,a[:60]; css=css.replace(a,b,1)
@@ -29,7 +31,7 @@ assert '<h1>Know where your money <span class="sq">goes.</span></h1>' in body
 body=body.replace('<h1>Know where your money <span class="sq">goes.</span></h1>','<h1>'+sp('Know where your money <span class="sq">goes.</span>',de[0]+' <span class="sq">'+de[1]+'</span>')+'</h1>')
 body=body.replace('</svg>With the unlock</span>','</svg>'+sp('With the unlock','Mit der Freischaltung')+'</span>')
 ger=iter(['Keiner','Keins']); body=re.sub(r'<dd>None</dd>',lambda m:'<dd>'+sp('None',next(ger))+'</dd>',body)
-body=body.replace('€14.99<small>once</small>',sp('€14.99<small>once</small>','14,99 €<small>einmal</small>'))
+body=body.replace('€8.99<small>once</small>',sp('€8.99<small>once</small>','8,99 €<small>einmal</small>'))
 # report prose left untranslated
 for m in re.findall(r'<(?:h[123]|p|li|summary|dt)[^>]*>([^<]{4,})<',body): left.append(m)
 desc="Repocket is an expense tracker for iPhone. Type the amount, tap a category, saved. No bank login, no subscription. Free with 10 categories, pay once for the rest."

@@ -1,6 +1,7 @@
 <title>Repocket Site 1.1</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Outfit:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..1000,0..1,0..1,0..1&display=swap">
 <style>
 /* Layout: the page wears the app's own surfaces. Ground and tile alternate as bands that meet in the pocket's shallow
    curve with a stitched hem; the interface is rebuilt live from the same tokens, so light and dark are the app's light and dark.
@@ -14,7 +15,7 @@
   --gmix:24%; --gbase:#FFFFFF; --gsmix:0%;
   --paper:#FFFFFF; --paper-ink:#241B5E; --paper-ink2:#6E67A0; --paper-rule:#CFC9EE; --paper-accent:#FF5C39;
   --wl-bg:#FFFFFF; --wl-ink:#241B5E; --wl-ink2:#6E67A0; --wd-bg:#353243; --wd-ink:#EDE8FF; --wd-ink2:#C3BDE1;
-  --display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif; --text:"Outfit","Avenir Next",system-ui,sans-serif;
+  --display:"Outfit","Avenir Next",system-ui,sans-serif; --wordmark:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif; --figures:"Recursive",system-ui,sans-serif; --text:"Outfit","Avenir Next",system-ui,sans-serif;
   --h1:clamp(2.75rem,6.6vw,5.25rem); --h2:clamp(2rem,4.4vw,3.5rem); --body:1.1875rem;
   --spring:cubic-bezier(.34,1.3,.64,1); --ease:cubic-bezier(.2,.8,.2,1);
 }
@@ -38,7 +39,7 @@
 *{box-sizing:border-box}
 body{background:var(--ground);color:var(--ink);font:400 var(--body)/1.5 var(--text);-webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ground)}
-h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:1;margin:0;text-wrap:balance}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:1;margin:0;text-wrap:balance}
 h1{font-size:var(--h1)} h2{font-size:var(--h2)} h3{font-size:1.375rem;font-weight:700;letter-spacing:-.02em;line-height:1.15}
 p{margin:0;max-width:33em;text-wrap:pretty}
 a{color:inherit}
@@ -68,7 +69,7 @@ a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var
 /* header */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in oklab,var(--ground) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .top .w{display:flex;align-items:center;gap:20px;padding-block:12px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 1.375rem/1 var(--display);letter-spacing:-.03em}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 1.375rem/1 var(--wordmark);letter-spacing:-.03em}
 .brand svg{width:36px;height:36px;border-radius:9px;flex:none}
 .top nav{margin-left:auto;display:flex;align-items:center;gap:clamp(14px,3vw,30px);font:600 1.0625rem/1 var(--text)}
 .top nav a{text-decoration:none;padding:10px 0}
@@ -296,6 +297,12 @@ footer .end{margin-left:auto}
   .get,.lt,.stack,.bar i,.ring,.ring svg{transition:none!important}
   .sq::after,.sticker,.lt.land .gly,.amt i,.srow.enter,.tile.sewing .sew,.coin.fly,.coin.fly i,.pk.dip .gly,.amt.nudge{animation:none!important}
 }
+
+/* D-116: two families. Outfit for every word (--display is Outfit), Recursive Sans Casual for every money figure, Bricolage only in the wordmark (.brand). */
+/* D-114: money figures in Recursive Sans Casual (Bold where Bricolage was ExtraBold, SemiBold where it was Bold), titles stay Bricolage */
+.srow b,.amt,.amt .v,.keys button,.ht,.ta,.leftc .big,.col>b,.rw b,.wg .l b,.wr b,.mv b,.tier .amtx{font-family:var(--figures);letter-spacing:0;font-variation-settings:"CASL" 1,"MONO" 0,"CRSV" .5,"slnt" 0;font-variant-numeric:tabular-nums lining-nums}
+.amt,.amt .v,.ht,.leftc .big,.wg .l b,.tier .amtx{font-weight:700}
+.srow b,.keys button,.ta,.col>b,.rw b,.wr b,.mv b{font-weight:600}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="pk" viewBox="0 0 40 31"><rect class="pf" x="1" y="1" width="38" height="29" rx="6"/><rect class="pb" x="1" y="1" width="38" height="5" rx="3"/><rect class="ps" x="5" y="8" width="30" height="18" rx="3.5" fill="none" stroke-width="1.4" stroke-dasharray="2.4 2"/></symbol></svg>
@@ -510,7 +517,7 @@ footer .end{margin-left:auto}
       </div>
       <div class="tier buy">
         <h3>Repocket unlocked</h3>
-        <p class="amtx">€14.99<small>once</small></p>
+        <p class="amtx">€8.99<small>once</small></p>
         <ul><li>As many categories as you need</li><li>Insights into spending patterns</li><li>Widgets that show amounts</li></ul>
       </div>
     </div>
