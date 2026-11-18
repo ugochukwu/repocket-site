@@ -40,6 +40,7 @@ head=old[:old.index('<style>')]
 head=re.sub(r'<title>.*?</title>',f'<title>{title}</title>',head)
 for k in ('name="description"','property="og:description"','name="twitter:description"'): head=re.sub('(<meta '+k+' content=")[^"]*',r'\g<1>'+desc,head)
 for k in ('og:title','twitter:title'): head=re.sub('('+k+'" content=")[^"]*',r'\g<1>'+title,head)
+head=head.replace('og.png?v=2','og.png?v=3')  # the 1.1 share image, so link previews refetch it
 head=head.replace('<meta name="viewport"','<meta name="color-scheme" content="light dark">\n<meta name="viewport"')
 nav='''<header class="top"><div class="w">
  <div class="brand-lockup">

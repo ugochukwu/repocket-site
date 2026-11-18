@@ -171,6 +171,6 @@ locally before trusting the check, per the kit's usual practice:
 - **Docs index** — the generated list in `docs/README.md` is built from each doc's frontmatter.
   Regenerate with `scripts/gen-doc-index` after adding or renaming a doc under `docs/`.
 - **Link preview**: `assets/og.png` is a screenshot of `docs/og/og.html` (the mark over the
-  tagline in Bricolage Grotesque 800 at 52px, white on `#241B5E`). Edit the HTML, then run
+  1.1 headline in Outfit 700, ink on the light ground `#F4F1FF`, with one line under it). Edit the HTML, then run
   `scripts/render-og` (Python Playwright with its Chromium) to rewrite `assets/og.png` at
   1200×630, and look at the result before committing.
