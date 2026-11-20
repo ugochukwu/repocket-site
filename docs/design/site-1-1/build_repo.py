@@ -8,8 +8,8 @@ css=src[src.index('<style>')+7:src.index('</style>')]
 body=src[src.index('<svg width="0"'):src.index('<header class="top">')]+src[src.index('<main id="top">'):src.index('<footer>')]
 js=src[src.index('<script>')+8:src.index('</script>')].strip()
 lang_js=re.search(r"/\* German release:.*?\n",old,re.S).group(0).replace("document.querySelector('nav .wrap')","document.querySelector('.top nav')")
-fonts='\n'.join(l for l in old.splitlines() if l.startswith('@font-face') and 'Space Mono' not in l or l.startswith('@font-face') and 'SpaceMono-700' in l)
-# D-114: Recursive Sans Casual for money figures, self-hosted (assets/fonts/Recursive-latin-var.woff2); master does not carry it yet
+fonts='\n'.join(l for l in old.splitlines() if (l.startswith('@font-face') and 'Space Mono' not in l or l.startswith('@font-face') and 'SpaceMono-700' in l) and 'Recursive' not in l)
+# D-114: Recursive Sans Casual for money figures, self-hosted (assets/fonts/Recursive-latin-var.woff2); added here so a rebuild on any master has it once
 fonts+='\n'+'@font-face{font-family:"Recursive";font-style:normal;font-weight:300 1000;font-display:swap;src:url("assets/fonts/Recursive-latin-var.woff2") format("woff2");unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}'
 def sub(a,b):
     global css
@@ -35,13 +35,18 @@ body=body.replace('€8.99<small>once</small>',sp('€8.99<small>once</small>','
 # report prose left untranslated
 for m in re.findall(r'<(?:h[123]|p|li|summary|dt)[^>]*>([^<]{4,})<',body): left.append(m)
 desc="Repocket is an expense tracker for iPhone. Type the amount and tap a category to save an expense. There is no bank login and no subscription: it is free with 10 categories, and you pay once for the rest."
-title="Repocket · Know where your money goes"
+title="Repocket · Know where your money goes"  # link previews (og, twitter)
+page_title="Repocket: expense tracker and budget app for iPhone"  # search results lead with the words people search for
 head=old[:old.index('<style>')]
-head=re.sub(r'<title>.*?</title>',f'<title>{title}</title>',head)
+head=re.sub(r'<title>.*?</title>',f'<title>{page_title}</title>',head)
 for k in ('name="description"','property="og:description"','name="twitter:description"'): head=re.sub('(<meta '+k+' content=")[^"]*',r'\g<1>'+desc,head)
 for k in ('og:title','twitter:title'): head=re.sub('('+k+'" content=")[^"]*',r'\g<1>'+title,head)
 head=head.replace('og.png?v=2','og.png?v=3')  # the 1.1 share image, so link previews refetch it
-head=head.replace('<meta name="viewport"','<meta name="color-scheme" content="light dark">\n<meta name="viewport"')
+# Search: one canonical address, Safari's own App Store banner, and the app's facts for search engines. Stripped first so a rebuild adds each once.
+head=re.sub(r'<link rel="canonical"[^>]*>\n|<meta name="apple-itunes-app"[^>]*>\n|<script type="application/ld\+json">.*?</script>\n','',head,flags=re.S)
+ld=json.dumps({"@context":"https://schema.org","@type":"MobileApplication","name":"Repocket","description":desc,"url":"https://getrepocket.com/","downloadUrl":"https://apps.apple.com/app/id6809761332","operatingSystem":"iOS","applicationCategory":"FinanceApplication","image":"https://getrepocket.com/assets/og.png","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"author":{"@type":"Person","name":"Michel Onwordi"},"publisher":{"@type":"Organization","name":"mugo works","url":"https://mugoworks.com"}},ensure_ascii=False)
+head=head.replace('<link rel="icon"','<link rel="canonical" href="https://getrepocket.com/">\n<meta name="apple-itunes-app" content="app-id=6809761332">\n<script type="application/ld+json">'+ld+'</script>\n<link rel="icon"',1)
+if 'name="color-scheme"' not in head: head=head.replace('<meta name="viewport"','<meta name="color-scheme" content="light dark">\n<meta name="viewport"')
 nav='''<header class="top"><div class="w">
  <div class="brand-lockup">
   <a class="brand" href="#"><img src="assets/mark.svg" alt="">Repocket</a>
@@ -57,7 +62,7 @@ nav='''<header class="top"><div class="w">
 foot=old[old.index('<footer>'):old.index('</footer>')+9].replace('<footer><div class="wrap">','<footer><div class="w">')
 # The How to guides and the press kit still show the 1.0 app, so nothing links to them until they are redone for 1.1.
 for hidden in ('<a data-l="en" href="how-to/">How to</a>','<a href="press.html"><span data-l="en">Press kit</span><span data-l="de">Pressematerial</span></a>'):
-    assert hidden in foot; foot=foot.replace(hidden,'')
+    foot=foot.replace(hidden,'')  # already gone once master carries the 1.1 footer
 foot='\n'.join(l for l in foot.split('\n') if l.strip())
 out=head+'<style>\n'+fonts+'\n'+css.strip()+'\n</style>\n</head>\n<body>\n'+nav+body.rstrip()+'\n\n'+foot+'\n<script>\n(function(){\n '+lang_js+'})();\n'+js+'\n</script>\n</body>\n</html>\n'
 (R/'index.html').write_text(out)
