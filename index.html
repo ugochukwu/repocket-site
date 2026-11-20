@@ -5,9 +5,9 @@
 <meta name="color-scheme" content="light dark">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Repocket · Know where your money goes</title>
-<meta name="description" content="Repocket is an expense tracker for iPhone. Type the amount and tap a category to save a spend. There is no bank login and no subscription: it is free with 10 categories, and you pay once for the rest.">
+<meta name="description" content="Repocket is an expense tracker for iPhone. Type the amount and tap a category to save an expense. There is no bank login and no subscription: it is free with 10 categories, and you pay once for the rest.">
 <meta property="og:title" content="Repocket · Know where your money goes">
-<meta property="og:description" content="Repocket is an expense tracker for iPhone. Type the amount and tap a category to save a spend. There is no bank login and no subscription: it is free with 10 categories, and you pay once for the rest.">
+<meta property="og:description" content="Repocket is an expense tracker for iPhone. Type the amount and tap a category to save an expense. There is no bank login and no subscription: it is free with 10 categories, and you pay once for the rest.">
 <meta property="og:image" content="https://getrepocket.com/assets/og.png?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Repocket">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Repocket · Know where your money goes">
-<meta name="twitter:description" content="Repocket is an expense tracker for iPhone. Type the amount and tap a category to save a spend. There is no bank login and no subscription: it is free with 10 categories, and you pay once for the rest.">
+<meta name="twitter:description" content="Repocket is an expense tracker for iPhone. Type the amount and tap a category to save an expense. There is no bank login and no subscription: it is free with 10 categories, and you pay once for the rest.">
 <meta name="twitter:image" content="https://getrepocket.com/assets/og.png?v=3">
 <link rel="icon" href="assets/mark.svg">
 <style>
@@ -268,6 +268,13 @@ details{border-top:1.6px dashed var(--ink3);padding:20px 0}
 details:last-child{border-bottom:1.6px dashed var(--ink3)}
 summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;font:700 1.25rem/1.25 var(--display);letter-spacing:-.02em}
 summary::-webkit-details-marker{display:none}
+.maker{grid-column:1/-1;justify-self:center;width:100%;max-width:760px;display:flex;gap:24px;align-items:flex-start;margin-top:clamp(24px,4vw,48px);background:var(--tile);border-radius:34px;padding:clamp(24px,4vw,40px)}
+.maker .avatar{width:96px;height:96px;border-radius:50%;flex:none;object-fit:cover}
+@media (max-width:560px){.maker{flex-direction:column;gap:16px}.maker .avatar{width:72px;height:72px}}
+.maker h3{font:700 1.5rem/1.2 var(--display);letter-spacing:-.02em;margin:0 0 12px}
+.maker p{color:var(--ink2);margin:0 0 12px}
+.maker .by{font-size:.9375rem;margin:18px 0 0}
+.maker .by a{color:var(--ink)}
 summary::after{content:"+";font:600 1.5rem/1 var(--text);color:var(--ink2);transition:transform .2s}
 details[open] summary::after{transform:rotate(45deg)}
 details p{margin-top:12px;color:var(--ink2)}
@@ -361,7 +368,7 @@ footer .end{margin-left:auto}
     <div class="copy">
       <p class="kicker"><span data-l="en">No bank login and no subscription</span><span data-l="de">Kein Bank-Login und kein Abo</span></p>
       <h1><span data-l="en">Know where your money <span class="sq">goes.</span></span><span data-l="de">Wissen, wo dein Geld <span class="sq">bleibt.</span></span></h1>
-      <p class="lede"><span data-l="en">Repocket is an expense tracker for iPhone. Type the amount, tap a category, and it’s saved. Each spend takes a few seconds, so you keep doing it.</span><span data-l="de">Repocket ist ein Ausgabentracker fürs iPhone. Betrag tippen, Kategorie antippen, gespeichert. Jede Ausgabe dauert ein paar Sekunden, also bleibst du dran.</span></p>
+      <p class="lede"><span data-l="en">Repocket is an expense tracker for iPhone. Type the amount, tap a category, and it’s saved. Each expense takes a few seconds, so you keep doing it.</span><span data-l="de">Repocket ist ein Ausgabentracker fürs iPhone. Betrag tippen, Kategorie antippen, gespeichert. Jede Ausgabe dauert ein paar Sekunden, also bleibst du dran.</span></p>
       <div class="cta">
         <a class="get" href="https://apps.apple.com/app/id6809761332"><span data-l="en">Download on the App Store</span><span data-l="de">Im App Store laden</span></a>
         <span><span data-l="en">Free with 10 categories. One purchase unlocks the rest.</span><span data-l="de">Gratis mit 10 Kategorien. Ein Kauf schaltet den Rest frei.</span></span>
@@ -409,7 +416,7 @@ footer .end{margin-left:auto}
     </div>
     <div class="copy">
       <h2><span data-l="en">What each category cost you this month.</span><span data-l="de">Was jede Kategorie dich diesen Monat gekostet hat.</span></h2>
-      <p class="lede"><span data-l="en">Every category shows what you’ve spent this month. Tap one to see the spends behind the number.</span><span data-l="de">Jede Kategorie zeigt, was du diesen Monat ausgegeben hast. Tippe eine an und du siehst die Ausgaben hinter der Zahl.</span></p>
+      <p class="lede"><span data-l="en">Every category shows what you’ve spent this month. Tap one to see the expenses behind the number.</span><span data-l="de">Jede Kategorie zeigt, was du diesen Monat ausgegeben hast. Tippe eine an und du siehst die Ausgaben hinter der Zahl.</span></p>
       <p class="lede"><span data-l="en">You name the categories, and Repocket gives each one its own colour so you can spot it without reading.</span><span data-l="de">Du benennst die Kategorien, und Repocket gibt jeder eine eigene Farbe, damit du sie erkennst, ohne zu lesen.</span></p>
     </div>
   </div>
@@ -478,7 +485,7 @@ footer .end{margin-left:auto}
     <div class="copy">
       <span class="tag"><svg width="14" height="16" viewBox="0 0 16 18" aria-hidden="true"><rect x="1" y="8" width="12" height="9.5" rx="2.8" fill="currentColor"/><path d="M8.5 8V5.5a3.5 3.5 0 0 1 7 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span data-l="en">With the unlock</span><span data-l="de">Mit der Freischaltung</span></span>
       <h2><span data-l="en">Your spending on the Home Screen.</span><span data-l="de">Deine Ausgaben auf dem Home-Bildschirm.</span></h2>
-      <p class="lede"><span data-l="en">A widget shows this month’s total and your biggest categories, with a button to log the next spend. The Log widget on its own is free.</span><span data-l="de">Ein Widget zeigt die Summe dieses Monats und deine größten Kategorien, dazu ein Knopf für die nächste Ausgabe. Das Log-Widget allein ist gratis.</span></p>
+      <p class="lede"><span data-l="en">A widget shows this month’s total and your biggest categories, with a button to log the next expense. The Log widget on its own is free.</span><span data-l="de">Ein Widget zeigt die Summe dieses Monats und deine größten Kategorien, dazu ein Knopf für die nächste Ausgabe. Das Log-Widget allein ist gratis.</span></p>
     </div>
   </div>
 </section>
@@ -517,7 +524,7 @@ footer .end{margin-left:auto}
   <div class="w">
     <div class="copy">
       <h2><span data-l="en">Why there’s no bank login.</span><span data-l="de">Warum es keinen Bank-Login gibt.</span></h2>
-      <p class="lede"><span data-l="en">Your bank already has your balances. Repocket only needs what each spend was for, and you type that in.</span><span data-l="de">Deine Bank kennt deine Salden schon. Repocket braucht nur, wofür jede Ausgabe war, und das tippst du selbst ein.</span></p>
+      <p class="lede"><span data-l="en">Your bank already has your balances. Repocket only needs what each expense was for, and you type that in.</span><span data-l="de">Deine Bank kennt deine Salden schon. Repocket braucht nur, wofür jede Ausgabe war, und das tippst du selbst ein.</span></p>
     </div>
     <div class="three">
       <div><span class="ic"><svg viewBox="0 0 28 28" aria-hidden="true"><g fill="currentColor"><circle cx="7" cy="7" r="2.4"/><circle cx="14" cy="7" r="2.4"/><circle cx="21" cy="7" r="2.4"/><circle cx="7" cy="14" r="2.4"/><circle cx="14" cy="14" r="2.4"/><circle cx="21" cy="14" r="2.4"/><circle cx="7" cy="21" r="2.4"/><circle cx="14" cy="21" r="2.4"/></g><circle cx="21" cy="21" r="2.8" fill="var(--coral)"/></svg></span><h3><span data-l="en">You type it in</span><span data-l="de">Du tippst es selbst</span></h3><p><span data-l="en">Repocket never asks for your bank details and never sees your account.</span><span data-l="de">Repocket fragt nie nach deinen Bankdaten und sieht dein Konto nie.</span></p></div>
@@ -546,7 +553,7 @@ footer .end{margin-left:auto}
       <div class="tier">
         <h3><span data-l="en">Free</span><span data-l="de">Gratis</span></h3>
         <p class="amtx"><span data-l="en">10 categories</span><span data-l="de">10 Kategorien</span></p>
-        <ul><li><span data-l="en">Log every spend, with no limit</span><span data-l="de">Jede Ausgabe eintragen, ohne Limit</span></li><li><span data-l="en">Log from Siri, the Lock Screen and the Log widget</span><span data-l="de">Eintragen über Siri, den Sperrbildschirm und das Log-Widget</span></li><li><span data-l="en">Budgets, and what’s left of them</span><span data-l="de">Budgets, und was davon übrig ist</span></li><li><span data-l="en">Covers and settle day</span><span data-l="de">Einspringen und Ausgleichstag</span></li><li><span data-l="en">Search, CSV import and export</span><span data-l="de">Suche, CSV-Import und Export</span></li></ul>
+        <ul><li><span data-l="en">Log every expense, with no limit</span><span data-l="de">Jede Ausgabe eintragen, ohne Limit</span></li><li><span data-l="en">Log from Siri, the Lock Screen and the Log widget</span><span data-l="de">Eintragen über Siri, den Sperrbildschirm und das Log-Widget</span></li><li><span data-l="en">Budgets, and what’s left of them</span><span data-l="de">Budgets, und was davon übrig ist</span></li><li><span data-l="en">Covers and settle day</span><span data-l="de">Einspringen und Ausgleichstag</span></li><li><span data-l="en">Search, CSV import and export</span><span data-l="de">Suche, CSV-Import und Export</span></li></ul>
       </div>
       <div class="tier buy">
         <h3><span data-l="en">Repocket unlocked</span><span data-l="de">Repocket freigeschaltet</span></h3>
@@ -562,10 +569,21 @@ footer .end{margin-left:auto}
   <div class="w faq">
     <h2><span data-l="en">Questions</span><span data-l="de">Fragen</span></h2>
     <div>
-      <details><summary><span data-l="en">Does it connect to my bank?</span><span data-l="de">Verbindet es sich mit meiner Bank?</span></summary><p><span data-l="en">No, and it won’t. You type each spend in, which takes a few seconds. Your bank details never enter the app.</span><span data-l="de">Nein, und das bleibt so. Du tippst jede Ausgabe selbst ein, das dauert ein paar Sekunden. Deine Bankdaten kommen nie in die App.</span></p></details>
+      <details><summary><span data-l="en">Does it connect to my bank?</span><span data-l="de">Verbindet es sich mit meiner Bank?</span></summary><p><span data-l="en">No, and it won’t. You type each expense in, which takes a few seconds. Your bank details never enter the app.</span><span data-l="de">Nein, und das bleibt so. Du tippst jede Ausgabe selbst ein, das dauert ein paar Sekunden. Deine Bankdaten kommen nie in die App.</span></p></details>
       <details><summary><span data-l="en">Is there a subscription?</span><span data-l="de">Gibt es ein Abo?</span></summary><p><span data-l="en">No. The app is free with 10 categories, and one purchase unlocks the rest for good.</span><span data-l="de">Nein. Die App ist gratis mit 10 Kategorien, und ein Kauf schaltet den Rest für immer frei.</span></p></details>
       <details><summary><span data-l="en">What happens if I never pay?</span><span data-l="de">Was passiert, wenn ich nie zahle?</span></summary><p><span data-l="en">Nothing changes. You keep logging, budgets, covers, settle day, search, import and export, and nothing you’ve entered is taken away.</span><span data-l="de">Nichts ändert sich. Eintragen, Budgets, Einspringen, Ausgleichstag, Suche, Import und Export bleiben dir, und nichts von dem, was du eingetragen hast, wird dir genommen.</span></p></details>
       <details><summary><span data-l="en">iPad, Android, or shared with a partner?</span><span data-l="de">iPad, Android oder zu zweit?</span></summary><p><span data-l="en">Repocket is for iPhone today, and each Repocket belongs to one person.</span><span data-l="de">Repocket gibt es heute fürs iPhone, und jedes Repocket gehört einer Person.</span></p></details>
+    </div>
+    <div class="maker">
+      <img class="avatar" src="assets/michel.jpg" alt="Michel Onwordi" width="96" height="96" loading="lazy" decoding="async">
+      <div>
+        <h3><span data-l="en">Hi, I’m Michel.</span><span data-l="de">Hi, ich bin Michel.</span></h3>
+        <p><span data-l="en">I built Repocket because I wanted one simple answer: how much is left?</span><span data-l="de">Ich habe Repocket gebaut, weil ich eine einfache Antwort wollte: Wie viel ist noch übrig?</span></p>
+        <p><span data-l="en">Money in real life is messy. The grocery money runs out, so you pay with the holiday card, or the shop only takes one card. You log it as it happened, and Repocket works out what to move back later.</span><span data-l="de">Geld ist im echten Leben unordentlich. Das Geld für Lebensmittel ist alle, also zahlst du mit der Urlaubskarte, oder der Laden nimmt nur eine Karte. Du trägst es so ein, wie es passiert ist, und Repocket rechnet aus, was du später zurückbuchst.</span></p>
+        <p><span data-l="en">Nothing here judges you. Go over a budget and the tile shows by how much, and that’s all. No expense is marked good or bad. I hope it helps.</span><span data-l="de">Hier wird nichts bewertet. Gehst du über ein Budget, zeigt die Kachel, um wie viel, und das war’s. Keine Ausgabe gilt als gut oder schlecht. Ich hoffe, es hilft dir.</span></p>
+        <p><span data-l="en">I’m still working to make Repocket the best I can. If you have an idea, a suggestion or something I could do better, write to me. I’d like to hear it.</span><span data-l="de">Ich arbeite weiter daran, Repocket so gut zu machen, wie ich kann. Wenn du eine Idee, einen Vorschlag oder eine Verbesserung hast, schreib mir. Ich freue mich darauf.</span></p>
+        <p class="by">Michel Onwordi, mugo works · <a href="mailto:hello@getrepocket.com">hello@getrepocket.com</a></p>
+      </div>
     </div>
   </div>
 </section>
@@ -578,7 +596,7 @@ footer .end{margin-left:auto}
       <g class="cn c1"><circle cx="62" cy="62" r="8"/><circle cx="62" cy="62" r="3.6"/></g><g class="cn c2"><circle cx="78" cy="62" r="8"/><circle cx="78" cy="62" r="3.6"/></g><g class="cn c3"><circle cx="94" cy="62" r="8"/><circle cx="94" cy="62" r="3.6"/></g>
       <g class="pocket"><path class="body" d="M40 40h76v42c0 20-17 34-38 34s-38-14-38-34z"/><path class="mst" d="M48 52h60v30c0 15-13 26-30 26s-30-11-30-26z"/><rect class="flap" x="36" y="32" width="84" height="16" rx="8"/><circle class="rivet" cx="78" cy="40" r="3.2"/></g>
     </svg>
-    <h2><span data-l="en">Log a spend in seconds.</span><span data-l="de">Eine Ausgabe in Sekunden eintragen.</span></h2>
+    <h2><span data-l="en">Log an expense in seconds.</span><span data-l="de">Eine Ausgabe in Sekunden eintragen.</span></h2>
     <div class="cta">
       <a class="get" href="https://apps.apple.com/app/id6809761332"><span data-l="en">Download on the App Store</span><span data-l="de">Im App Store laden</span></a>
       <span><span data-l="en">iPhone. Free with 10 categories.</span><span data-l="de">iPhone. Gratis mit 10 Kategorien.</span></span>
@@ -638,7 +656,7 @@ footer .end{margin-left:auto}
     if (v > b) { bar.className = 'bar over'; bar.innerHTML = '<i style="--f:' + b + '"></i><i style="--f:' + (v - b).toFixed(2) + '"></i>'; tf.className = 'tf over'; tf.textContent = money(v - b) + ' over'; }
     else { bar.className = 'bar'; bar.innerHTML = '<i style="--w:' + (v / b * 100).toFixed(1) + '%"></i>'; tf.className = 'tf'; tf.textContent = money(b - v) + ' left'; }
   }
-  function ledger(cat, delta) {           /* a spend logged here lands on Home below, as it does in the app */
+  function ledger(cat, delta) {           /* an expense logged here lands on Home below, as it does in the app */
     var total = $('total'), t = tileFor(cat), was = +total.dataset.roll;
     total.dataset.roll = (was + delta).toFixed(2); roll(total, was, was + delta, 420);
     if (!t) return;
