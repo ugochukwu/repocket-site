@@ -48,7 +48,6 @@ nav='''<header class="top"><div class="w">
   <a class="mugo" href="https://mugoworks.com"><img src="assets/mark-on-light.svg" width="13" height="13" alt="mugo works mark"><span class="mugo-label">BY MUGO WORKS</span></a>
  </div>
  <nav aria-label="Site">
-  <a class="nav-link" data-l="en" href="how-to/">How to</a>
   <a class="nav-link" href="#price">'''+sp('Price','Preis')+'''</a>
   <a class="nav-link" href="#privacy">'''+sp('Privacy','Datenschutz')+'''</a>
   <a class="get small" href="https://apps.apple.com/app/id6809761332">'''+sp('Get the app','App laden')+'''</a>
@@ -56,6 +55,10 @@ nav='''<header class="top"><div class="w">
 </div></header>
 '''
 foot=old[old.index('<footer>'):old.index('</footer>')+9].replace('<footer><div class="wrap">','<footer><div class="w">')
+# The How to guides and the press kit still show the 1.0 app, so nothing links to them until they are redone for 1.1.
+for hidden in ('<a data-l="en" href="how-to/">How to</a>','<a href="press.html"><span data-l="en">Press kit</span><span data-l="de">Pressematerial</span></a>'):
+    assert hidden in foot; foot=foot.replace(hidden,'')
+foot='\n'.join(l for l in foot.split('\n') if l.strip())
 out=head+'<style>\n'+fonts+'\n'+css.strip()+'\n</style>\n</head>\n<body>\n'+nav+body.rstrip()+'\n\n'+foot+'\n<script>\n(function(){\n '+lang_js+'})();\n'+js+'\n</script>\n</body>\n</html>\n'
 (R/'index.html').write_text(out)
 print(len(out),'dashes',len(re.findall('[–—]',out)),'untranslated:',left)
