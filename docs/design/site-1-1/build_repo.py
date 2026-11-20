@@ -34,7 +34,7 @@ ger=iter(['Keiner','Keins']); body=re.sub(r'<dd>None</dd>',lambda m:'<dd>'+sp('N
 body=body.replace('€8.99<small>once</small>',sp('€8.99<small>once</small>','8,99 €<small>einmal</small>'))
 # report prose left untranslated
 for m in re.findall(r'<(?:h[123]|p|li|summary|dt)[^>]*>([^<]{4,})<',body): left.append(m)
-desc="Repocket is an expense tracker for iPhone. Type the amount, tap a category, saved. No bank login, no subscription. Free with 10 categories, pay once for the rest."
+desc="Repocket is an expense tracker for iPhone. Type the amount and tap a category to save a spend. There is no bank login and no subscription: it is free with 10 categories, and you pay once for the rest."
 title="Repocket · Know where your money goes"
 head=old[:old.index('<style>')]
 head=re.sub(r'<title>.*?</title>',f'<title>{title}</title>',head)
