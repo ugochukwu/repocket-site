@@ -18,8 +18,8 @@ with sync_playwright() as p:
     page = browser.new_page(viewport={"width": 1200, "height": 630}, device_scale_factor=1)
     page.goto(source.as_uri(), wait_until="networkidle")
     page.evaluate("document.fonts.ready")
-    if not page.evaluate("document.fonts.check('800 64px \"Bricolage Grotesque\"')"):
-        sys.exit("render-og: Bricolage Grotesque 800 did not load")
+    if not page.evaluate("document.fonts.check('700 64px \"Outfit\"')"):
+        sys.exit("render-og: Outfit 700 did not load")
     page.screenshot(path=str(output), clip={"x": 0, "y": 0, "width": 1200, "height": 630})
     browser.close()
 print(f"render-og: wrote {output}")

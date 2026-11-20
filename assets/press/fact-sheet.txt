@@ -4,7 +4,7 @@ Updated 14 October 2026
 An app that helps you settle.
 
 Platform: iPhone, iOS 18 or later
-Pricing: Free with 3 active pockets and the whole ledger. A one-time $3.99 unlock adds unlimited pockets, widgets, Siri and Shortcuts, and Stats. No subscription. US price; other stores set their own.
+Pricing: Free with up to 10 active categories, logging, budgets, search, settle day, and CSV import and export. A one-time unlock adds Stats, the widgets that show amounts, and more than 10 categories. It costs 8.99 in euros, pounds and US dollars. No subscription.
 Developer: Michel Onwordi (Mugoworks), independent developer in Germany
 Launched: 10 October 2026
 Details: Finance · Age 4+ · English
